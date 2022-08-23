@@ -1,9 +1,10 @@
-let map;
-let service;
-let infowindow;
-const google = window.google;
+
 
 export default function APITest () {
+    let map;
+    let service;
+    let infowindow;
+    const google = window.google;
     
     function initMap() {
         const sydney = new google.maps.LatLng(-33.867, 151.195);
@@ -49,12 +50,13 @@ export default function APITest () {
 
     return (
         <>
+            <p>Map?</p>
+                <div id="map"></div>
             <script
                 async
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAETR0aDAU9UH_TYuWXmXAv-Kazb7MpKhM&libraries=places&callback=initMap"
                 defer
             ></script>
-            <div id="map"></div>
         </>
     );
 
