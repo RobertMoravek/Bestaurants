@@ -10,6 +10,7 @@ import {
     useLocation,
 } from "react-router-dom";
 import Search from "./components/Search.jsx";
+import Home from "./components/Map.jsx";
 
 function App() {
     
@@ -20,6 +21,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Search/>}/>
+                    <Route path="/map" element={<Home/>}/>
+                    
                     <Route path="*" element={<Search/>}/>
                     
                 </Routes>
