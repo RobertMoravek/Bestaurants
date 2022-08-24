@@ -9,26 +9,22 @@ import {
     Link,
     useLocation,
 } from "react-router-dom";
-import APITest from "./components/apiTest.jsx";
+import Search from "./components/Search.jsx";
 
 function App() {
-    const [data, setData] = React.useState(null);
-
-    React.useEffect(() => {
-        fetch("/api")
-            .then((res) => res.json())
-            .then((data) => setData(data.message));
-    }, []);
+    
 
     
     return (
         <>
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <p>{!data ? "Loading..." : data}</p>
-                </header>
-            </div>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Search/>}/>
+                    <Route path="*" element={<Search/>}/>
+                    
+                </Routes>
+            
+            </BrowserRouter>
 
         </>
     );
