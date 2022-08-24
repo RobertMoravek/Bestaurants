@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Search () {
-    const [data, setData] = React.useState(null);
+    // const [data, setData] = React.useState(null);
 
     // React.useEffect(() => {
     //     fetch("/test")
