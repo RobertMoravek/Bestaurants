@@ -24,7 +24,7 @@ app.get("/searchoptionscountries", async (req, res) => {
 });
 
 app.get("/searchoptionscities/:country", async (req, res) => {
-    // console.log(req.params.country);
+    console.log(req.params.country);
     let citiesNames = fs.readdirSync(__dirname + "/../restaurants/" + req.params.country);
     // let countriesObject = {countries: countryNames};
     res.json(citiesNames);
@@ -32,7 +32,7 @@ app.get("/searchoptionscities/:country", async (req, res) => {
 });
 
 app.get("/searchoptionsrestaurants/:country/:city", async (req, res) => {
-    // console.log(req.params);
+    console.log(req.params);
     let restaurantTypes = fs.readdirSync(__dirname + "/../restaurants/" + req.params.country + "/" + req.params.city);
     restaurantTypes = restaurantTypes.map(item => item.slice(0, -5))
     // console.log(restaurantTypes);
@@ -43,7 +43,7 @@ app.get("/searchoptionsrestaurants/:country/:city", async (req, res) => {
 app.get("/searchoptionsresults/:country/:city/:type", async (req, res) => {
     console.log(req.params);
     let results = (fs.readFileSync(path.join(__dirname + "/../restaurants/" + req.params.country + "/" + req.params.city + "/" + req.params.type + ".json"))).toString();
-    console.log(results);
+    // console.log(results);
     res.json(results);
     
 });

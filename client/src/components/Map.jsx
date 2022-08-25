@@ -7,6 +7,8 @@ import {
     InfoWindowF,
 } from "@react-google-maps/api";
 
+import { useSelector } from "react-redux";
+
 export default function Home() {
     console.log("Maps Component");
     const { isLoaded } = useLoadScript({
@@ -17,19 +19,12 @@ export default function Home() {
     return <Map />;
 }
 
+
 function Map() {
     const center = useMemo(() => ({ lat: 52.5, lng: 13.4 }), []);
-    let [cityData, setCityData] = React.useState([]);
 
-    React.useEffect(() => {
-        fetch("/test")
-            .then((res) => res.json())
-            .then((data) => setCityData(data));
-    }, []);
+    const { filteredRestaurantList } = useSelector((state) => state.results);
 
-    cityData =
-        cityData && cityData.filter((item) => cityData.indexOf(item) < 10);
-    console.log(cityData);
 
     return (
         <>
@@ -38,8 +33,8 @@ function Map() {
                 center={center}
                 mapContainerClassName="map-container"
             >
-                {cityData &&
-                    cityData.map((item) => {
+                {filteredRestaurantList.length > 0 &&
+                    filteredRestaurantList.map((item) => {
                         return (
                             <>
                                 <MarkerF

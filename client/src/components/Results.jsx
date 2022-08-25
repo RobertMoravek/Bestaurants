@@ -1,19 +1,27 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setFilteredRestaurantList } from "../redux/resultsSlice";
+import Home from "./Map";
 
 export default function Results() {
-    const { restaurantList } = useSelector((state) => state.results);
+    const { restaurantList, filteredRestaurantList } = useSelector((state) => state.results);
     const { chosenCountry, chosenCity, chosenTypeOfRestaurant } = useSelector(
         (state) => state.filters
     );
-    const [filteredRestaurantList, setFilteredRestaurantList] = React.useState([]);
-    const [filteredRestaurantList, setFilteredRestaurantList] = React.useState([]);
+    const dispatch = useDispatch();
+
+    const [min50Box, setMin50Box] = React.useState(false);
 
     React.useEffect(() => {
-            restaurantList.length > 0 &&
-                setFilteredRestaurantList(restaurantList.slice(0, 10));
+            restaurantList.length > 0 && (
+                !min50Box ? 
+                    dispatch(setFilteredRestaurantList(restaurantList.slice(0, 10))) :
+                    dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > 50)).slice(0, 10)))
+
+            )
+                
         },
-        [restaurantList]);
+        [restaurantList, min50Box]);
 
 
     filteredRestaurantList.length > 0 && console.log(filteredRestaurantList);
@@ -23,7 +31,9 @@ export default function Results() {
                 Results for {chosenTypeOfRestaurant} in {chosenCity},{" "}
                 {chosenCountry}
             </h1>
-            <input type="checkbox" name="min50reviews" id="min50reviews" onChange={(e) => {e.target.checked && console.log("checked")}} />
+            <Home/>
+            <label htmlFor="min50reviews">Only show restaurants with more than 50 reviews</label>
+            <input type="checkbox" name="min50reviews" id="min50reviews" onChange={() => setMin50Box(!min50Box)} />
             <ol>
                 {filteredRestaurantList.length > 0 &&
                     filteredRestaurantList.map((item) => {
