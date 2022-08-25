@@ -1,27 +1,30 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import {
     BrowserRouter,
     Route,
-    Redirect,
     Routes,
-    Link,
-    useLocation,
+    
 } from "react-router-dom";
 import Search from "./components/Search.jsx";
 import Home from "./components/Map.jsx";
+import Results from "./components/Results.jsx";
+
+
 
 function App() {
-    
+
 
     
     return (
         <>
             <BrowserRouter>
+
+            
                 <Routes>
                     <Route path="/" element={<Search/>}/>
                     <Route path="/map" element={<Home/>}/>
+                    <Route path="/results" element={<Results/>}/>
                     
                     <Route path="*" element={<Search/>}/>
                     

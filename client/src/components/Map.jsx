@@ -46,13 +46,13 @@ function Map() {
                                     position={item.geometry.location}
                                     title={item.name}
                                 />
-                                <InfoWindowF
+                                {/* <InfoWindowF
                                     position={item.geometry.location}
                                 >
                                     <div>
                                         <h1>InfoWindow</h1>
                                     </div>
-                                </InfoWindowF>
+                                </InfoWindowF> */}
                             </>
                         );
                     })}
