@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setFilteredRestaurantList } from "../redux/resultsSlice";
+import { setRestaurantList, setFilteredRestaurantList } from "../redux/resultsSlice";
+import { setChosenTypeOfRestaurant } from "../redux/filtersSlice"
+import { useNavigate } from "react-router-dom";
 import Home from "./Map";
 
 export default function Results() {
@@ -9,13 +11,14 @@ export default function Results() {
         (state) => state.filters
     );
     const dispatch = useDispatch();
+    const navigate = useNavigate;
 
     const [min50Box, setMin50Box] = React.useState(false);
 
     React.useEffect(() => {
             restaurantList.length > 0 && (
                 !min50Box ? 
-                    dispatch(setFilteredRestaurantList(restaurantList.slice(0, 10))) :
+                    dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > 5)).slice(0, 10))) :
                     dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > 50)).slice(0, 10)))
 
             )
@@ -25,6 +28,8 @@ export default function Results() {
 
 
     filteredRestaurantList.length > 0 && console.log(filteredRestaurantList);
+
+
     return (
         <>
             <h1>

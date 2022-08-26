@@ -5,41 +5,92 @@ import {
     useLoadScript,
     MarkerF,
     InfoWindowF,
+    useJsApiLoader,
 } from "@react-google-maps/api";
 
 import { useSelector } from "react-redux";
 
+const containerStyle = {
+    width: "400px",
+    height: "400px",
+};
+
+const center = {
+    lat: 52.000,
+    lng: 13.300,
+};
+
+
 export default function Home() {
-    console.log("Maps Component");
-    const { isLoaded } = useLoadScript({
+
+    const { filteredRestaurantList } = useSelector((state) => state.results);
+    
+    const { isLoaded } = useJsApiLoader({
+        id: "google-map-script",
         googleMapsApiKey: "AIzaSyAETR0aDAU9UH_TYuWXmXAv-Kazb7MpKhM",
     });
 
-    if (!isLoaded) return <div>Loading...</div>;
-    return <Map />;
-}
+
+    const [map, setMap] = React.useState(null);
+
+    React.useEffect(() => {
+        
+        window.google && (function () {
+            const bounds = new window.google.maps.LatLngBounds();
+
+        filteredRestaurantList.length > 0 &&
+            filteredRestaurantList.map((item) => {
+                const latLng = new window.google.maps.LatLng(
+                    item.geometry.location
+                );
+                bounds.extend(latLng);
+                console.log("bounds", bounds);
+                map.fitBounds(bounds);
+                setMap(map);
+            });
+        })();
+        
+    }, [filteredRestaurantList])
+
+    const onLoad = React.useCallback(function callback(map) {
+        const bounds = new window.google.maps.LatLngBounds();
+
+        filteredRestaurantList.length > 0 && filteredRestaurantList.map(item => {
+            const latLng = new window.google.maps.LatLng(item.geometry.location);
+            bounds.extend(latLng);
+            console.log("bounds", bounds);        
+            map.fitBounds(bounds);
+                setMap(map);
+        })
+            // const bounds = new window.google.maps.LatLngBounds(center);
+            // map.fitBounds(bounds);
+            // setMap(map);
 
 
-function Map() {
-    const center = useMemo(() => ({ lat: 52.5, lng: 13.4 }), []);
+    }, [filteredRestaurantList]);
 
-    const { filteredRestaurantList } = useSelector((state) => state.results);
+    const onUnmount = React.useCallback(function callback(map) {
+        setMap(null);
+    }, []);
 
-
-    return (
-        <>
-            <GoogleMap
-                zoom={12}
-                center={center}
-                mapContainerClassName="map-container"
-            >
-                {filteredRestaurantList.length > 0 &&
+    return isLoaded ? (
+        <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={10}
+            onLoad={onLoad}
+            onUnmount={onUnmount}
+        >
+            {filteredRestaurantList.length > 0 &&
                     filteredRestaurantList.map((item) => {
+                        let num = filteredRestaurantList.indexOf(item);
+                        console.log(num);
                         return (
                             <>
                                 <MarkerF
                                     position={item.geometry.location}
-                                    title={item.name}
+                                    title={num}
+                                    label={num}
                                 />
                                 {/* <InfoWindowF
                                     position={item.geometry.location}
@@ -51,7 +102,11 @@ function Map() {
                             </>
                         );
                     })}
-            </GoogleMap>
-        </>
+            <></>
+        </GoogleMap>
+    ) : (
+        <></>
     );
+
+
 }

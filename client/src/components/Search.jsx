@@ -10,6 +10,7 @@ import {
 } from "../redux/filtersSlice";
 import { setRestaurantList } from "../redux/resultsSlice";
 import {useNavigate} from "react-router-dom";
+import Results from "./Results";
 
 
 export default function Search () {
@@ -20,7 +21,8 @@ export default function Search () {
         availableCities,
         chosenCity,
         availableTypesOfRestaurants,
-        chosenTypeOfRestaurant} = useSelector(state => state.filters)
+        chosenTypeOfRestaurant} = useSelector(state => state.filters);
+    const { restaurantList, filteredRestaurantList } = useSelector(state => state.results)
 
     React.useEffect(() => {
         fetch("/searchoptionscountries")
@@ -61,14 +63,22 @@ export default function Search () {
             });
     }, [chosenTypeOfRestaurant]);
 
-    let navigate = useNavigate();
-    chosenTypeOfRestaurant != "" && navigate("/results")
 
     return (
-        <>     
-            {availableCountries.length > 0 && availableCountries.map(item => <button value={item} key={item} onClick={e => dispatch(setChosenCountry(e.currentTarget.value))}>{item}</button>)}       
-            {availableCities.length > 0 && availableCities.map(item => <button value={item} key={item} onClick={e => dispatch(setChosenCity(e.currentTarget.value))}>{item}</button>)}       
-            {availableTypesOfRestaurants.length > 0 && availableTypesOfRestaurants.map(item => <button value={item} key={item} onClick={e => dispatch(setChosenTypeOfRestaurant(e.currentTarget.value))}>{item}</button>)}
+        <>  
+            <div className="filters">
+                <div className="countries-filter">
+                    {availableCountries.length > 0 && availableCountries.map(item => chosenCountry== item? <button value={item} key={item} onClick={e => dispatch(setChosenCountry(e.currentTarget.value))} className="chosen-filter-button">{item}</button> : <button value={item} key={item} onClick={e => dispatch(setChosenCountry(e.currentTarget.value))}>{item}</button>)}       
+                </div>
+                <div className="cities-filter">   
+                    {availableCities.length > 0 && availableCities.map(item => chosenCity==item? <button value={item} key={item} onClick={e => dispatch(setChosenCity(e.currentTarget.value))}  className="chosen-filter-button">{item}</button> : <button value={item} key={item} onClick={e => dispatch(setChosenCity(e.currentTarget.value))}>{item}</button>)}       
+                </div>
+                <div className="types-filter"> 
+                    {availableTypesOfRestaurants.length > 0 && availableTypesOfRestaurants.map(item => chosenTypeOfRestaurant == item ? <button value={item} key={item} onClick={e => dispatch(setChosenTypeOfRestaurant(e.currentTarget.value))}  className="chosen-filter-button">{item}</button> : <button value={item} key={item} onClick={e => dispatch(setChosenTypeOfRestaurant(e.currentTarget.value))}>{item}</button>)}
+                </div>
+            </div>
+            
+            {restaurantList.length > 0 && <Results/>}
         </>
     );
 

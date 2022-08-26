@@ -42,3 +42,12 @@
   height: 50vh;
 }
 
+.filters {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.chosen-filter-button {
+  background-color: #cdf4ff;
+}
