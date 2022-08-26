@@ -2,13 +2,13 @@ import React from "react";
 import { useMemo } from "react";
 import {
     GoogleMap,
-    useLoadScript,
     MarkerF,
     InfoWindowF,
     useJsApiLoader,
 } from "@react-google-maps/api";
-
 import { useSelector } from "react-redux";
+
+import Map2 from "./Map2";
 
 const containerStyle = {
     width: "400px",
@@ -21,7 +21,7 @@ const center = {
 };
 
 
-export default function Home() {
+export default function Map() {
 
     const { filteredRestaurantList } = useSelector((state) => state.results);
     
@@ -80,17 +80,26 @@ export default function Home() {
             zoom={10}
             onLoad={onLoad}
             onUnmount={onUnmount}
+            
         >
+            
             {filteredRestaurantList.length > 0 &&
                     filteredRestaurantList.map((item) => {
-                        let num = filteredRestaurantList.indexOf(item);
-                        console.log(num);
+                        let num = filteredRestaurantList.indexOf(item)+1;
                         return (
                             <>
                                 <MarkerF
                                     position={item.geometry.location}
-                                    title={num}
-                                    label={num}
+                                    title={item.name}
+                                    onClick={(e) => console.log(e)}
+                                    icon={{
+                                        strokeColor: "#ffffff",
+                                        strokeWeight: 3,
+                                        path: "m230.7 147.5c-8.7 67.5-70.6 122.4-93.3 175.8-3.2 7.5-13.5 7.4-16.7 0-24.4-57.5-94.3-116.7-94.3-191.5 0-57 46.4-103.1 103.5-102.7 61.9 0.5 108.7 57 100.8 118.4z",
+                                        fillColor: "#003952",
+                                        fillOpacity: 1.0,
+                                        scale: 0.15,
+                                    }}
                                 />
                                 {/* <InfoWindowF
                                     position={item.geometry.location}
@@ -102,7 +111,7 @@ export default function Home() {
                             </>
                         );
                     })}
-            <></>
+            <Map2/>
         </GoogleMap>
     ) : (
         <></>

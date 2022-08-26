@@ -1,16 +1,9 @@
-import { useMemo } from "react";
+import React from "react";
 
 
-export default function Map() {
-    const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
-
+export default function Map2() {
+    console.log('Map2');
     return (
-        <GoogleMap
-            zoom={10}
-            center={center}
-            mapContainerClassName="map-container"
-        >
-            <Marker position={center} />
-        </GoogleMap>
+        <p className="map2">Test</p>
     );
 }

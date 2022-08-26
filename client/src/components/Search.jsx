@@ -10,6 +10,7 @@ import {
 } from "../redux/filtersSlice";
 import { setRestaurantList } from "../redux/resultsSlice";
 import {useNavigate} from "react-router-dom";
+import LocationFinder from "./LocationFinder";
 import Results from "./Results";
 
 
@@ -66,6 +67,7 @@ export default function Search () {
 
     return (
         <>  
+            <LocationFinder/>
             <div className="filters">
                 <div className="countries-filter">
                     {availableCountries.length > 0 && availableCountries.map(item => chosenCountry== item? <button value={item} key={item} onClick={e => dispatch(setChosenCountry(e.currentTarget.value))} className="chosen-filter-button">{item}</button> : <button value={item} key={item} onClick={e => dispatch(setChosenCountry(e.currentTarget.value))}>{item}</button>)}       
