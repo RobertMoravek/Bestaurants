@@ -78,9 +78,9 @@ export default function Search () {
             {isCountryFilterVisible && <LocationFinder/>}    
             <div className="filters">
                 <div className="chosen-options" >
-                    {!isCountryFilterVisible && <p onClick={() => {setIsCountryFilterVisible(true); setIsCityFilterVisible(false); setIsRestaurantFilterVisible(false)}}>{chosenCountry}</p>}
-                    {!isCityFilterVisible && <p onClick={() => {setIsCountryFilterVisible(false); setIsCityFilterVisible(true); setIsRestaurantFilterVisible(false)}}>{chosenCity}</p>}
-                    {!isRestaurantFilterVisible && <p onClick={() => {setIsCountryFilterVisible(false); setIsCityFilterVisible(false); setIsRestaurantFilterVisible(true)}}>{chosenTypeOfRestaurant}</p>}
+                    {!isCountryFilterVisible && <p onClick={() => {setIsCountryFilterVisible(true); setIsCityFilterVisible(false); setIsRestaurantFilterVisible(false)}}>› {chosenCountry}</p>}
+                    {!isCityFilterVisible && <p onClick={() => {setIsCountryFilterVisible(false); setIsCityFilterVisible(true); setIsRestaurantFilterVisible(false)}}>› {chosenCity}</p>}
+                    {!isRestaurantFilterVisible && <p onClick={() => {setIsCountryFilterVisible(false); setIsCityFilterVisible(false); setIsRestaurantFilterVisible(true)}}>› {chosenTypeOfRestaurant}</p>}
                 </div>
                 <div className="countries-filter">
                     {availableCountries.length > 0 && isCountryFilterVisible && availableCountries.map(item => chosenCountry== item? <button value={item} key={item} onClick={e => dispatch(setChosenCountry(e.currentTarget.value))} className="chosen-filter-button">{item}</button> : <button value={item} key={item} onClick={e => dispatch(setChosenCountry(e.currentTarget.value))}>{item}</button>)}       

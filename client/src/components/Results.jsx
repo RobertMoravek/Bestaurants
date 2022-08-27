@@ -1,15 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setRestaurantList, setFilteredRestaurantList } from "../redux/resultsSlice";
-import { setChosenTypeOfRestaurant } from "../redux/filtersSlice"
+import {setFilteredRestaurantList} from "../redux/resultsSlice";
 import { useNavigate } from "react-router-dom";
 import Map from "./Map";
+import ViewSelector from "./ViewSelector";
 
 export default function Results() {
-    const { restaurantList, filteredRestaurantList } = useSelector((state) => state.results);
-    const { chosenCountry, chosenCity, chosenTypeOfRestaurant } = useSelector(
-        (state) => state.filters
-    );
+    const { restaurantList, filteredRestaurantList, mapView } = useSelector((state) => state.results);
+    const { chosenCountry, chosenCity, chosenTypeOfRestaurant } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
     const navigate = useNavigate;
 
@@ -35,10 +33,11 @@ export default function Results() {
     return (
         <>
             <Map/>
+            
             <label htmlFor="min50reviews">Only show restaurants with more than 50 reviews</label>
             <input type="checkbox" name="min50reviews" id="min50reviews" onChange={() => setMin50Box(!min50Box)} />
 
-                {filteredRestaurantList.length > 0 &&
+                {!mapView && filteredRestaurantList.length > 0 &&
                     filteredRestaurantList.map((item) => {
                         let encodedName = encodeURIComponent(item.name);
                         let imgUrl= item.photos ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photo_reference=${item.photos[0].photo_reference}&key=${myApiKey}` : "";
@@ -58,7 +57,8 @@ export default function Results() {
                                 </p>
                             </div>
                         );
-                    })}
+                    })};
+            <ViewSelector/>
         </>
     );
 }

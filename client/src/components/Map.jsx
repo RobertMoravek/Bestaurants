@@ -8,11 +8,10 @@ import {
 } from "@react-google-maps/api";
 import { useSelector } from "react-redux";
 
-import Map2 from "./Map2";
 
 const containerStyle = {
-    width: "400px",
-    height: "400px",
+    width: "100vw",
+    height: "100vh",
 };
 
 const center = {
@@ -23,7 +22,7 @@ const center = {
 
 export default function Map() {
 
-    const { filteredRestaurantList } = useSelector((state) => state.results);
+    const { filteredRestaurantList, mapView } = useSelector((state) => state.results);
     
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
@@ -50,7 +49,7 @@ export default function Map() {
             });
         })();
         
-    }, [filteredRestaurantList])
+    }, [filteredRestaurantList, mapView])
 
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
@@ -74,7 +73,8 @@ export default function Map() {
     }, []);
 
     return isLoaded ? (
-        <GoogleMap
+        <div className={mapView ? "map-box" : "invisible"}>
+            <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
             zoom={10}
@@ -111,8 +111,7 @@ export default function Map() {
                             </>
                         );
                     })}
-            <Map2/>
-        </GoogleMap>
+        </GoogleMap></div>
     ) : (
         <></>
     );
