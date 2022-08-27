@@ -91,8 +91,12 @@ const fs = require ("fs");
 
 // sortAndSafe();
 
-restaurantList = [{a: "a"}, {b: "b"}]
+// restaurantList = [{a: "a"}, {b: "b"}]
 
-restaurantList.map((item) => {
-    restaurantList.indexOf(item) < 1 && console.log(item);
-});
+// restaurantList.map((item) => {
+//     restaurantList.indexOf(item) < 1 && console.log(item);
+// });
+a = () => {return "11"-- == 12}
+
+
+console.log(a);

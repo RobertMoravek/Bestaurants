@@ -34,14 +34,10 @@ export default function Results() {
 
     return (
         <>
-            <h1>
-                Results for {chosenTypeOfRestaurant} in {chosenCity},{" "}
-                {chosenCountry}
-            </h1>
             <Map/>
             <label htmlFor="min50reviews">Only show restaurants with more than 50 reviews</label>
             <input type="checkbox" name="min50reviews" id="min50reviews" onChange={() => setMin50Box(!min50Box)} />
-            <ol>
+
                 {filteredRestaurantList.length > 0 &&
                     filteredRestaurantList.map((item) => {
                         let encodedName = encodeURIComponent(item.name);
@@ -50,21 +46,19 @@ export default function Results() {
                         let routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedName}&destination_place_id=${item.place_id}`;
 
                         return (
-                            <li key={item.place_id}>
-                                <div className="restaurant-container">
-                                    {imgUrl.length > 0 && <img src={imgUrl} alt="" />}
-                                    <h2>{item.name}</h2>
-                                    <p>rating: <div className="rating-star">{item.rating}</div></p>
-                                    <p>Number of reviews: {item.user_ratings_total}
-                                    <p>{item.formatted_address}</p>
-                                    <a href={linkUrl}>Link</a>
-                                    <a href={routeUrl}>Route</a>
-                                    </p>
-                                </div>
-                            </li>
+
+                            <div className="restaurant-container" key={item.place_id}>
+                                {imgUrl.length > 0 && <img src={imgUrl} alt="" />}
+                                <h2>{item.name}</h2>
+                                <p>rating: <div className="rating-star">{item.rating}</div></p>
+                                <p>Number of reviews: {item.user_ratings_total}
+                                <p>{item.formatted_address}</p>
+                                <a href={linkUrl}>Link</a>
+                                <a href={routeUrl}>Route</a>
+                                </p>
+                            </div>
                         );
                     })}
-            </ol>
         </>
     );
 }

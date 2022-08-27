@@ -1,40 +1,71 @@
-.App {
-    text-align: center;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Merriweather Sans', sans-serif;
+    color: white
 }
 
-.App-logo {
-    height: 20vmin;
-    pointer-events: none;
+.app {
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
-}
-
-.App-header {
-    background-color: #282c34;
-    min-height: 100vh;
+body {
+    background-color: #00202f;
     display: flex;
-    flex-direction: column;
+    justify-content: center;    
+    max-width: 320px;
+    width: 320px;
+    max-height: 480px;
+    height: 480px;
+    border: 2px solid white;
+}
+
+
+button {
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:5px;
+	border:2px solid #dcdcdc;
+	display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
+	cursor:pointer;
+	color:#004666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:italic;
+	padding:20px 40px;
+	text-decoration:none;
+    gap: 1rem;
+}
+button:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+button:active {
+	position:relative;
+	top:1px;
+}
+
+button p { 
+	color:#004666;
+}
+
+.chosen-options {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.marker-in-button {
+    height: 1.5rem;
+}
+
+.chosen-options p::before {
+    content: ">  ";
+    display: inline-block;
     color: white;
-}
-
-.App-link {
-    color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 .map-container {
