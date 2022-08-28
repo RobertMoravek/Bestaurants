@@ -16,9 +16,7 @@ app.get("/api", async (req, res) => {
 });
 
 app.get("/searchoptionscountries", async (req, res) => {
-    // let temp = JSON.parse(fs.readFileSync(__dirname + "/../restaurants/germany/berlin/koreanisch.json").toString());
     let countriesNames = fs.readdirSync(__dirname + "/../restaurants/");
-    // let countriesObject = {countries: countryNames};
     res.json(countriesNames);
     
 });
@@ -26,7 +24,6 @@ app.get("/searchoptionscountries", async (req, res) => {
 app.get("/searchoptionscities/:country", async (req, res) => {
     console.log(req.params.country);
     let citiesNames = fs.readdirSync(__dirname + "/../restaurants/" + req.params.country);
-    // let countriesObject = {countries: countryNames};
     res.json(citiesNames);
     
 });
@@ -35,7 +32,6 @@ app.get("/searchoptionsrestaurants/:country/:city", async (req, res) => {
     console.log(req.params);
     let restaurantTypes = fs.readdirSync(__dirname + "/../restaurants/" + req.params.country + "/" + req.params.city);
     restaurantTypes = restaurantTypes.map(item => item.slice(0, -5))
-    // console.log(restaurantTypes);
     res.json(restaurantTypes);
     
 });

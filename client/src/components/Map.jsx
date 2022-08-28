@@ -10,8 +10,8 @@ import { useSelector } from "react-redux";
 
 
 const containerStyle = {
-    width: "100vw",
-    height: "100vh",
+    width: "100%",
+    height: "100%",
 };
 
 const center = {
@@ -87,7 +87,8 @@ export default function Map() {
                     filteredRestaurantList.map((item) => {
                         let num = filteredRestaurantList.indexOf(item)+1;
                         return (
-                            <>
+                            
+                            <div className="marker" key={item.place_id}>
                                 <MarkerF
                                     position={item.geometry.location}
                                     title={item.name}
@@ -101,14 +102,10 @@ export default function Map() {
                                         scale: 0.15,
                                     }}
                                 />
-                                {/* <InfoWindowF
-                                    position={item.geometry.location}
-                                >
-                                    <div>
-                                        <h1>InfoWindow</h1>
-                                    </div>
-                                </InfoWindowF> */}
-                            </>
+
+                            </div>
+
+                            
                         );
                     })}
         </GoogleMap></div>

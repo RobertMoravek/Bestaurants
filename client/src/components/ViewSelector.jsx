@@ -8,9 +8,9 @@ export default function ViewSelector() {
     const dispatch = useDispatch();
     console.log('VS');
     return (
-        <p className="view-selector" onClick={() => { dispatch(setMap())}}>
+        <div className="view-selector" onClick={() => { dispatch(setMap())}}>
             {mapView && <p>List</p> }
             {!mapView && <p>Map</p> }
-        </p>
+        </div>
     );
 }
