@@ -7,15 +7,18 @@
 }
 
 body {
-    background-color: #00202f;
+    background: rgb(0,55,80);
+    background: linear-gradient(146deg, rgba(0,55,80,1) 0%, rgba(0,47,19,1) 100%);  
     display: flex;
     justify-content: center;
     align-self: center; 
+
 }
 
 #root {
     max-width: 600px;
     width: 100vw;
+    min-width: 320px;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -32,6 +35,7 @@ body {
     width: 100%;
     height: 88vh;    
     /* border: 2px solid orange; */
+    z-index: -1;
 }
 
 .logo-corner {
@@ -78,18 +82,21 @@ button p {
 }
 
 .options-bar {
-
+    display: flex;
+    flex-direction: column;
     position: sticky;
-
+    background: inherit;
     top:0;
     padding: 1rem 1rem;
     padding-left: 6rem;
-    background-color: #00202f;
     height: 12vh;
     z-index: 90;
     width: inherit;
     /* border: 1px solid yellowgreen; */
     border-bottom: 2px solid white;
+    backdrop-filter: blur(15px) brightness(50%);
+    gap: 0.75rem;
+;
 
 
 }
@@ -113,6 +120,7 @@ button p {
     display: flex;
     justify-content: safe center;
     align-items: center;
+    padding: 1rem;
 }
 
 .chosen-filter-button {
@@ -125,21 +133,36 @@ button p {
     width: 55px;
     background-image: url("/star.svg");
     background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #004666;
+    font-weight: 800;
+    text-shadow: #ffffff;
+    padding-top: 0.35rem;
 }
 
+
 .view-selector {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: #004666;
+    pointer-events: all;
+    cursor: pointer;
+    position: fixed;
+    bottom:0;
+    left: 50%;
+    transform: translateX(-50%);
     height: 3rem;
-    width: 6rem;
+    width: 10rem;
     display: flex;
     justify-content: center;
     align-items: center;
     border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
     border-left: 2px solid white;
-    border-top: 2px solid white
+    border-right: 2px solid white;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    backdrop-filter: blur(15px) brightness(50%);
+    user-select: none;
 }
 
 .invisible {
@@ -147,8 +170,11 @@ button p {
 }
 
 .restaurant-container {
-    width: 100%
-
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4rem;
+    gap: 1rem;
 }
 
 .restaurant-title-pic {
@@ -166,10 +192,66 @@ button p {
     white-space: nowrap;
 }
 
-.results, .results-map {
+.results, .results-map, .map-box {
     height: 100%
 }
 
-.map-box {
-    height: 100%;
+.restaurant-hl {
+    padding: 0 2rem;
+}
+
+.restaurant-info {
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem
+}
+
+.restaurant-left, .restaurant-right {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.restaurant-left {
+    align-items: center;
+    gap: 1rem;
+
+}
+
+.restaurant-right {
+    justify-content: center;
+}
+
+.restaurant-links {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.route-icon {
+    height: 30px;
+    width: 30px;
+}
+
+.link-button {
+    width: 150px;
+}
+
+.min50box{
+    display: flex;
+    gap: 1rem;
+}
+
+.restaurant-box {
+    height: 250px;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    background: rgba(0,55,80,0.5);
+    background: linear-gradient(146deg, rgba(0,55,80,0.5) 0%, rgba(0,47,19,0.5) 100%);
+    overflow: auto;
+    backdrop-filter: blur(15px) brightness(50%);
+    padding: 1rem 0;
 }

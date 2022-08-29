@@ -11,9 +11,9 @@ import {
     setIsCountryFilterVisible,
     setIsCityFilterVisible,
     setIsRestaurantTypeFilterVisible,
-    setIsFiltersNotVisible
+    setIsFiltersNotVisible,
 } from "../redux/filtersSlice";
-import { setRestaurantList } from "../redux/resultsSlice";
+import { setIsResultsVisible, setRestaurantList } from "../redux/resultsSlice";
 import LocationFinder from "./LocationFinder";
 import Results from "./Results";
 import { useState } from "react";
@@ -134,6 +134,7 @@ export default function Filters() {
                         <div className="restaurant-type-filters">
                             {availableTypesOfRestaurants.map((item) => {
                                 return <button key={item} onClick={() => {
+                                    dispatch(setIsResultsVisible());
                                     dispatch(setChosenTypeOfRestaurant(item));
                                     dispatch(setIsRestaurantTypeFilterVisible());
                                     dispatch(setIsFiltersNotVisible())

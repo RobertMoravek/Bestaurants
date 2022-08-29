@@ -11,19 +11,19 @@ async function collect (kitchen) {
         const searchTerm = kitchen;
         const radius = 13000;
         const loc = "48.143023,11.560971";
-        locName = "muenchen"
+        locName = "Munich"
 
         let restaurantData = [];
         async function getRestaurants(token) {
             if (token) {
                 console.log("token");
                 var { data } = await axios.get(
-                    `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchTerm}&type=restaurant&locationbias=circle:${radius}@${loc}&fields=place_id,name,type,rating,user_ratings_total&pagetoken=${token}&key=${key}`
+                    `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchTerm}&type=restaurant&location=${loc}&radius=${radius}&fields=place_id,name,type,rating,user_ratings_total&pagetoken=${token}&key=${key}`
                 );
             } else {
                 console.log("no token", searchTerm);
                 var { data } = await axios.get(
-                    `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchTerm}&type=restaurant&locationbias=circle:${radius}@${loc}&fields=place_id,name,type,rating,user_ratings_total&key=${key}`
+                    `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${searchTerm}&type=restaurant&location=${loc}&radius=${radius}&fields=place_id,name,type,rating,user_ratings_total&key=${key}`
                 );
             }
 
@@ -41,47 +41,53 @@ async function collect (kitchen) {
         await getRestaurants();
         console.log("I waited");
 
-        // console.log(restaurantData);
-        // res.json({ message: "File written" });
+        let sortedRestaurantData = restaurantData.sort((a, b) => {
+            var n = b.rating - a.rating;
+            if (n !== 0) {
+                return n;
+            }
+            
+            return b.user_ratings_total - a.user_ratings_total;
+        });
 
         fs.writeFileSync(
-            __dirname + "/restaurants/germany/"+ locName + "/" + searchTerm + ".json",
-            JSON.stringify(await restaurantData)
+            __dirname + "/restaurants/Germany/"+ locName + "/" + searchTerm + ".json",
+            JSON.stringify(await sortedRestaurantData)
         );
         alreadyRunning = false;
     }
 };
 
 listOfCuisines = [
-    "chinesisch",
-    "deutsch",
-    "griechisch",
-    "hamburger",
-    "indisch",
-    "italienisch",
-    "japanisch",
-    "doener",
-    "mexikaniscH",
-    "pizza",
-    "spanisch",
-    "sushi",
-    "thailaendisch",
-    "tuerkisch",
-    "vietnameisch",
-    "arabisch",
-    "franzoesisch",
-    "fast food",
-    "falaffel",
-    "asian fusion",
-    "poke bowl",
-    "ramen",
-    "koreanisch",
-    "mongolisch",
-    "currywurst",
-    "vegan",
-    "steak",
-    "bbq",
-    "burritos",
+    "Chinese",
+    "German",
+    "Greek",
+    "Hamburgers",
+    "Indian",
+    "Italian",
+    "Japanese",
+    "Doener Kebap",
+    "Mexican",
+    "Pizza",
+    "Spanish",
+    "Sushi",
+    "Thai",
+    "Turkish",
+    "Vietnamese",
+    "Arabian",
+    "French",
+    "Fast Food",
+    "Falaffel",
+    "Asian Fusion",
+    "Poke Bowl",
+    "Ramen",
+    "Korean",
+    "Mongolian",
+    "Currywurst",
+    "Vegan",
+    "Steak",
+    "BBQ",
+    "Burritos",
 ];
 
 async function runCollect () {

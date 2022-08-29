@@ -7,7 +7,7 @@ import ResultsList from "./ResultsList";
 import ViewSelector from "./ViewSelector";
 
 export default function Results() {
-    const { restaurantList, filteredRestaurantList, mapView } = useSelector((state) => state.results);
+    const { restaurantList, filteredRestaurantList, mapView, isResultsVisible } = useSelector((state) => state.results);
     const { min50Box } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
     const navigate = useNavigate;
@@ -15,15 +15,25 @@ export default function Results() {
 
     const myApiKey = "AIzaSyAETR0aDAU9UH_TYuWXmXAv-Kazb7MpKhM";
 
+        React.useEffect(() => {
+            restaurantList.length > 0 && (
+                !min50Box ? 
+                    dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > 5)).slice(0, 10))) :
+                    dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > 50)).slice(0, 10)))
+
+            )
+                
+        },
+        [restaurantList, min50Box]);
 
     return (
         <>  
-            <div className="results">
+            {isResultsVisible && <div className="results">
 
             <Map/>
             { !mapView && <ResultsList/>}
-            <ViewSelector/>
-            </div>
+                <ViewSelector/>
+            </div>}
 
         </>
     );

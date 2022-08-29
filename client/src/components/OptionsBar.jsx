@@ -16,6 +16,7 @@ import {
     setIsRestaurantTypeFilterVisible,
     setToggleFiltersVisible,
 } from "../redux/filtersSlice";
+import { setIsResultsNotVisible } from "../redux/resultsSlice";
 
 export default function OptionsBar() {
     const dispatch = useDispatch();
@@ -40,7 +41,7 @@ export default function OptionsBar() {
                 {chosenCountry.length > 0 && (
                     <p
                         onClick={() => {
-                            
+                            dispatch(setIsResultsNotVisible());
                             dispatch(setToggleFiltersVisible());
                             dispatch(setIsCountryFilterVisible());
 
@@ -53,6 +54,7 @@ export default function OptionsBar() {
                 {chosenCity.length > 0 && (
                     <p
                         onClick={() => {
+                            dispatch(setIsResultsNotVisible());
                             dispatch(setToggleFiltersVisible());
                             dispatch(setIsCityFilterVisible());
                         }}
@@ -64,6 +66,7 @@ export default function OptionsBar() {
                 {chosenTypeOfRestaurant.length > 0 && (
                     <p
                         onClick={() => {
+                            dispatch(setIsResultsNotVisible());
                             dispatch(setToggleFiltersVisible());
                             dispatch(setIsRestaurantTypeFilterVisible());
                         }}
@@ -75,7 +78,7 @@ export default function OptionsBar() {
             </div>
             {chosenTypeOfRestaurant.length > 0 && (
                 <div className="min50box">
-                    <label htmlFor="min50reviews">50+ reviews only </label>
+                    <label htmlFor="min50reviews">50+ reviews only  </label>
                     <input
                         type="checkbox"
                         name="min50reviews"

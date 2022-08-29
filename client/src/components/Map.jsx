@@ -7,6 +7,9 @@ import {
     useJsApiLoader,
 } from "@react-google-maps/api";
 import { useSelector } from "react-redux";
+import RestaurantBox from "./RestaurantBox";
+import { setSelectedMarker } from "../redux/resultsSlice";
+import { useDispatch } from "react-redux";
 
 
 const containerStyle = {
@@ -22,7 +25,9 @@ const center = {
 
 export default function Map() {
 
-    const { filteredRestaurantList, mapView } = useSelector((state) => state.results);
+    const { filteredRestaurantList, mapView, selectedMarker } = useSelector((state) => state.results);
+    const { min50Box } = useSelector((state) => state.filters);
+    const dispatch = useDispatch();
     
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
@@ -49,7 +54,7 @@ export default function Map() {
             });
         })();
         
-    }, [filteredRestaurantList, mapView])
+    }, [filteredRestaurantList, mapView, min50Box])
 
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
@@ -92,7 +97,7 @@ export default function Map() {
                                 <MarkerF
                                     position={item.geometry.location}
                                     title={item.name}
-                                    onClick={(e) => console.log(e)}
+                                    onClick={() => {dispatch(setSelectedMarker(num))}}
                                     icon={{
                                         strokeColor: "#ffffff",
                                         strokeWeight: 3,
@@ -108,7 +113,10 @@ export default function Map() {
                             
                         );
                     })}
-        </GoogleMap></div>
+        </GoogleMap>
+        {selectedMarker && <RestaurantBox/>}
+        
+        </div>
     ) : (
         <></>
     );
