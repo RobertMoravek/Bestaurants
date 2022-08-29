@@ -17,18 +17,18 @@ export default function LocationFinder() {
     
     useEffect(() => {
         if (foundCountry.length > 0 && availableCountries.includes(foundCountry)) {
-            console.log("setting found Country");
+            // console.log("setting found Country");
             dispatch(setChosenCountry(foundCountry))
             dispatch(setIsCountryFilterNotVisible());
             dispatch(setIsCityFilterVisible())
             setTimeout(() => {
-                console.log("hmmmm", availableCities);
+                // console.log("hmmmm", availableCities);
             }, 1000);
         } 
     }, [foundCountry.length > 0])
     
     useEffect(() => {
-        console.log("test", availableCities, foundCity);
+        // console.log("test", availableCities, foundCity);
         if (foundCity.length > 0 && availableCities.includes(foundCity)) {
             dispatch(setChosenCity(foundCity))
             dispatch(setIsCityFilterNotVisible());
@@ -38,7 +38,7 @@ export default function LocationFinder() {
 
 
     function getLocation() {
-        console.log('getting location');
+        // console.log('getting location');
         navigator.geolocation.getCurrentPosition(function (position) {
             lat = position.coords.latitude;
             lng = position.coords.longitude;
@@ -47,7 +47,7 @@ export default function LocationFinder() {
         fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`)
             .then(res => res.json())
             .then(({countryName, city}) => {
-                console.log(countryName, city);
+                // console.log(countryName, city);
                 dispatch(setFoundCity(city));
                 countryName ? setFoundCountry(countryName) : setFoundCountry("unavailable");
                 

@@ -46,13 +46,13 @@ export default function Filters() {
         fetch("/searchoptionscountries")
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 dispatch(setAvailableCountries(data));
             });
     }, []);
 
     React.useEffect(() => {
-        console.log('chosenC effect');
+        // console.log('chosenC effect');
         chosenCountry != "" &&
             availableCountries.includes(chosenCountry) &&
             fetch("/searchoptionscities/" + chosenCountry)
@@ -61,7 +61,7 @@ export default function Filters() {
                     dispatch(setAvailableCities(data));
                     setTimeout(() => {
                         
-                        console.log(availableCities);
+                        // console.log(availableCities);
                     }, 1500);
                     // dispatch(setIsCountryFilterVisible());
                     // dispatch(setIsCityFilterVisible());
@@ -76,7 +76,7 @@ export default function Filters() {
             )
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     dispatch(setAvailableTypesOfRestaurants(data));
                     // dispatch(setIsCityFilterVisible());
                 });

@@ -26,7 +26,7 @@ export default function ResultsList() {
         [restaurantList, min50Box]);
 
 
-    filteredRestaurantList.length > 0 && console.log(filteredRestaurantList);
+    // filteredRestaurantList.length > 0 && console.log(filteredRestaurantList);
 
 
     return (

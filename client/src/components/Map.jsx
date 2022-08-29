@@ -48,7 +48,7 @@ export default function Map() {
                     item.geometry.location
                 );
                 bounds.extend(latLng);
-                console.log("bounds", bounds);
+                // console.log("bounds", bounds);
                 map.fitBounds(bounds);
                 setMap(map);
             });
@@ -62,7 +62,7 @@ export default function Map() {
         filteredRestaurantList.length > 0 && filteredRestaurantList.map(item => {
             const latLng = new window.google.maps.LatLng(item.geometry.location);
             bounds.extend(latLng);
-            console.log("bounds", bounds);        
+            // console.log("bounds", bounds);        
             map.fitBounds(bounds);
                 setMap(map);
         })

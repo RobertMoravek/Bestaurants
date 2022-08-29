@@ -47,6 +47,6 @@ app.get("/searchoptionsresults/:country/:city/:type", async (req, res) => {
 
 
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT ||PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
