@@ -7,7 +7,7 @@ import ResultsList from "./ResultsList";
 import ViewSelector from "./ViewSelector";
 
 export default function Results() {
-    const { restaurantList, filteredRestaurantList, mapView, isResultsVisible } = useSelector((state) => state.results);
+    const { restaurantList, filteredRestaurantList, mapView, isResultsVisible, listView } = useSelector((state) => state.results);
     const { min50Box } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
     const navigate = useNavigate;
@@ -31,7 +31,7 @@ export default function Results() {
             {isResultsVisible && <div className="results">
 
             <Map/>
-            { !mapView && <ResultsList/>}
+            { listView && <ResultsList/>}
                 <ViewSelector/>
             </div>}
 

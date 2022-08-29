@@ -9,11 +9,14 @@ import {
     setChosenTypeOfRestaurant,
     setMin50Box,
     setIsCountryFilterVisible,
+    setIsCountryFilterNotVisible,
     setIsCityFilterVisible,
+    setIsCityFilterNotVisible,
     setIsRestaurantTypeFilterVisible,
+    setIsRestaurantTypeFilterNotVisible,
     setIsFiltersNotVisible,
 } from "../redux/filtersSlice";
-import { setIsResultsVisible, setRestaurantList } from "../redux/resultsSlice";
+import { setIsResultsVisible, setRestaurantList, setlist } from "../redux/resultsSlice";
 import LocationFinder from "./LocationFinder";
 import Results from "./Results";
 import { useState } from "react";
@@ -106,7 +109,7 @@ export default function Filters() {
                             <LocationFinder/>
                             {availableCountries.map((item) => {
                                 return <button key={item} onClick={() => {
-                                    dispatch(setIsCountryFilterVisible());
+                                    dispatch(setIsCountryFilterNotVisible());
                                     dispatch(setChosenCountry(item));
                                     dispatch(setChosenCity(""));
                                     dispatch(setChosenTypeOfRestaurant(""))
@@ -123,7 +126,7 @@ export default function Filters() {
                             {availableCities.map((item) => {
                                 return <button key={item} onClick={() => {
                                     dispatch(setChosenCity(item));
-                                    dispatch(setIsCityFilterVisible());
+                                    dispatch(setIsCityFilterNotVisible());
                                     dispatch(setChosenTypeOfRestaurant(""));
                                     dispatch(setIsRestaurantTypeFilterVisible());
                                 }}>{item}</button>
@@ -135,8 +138,9 @@ export default function Filters() {
                             {availableTypesOfRestaurants.map((item) => {
                                 return <button key={item} onClick={() => {
                                     dispatch(setIsResultsVisible());
+                                    dispatch(setlist());
                                     dispatch(setChosenTypeOfRestaurant(item));
-                                    dispatch(setIsRestaurantTypeFilterVisible());
+                                    dispatch(setIsRestaurantTypeFilterNotVisible());
                                     dispatch(setIsFiltersNotVisible())
                                 }}>{item}</button>
                             }

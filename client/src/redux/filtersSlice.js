@@ -10,10 +10,11 @@ export const filtersSlice = createSlice({
         availableTypesOfRestaurants: [],
         chosenTypeOfRestaurant: "",
         min50Box: false,
-        isCountryFilterVisible: true,
+        isCountryFilterVisible: false,
         isCityFilterVisible: false,
         isRestaurantTypeFilterVisible: false,
         isFiltersVisible: true,
+        foundCity: "",
     },
     reducers: {
         setAvailableCountries: (state, action) => {
@@ -46,21 +47,22 @@ export const filtersSlice = createSlice({
 
         setMin50Box: (state) => {state.min50Box = !state.min50Box},
         
-        setIsCountryFilterVisible: (state) => {
-            console.log(state.isCountryFilterVisible);
-            state.isCountryFilterVisible = !(state.isCountryFilterVisible);
-            console.log(state.isCountryFilterVisible);
-        },
+        setIsCountryFilterVisible: (state) => {state.isCountryFilterVisible = true},
+        setIsCountryFilterNotVisible: (state) => {state.isCountryFilterVisible = false},
         
-        setIsCityFilterVisible: (state) => {state.isCityFilterVisible = !state.isCityFilterVisible},
+        setIsCityFilterVisible: (state) => {state.isCityFilterVisible = true},
+        setIsCityFilterNotVisible: (state) => {state.isCityFilterVisible = false},
 
-        setIsRestaurantTypeFilterVisible: (state) => {state.isRestaurantTypeFilterVisible = !state.isRestaurantTypeFilterVisible},
+        setIsRestaurantTypeFilterVisible: (state) => {state.isRestaurantTypeFilterVisible = true},
+        setIsRestaurantTypeFilterNotVisible: (state) => {state.isRestaurantTypeFilterVisible = false},
 
         setIsFiltersVisible: (state) => {state.isFiltersVisible = true},
 
         setIsFiltersNotVisible: (state) => {state.isFiltersVisible = false},
 
         setToggleFiltersVisible: (state) => {state.isFiltersVisible = !state.isFiltersVisible},
+
+        setFoundCity: (state, action) => {state.foundCity = action.payload},
 
     },
 });
@@ -75,11 +77,15 @@ export const {
     setChosenTypeOfRestaurant,
     setMin50Box,
     setIsCountryFilterVisible,
+    setIsCountryFilterNotVisible,
     setIsCityFilterVisible,
+    setIsCityFilterNotVisible,
     setIsRestaurantTypeFilterVisible,
+    setIsRestaurantTypeFilterNotVisible,
     setIsFiltersVisible,
     setIsFiltersNotVisible,
-    setToggleFiltersVisible
+    setToggleFiltersVisible,
+    setFoundCity
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

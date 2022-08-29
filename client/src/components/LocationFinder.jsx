@@ -2,14 +2,14 @@ import React, {useState} from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setChosenCountry, setChosenCity, setIsCountryFilterVisible, setIsCityFilterVisible, setIsRestaurantTypeFilterVisible } from "../redux/filtersSlice";
+import { setChosenCountry, setChosenCity, setIsCountryFilterVisible, setIsCountryFilterNotVisible, setIsCityFilterVisible, setIsCityFilterNotVisible, setIsRestaurantTypeFilterVisible, setFoundCity } from "../redux/filtersSlice";
 
 
 export default function LocationFinder() {
     let [foundCountry, setFoundCountry] = useState("");
-    let [foundCity, setFoundCity] = useState("");
+
     
-    let { availableCountries, availableCities, chosenCountry, chosenCity } = useSelector((state) => state.filters);
+    let { availableCountries, availableCities, chosenCountry, chosenCity, foundCity } = useSelector((state) => state.filters);
 
     const dispatch = useDispatch();
     let lat;
@@ -19,7 +19,8 @@ export default function LocationFinder() {
         if (foundCountry.length > 0 && availableCountries.includes(foundCountry)) {
             console.log("setting found Country");
             dispatch(setChosenCountry(foundCountry))
-            dispatch(setIsCountryFilterVisible());
+            dispatch(setIsCountryFilterNotVisible());
+            dispatch(setIsCityFilterVisible())
             setTimeout(() => {
                 console.log("hmmmm", availableCities);
             }, 1000);
@@ -30,10 +31,10 @@ export default function LocationFinder() {
         console.log("test", availableCities, foundCity);
         if (foundCity.length > 0 && availableCities.includes(foundCity)) {
             dispatch(setChosenCity(foundCity))
-            dispatch(setIsCityFilterVisible());
+            dispatch(setIsCityFilterNotVisible());
             dispatch(setIsRestaurantTypeFilterVisible());
         } 
-    }, [availableCities.length>0])
+    }, [foundCity])
 
 
     function getLocation() {
@@ -47,8 +48,8 @@ export default function LocationFinder() {
             .then(res => res.json())
             .then(({countryName, city}) => {
                 console.log(countryName, city);
+                dispatch(setFoundCity(city));
                 countryName ? setFoundCountry(countryName) : setFoundCountry("unavailable");
-                city ? setFoundCity(city) : setFoundCity("unavailable");
                 
             })
         

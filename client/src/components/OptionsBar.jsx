@@ -15,8 +15,11 @@ import {
     setIsCityFilterVisible,
     setIsRestaurantTypeFilterVisible,
     setToggleFiltersVisible,
+    setIsCityFilterNotVisible,
+    setIsRestaurantTypeFilterNotVisible,
+    setIsCountryFilterNotVisible,
 } from "../redux/filtersSlice";
-import { setIsResultsNotVisible } from "../redux/resultsSlice";
+import { setIsResultsNotVisible, setMap, setNotMap, setNotList } from "../redux/resultsSlice";
 
 export default function OptionsBar() {
     const dispatch = useDispatch();
@@ -41,9 +44,13 @@ export default function OptionsBar() {
                 {chosenCountry.length > 0 && (
                     <p
                         onClick={() => {
-                            dispatch(setIsResultsNotVisible());
-                            dispatch(setToggleFiltersVisible());
+                            dispatch(setNotMap());
+                            dispatch(setNotList());
+                            dispatch(setIsFiltersVisible());
+                            dispatch(setIsCityFilterNotVisible());
+                            dispatch(setIsRestaurantTypeFilterNotVisible());
                             dispatch(setIsCountryFilterVisible());
+                            // dispatch(setIsCityFilterVisible())
 
                         }}
                         className="single-chosen-option"
@@ -54,9 +61,13 @@ export default function OptionsBar() {
                 {chosenCity.length > 0 && (
                     <p
                         onClick={() => {
-                            dispatch(setIsResultsNotVisible());
-                            dispatch(setToggleFiltersVisible());
+                            dispatch(setNotMap());
+                            dispatch(setNotList());
+                            dispatch(setIsFiltersVisible());
+                            dispatch(setIsCountryFilterNotVisible());
+                            dispatch(setIsRestaurantTypeFilterNotVisible());
                             dispatch(setIsCityFilterVisible());
+                            // dispatch(setAvailableTypesOfRestaurants());
                         }}
                         className="single-chosen-option"
                     >
@@ -66,8 +77,11 @@ export default function OptionsBar() {
                 {chosenTypeOfRestaurant.length > 0 && (
                     <p
                         onClick={() => {
-                            dispatch(setIsResultsNotVisible());
-                            dispatch(setToggleFiltersVisible());
+                            dispatch(setNotMap());
+                            dispatch(setNotList());
+                            dispatch(setIsFiltersVisible());
+                            dispatch(setIsCityFilterNotVisible());
+                            dispatch(setIsCountryFilterNotVisible());
                             dispatch(setIsRestaurantTypeFilterVisible());
                         }}
                         className="single-chosen-option"

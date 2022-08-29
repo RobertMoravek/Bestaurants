@@ -7,6 +7,7 @@ export const resultsSlice = createSlice({
         filteredRestaurantList: [],
         numOfResultsToShow: 10,
         mapView: false,
+        listView: true,
         isResultsVisible: false,
         selectedMarker: null,
     },
@@ -17,9 +18,18 @@ export const resultsSlice = createSlice({
         setFilteredRestaurantList: (state, action) => {
             state.filteredRestaurantList = action.payload;
         },
-        setMap: (state) => {
-            state.mapView = !state.mapView;
-        },
+        setMap: (state) => {state.mapView = true},
+        
+        setNotMap: (state) => {state.mapView = false},
+        
+        setToggleMap: (state) => {state.mapView = !state.mapView},
+
+        setlist: (state) => {state.listView = true},
+        
+        setNotList: (state) => {state.listView = false},
+        
+        setTogglelist: (state) => {state.listView = !state.listView},
+
         setIsResultsVisible: (state) => {state.isResultsVisible = true},
 
         setIsResultsNotVisible: (state) => {state.isResultsVisible = false},
@@ -34,9 +44,14 @@ export const {
     setRestaurantList,
     setFilteredRestaurantList,
     setMap,
+    setNotMap,
+    setToggleMap,
     setIsResultsVisible,
     setIsResultsNotVisible,
-    setSelectedMarker
+    setSelectedMarker,
+    setlist,
+    setNotList,
+    setTogglelist,
 } = resultsSlice.actions;
 
 export default resultsSlice.reducer;

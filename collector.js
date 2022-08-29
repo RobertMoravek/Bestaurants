@@ -5,13 +5,11 @@ const fs = require("fs");
 const key = "AIzaSyAETR0aDAU9UH_TYuWXmXAv-Kazb7MpKhM";
 alreadyRunning = false;
 
-async function collect (kitchen) {
+async function collect (kitchen, radius, loc, locName) {
     if (!alreadyRunning) {
         alreadyRunning = true;
         const searchTerm = kitchen;
-        const radius = 13000;
-        const loc = "48.143023,11.560971";
-        locName = "Munich"
+
 
         let restaurantData = [];
         async function getRestaurants(token) {
@@ -90,12 +88,29 @@ listOfCuisines = [
     "Burritos",
 ];
 
-async function runCollect () {
-    for (let item of listOfCuisines) {
+let cityDB = [
+    // { radius: 17000, loc: "52.510365,13.408230", locName: "Berlin" },
+    { radius: 15000, loc: "53.556940,10.010219", locName: "Hamburg" },
+    // { radius: 12000, loc: "50.940903,6.959405", locName: "Cologne" },
+    // { radius: 10000, loc: "50.123188,8.678766", locName: "Frankfurt" },
+    // { radius: 30000, loc: "48.855016,2.339092", locName: "Paris" },
+    // { radius: 13000, loc: "45.750274,4.862484", locName: "Lyon" },
+    // { radius: 14000, loc: "43.600682,1.443826", locName: "Toulouse" },
+];
 
-        collect(item)
+async function runCollect () {
+    
+    for(let cityInfo of cityDB) {
+        console.log(cityInfo.locName);
+        for (let item of listOfCuisines) {
+        collect(item, cityInfo.radius, cityInfo.loc, cityInfo.locName)
         await new Promise((resolve) => setTimeout(resolve, 15000));
+        }
+
+
     }
+
+    
 
 }
 

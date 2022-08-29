@@ -6,20 +6,33 @@ import {
     Routes,
     
 } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Search from "./components/Search.jsx";
-
+import { useEffect } from "react";
 import Results from "./components/Results.jsx";
 import OptionsBar from "./components/OptionsBar";
+import { setIsCountryFilterVisible } from "./redux/filtersSlice";
 
 
 
 function App() {
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        let logo = document.getElementsByClassName("logo-corner");
+        logo[0].classList.remove("transparent");
 
+        setTimeout(() => {
+            logo[0].classList.remove("splash");
+            setTimeout(() => {
+                dispatch(setIsCountryFilterVisible())
+            }, 1000);
+        }, 2000);
+    }, [])
     
     return (
         <div className="app">
-            <img src="/bestaurants-logo-big.png" alt="" className="logo-corner"/>
+            <a href="/"><img src="/bestaurants-logo-big.png" alt="" className="logo-corner splash transparent"/></a>
             <OptionsBar/>
             <div className="content">
                 <BrowserRouter>

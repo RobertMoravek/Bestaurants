@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {setFilteredRestaurantList} from "../redux/resultsSlice";
+import {setFilteredRestaurantList, setSelectedMarker} from "../redux/resultsSlice";
 import { useNavigate } from "react-router-dom";
 import Map from "./Map";
 import ViewSelector from "./ViewSelector";
@@ -43,6 +43,7 @@ export default function RestaurantBox() {
                                 return (
     
                                     <div className="restaurant-box" key={item.place_id}>
+                                        <span className="restaurant-box-closer" onClick={() => {dispatch(setSelectedMarker(null))}}>+</span>
                                         {/* {imgUrl.length > 0 && <img src={imgUrl} alt="" className="restaurant-title-pic"/>} */}
                                         <h2 className="restaurant-hl">{num}. {item.name}</h2>
                                         <div className="restaurant-info">
