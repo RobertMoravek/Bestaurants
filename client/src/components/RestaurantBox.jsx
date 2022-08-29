@@ -36,7 +36,6 @@ export default function RestaurantBox() {
                   ));
     }, [restaurantList, min50Box]);
 
-    filteredRestaurantList.length > 0 && filteredRestaurantList;
 
     return (
         <>
