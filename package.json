@@ -29,5 +29,8 @@
         "nodemon": "^2.0.19",
         "prettier": "^2.7.1",
         "react-router-dom": "^6.3.0"
+    },
+    "engines": {
+        "node": "16"
     }
 }

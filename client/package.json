@@ -41,6 +41,8 @@
         ]
     },
     "proxy": "http://localhost:3001",
-    "devDependencies": {
+    "devDependencies": {},
+    "engines": {
+        "node": "16"
     }
 }
