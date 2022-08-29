@@ -32,7 +32,7 @@ function App() {
     
     return (
         <div className="app">
-            <a href="/"><img src="/bestaurants-logo-big.png" alt="" className="logo-corner splash transparent"/></a>
+
             <OptionsBar/>
             <div className="content">
                 <BrowserRouter>

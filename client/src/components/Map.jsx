@@ -31,7 +31,7 @@ export default function Map() {
     
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
-        googleMapsApiKey: "AIzaSyAETR0aDAU9UH_TYuWXmXAv-Kazb7MpKhM",
+        googleMapsApiKey: "AIzaSyC8n6mIsTUbA49yf6Ld4nOvGOdc0abCbow",
     });
 
 

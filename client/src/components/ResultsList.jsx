@@ -12,7 +12,7 @@ export default function ResultsList() {
     const navigate = useNavigate;
 
 
-    const myApiKey = "AIzaSyAETR0aDAU9UH_TYuWXmXAv-Kazb7MpKhM";
+    const myApiKey = "AIzaSyC8n6mIsTUbA49yf6Ld4nOvGOdc0abCbow";
 
     React.useEffect(() => {
             restaurantList.length > 0 && (

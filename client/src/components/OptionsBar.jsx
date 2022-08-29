@@ -40,6 +40,7 @@ export default function OptionsBar() {
 
     return (
         <div className="options-bar">
+                        <a href="/"><img src="/bestaurants-logo-big.png" alt="" className="logo-corner splash transparent"/></a>
             <div className="chosen-options">
                 {chosenCountry.length > 0 && (
                     <p
