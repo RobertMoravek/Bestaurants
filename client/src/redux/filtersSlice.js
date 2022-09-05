@@ -15,6 +15,7 @@ export const filtersSlice = createSlice({
         isRestaurantTypeFilterVisible: false,
         isFiltersVisible: true,
         foundCity: "",
+        foundCountry: "",
     },
     reducers: {
         setAvailableCountries: (state, action) => {
@@ -64,6 +65,8 @@ export const filtersSlice = createSlice({
 
         setFoundCity: (state, action) => {state.foundCity = action.payload},
 
+        setFoundCountry: (state, action) => {state.foundCountry = action.payload},
+
     },
 });
 
@@ -85,7 +88,8 @@ export const {
     setIsFiltersVisible,
     setIsFiltersNotVisible,
     setToggleFiltersVisible,
-    setFoundCity
+    setFoundCity,
+    setFoundCountry
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

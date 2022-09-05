@@ -2,14 +2,12 @@ import React, {useState} from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setChosenCountry, setChosenCity, setIsCountryFilterVisible, setIsCountryFilterNotVisible, setIsCityFilterVisible, setIsCityFilterNotVisible, setIsRestaurantTypeFilterVisible, setFoundCity } from "../redux/filtersSlice";
+import { setChosenCountry, setChosenCity, setIsCountryFilterVisible, setIsCountryFilterNotVisible, setIsCityFilterVisible, setIsCityFilterNotVisible, setIsRestaurantTypeFilterVisible, setFoundCity, setFoundCountry } from "../redux/filtersSlice";
 
 
 export default function LocationFinder() {
-    let [foundCountry, setFoundCountry] = useState("");
 
-    
-    let { availableCountries, availableCities, chosenCountry, chosenCity, foundCity } = useSelector((state) => state.filters);
+    let { availableCountries, availableCities, chosenCountry, chosenCity, foundCity, foundCountry } = useSelector((state) => state.filters);
 
     const dispatch = useDispatch();
     let lat;
@@ -21,11 +19,9 @@ export default function LocationFinder() {
             dispatch(setChosenCountry(foundCountry))
             dispatch(setIsCountryFilterNotVisible());
             dispatch(setIsCityFilterVisible())
-            setTimeout(() => {
-                // console.log("hmmmm", availableCities);
-            }, 1000);
+            dispatch(setFoundCountry(""));
         } 
-    }, [foundCountry.length > 0])
+    }, [foundCountry.length > 0 && foundCountry != "unavailable"])
     
     useEffect(() => {
         // console.log("test", availableCities, foundCity);
@@ -33,12 +29,31 @@ export default function LocationFinder() {
             dispatch(setChosenCity(foundCity))
             dispatch(setIsCityFilterNotVisible());
             dispatch(setIsRestaurantTypeFilterVisible());
+            dispatch(setFoundCity(""));
         } 
-    }, [foundCity])
+    }, [chosenCountry.length > 0 && foundCity.length > 0 && foundCity != "unavailable"])
 
+
+    // function setCountry() {
+    //     console.log('setCountry', foundCountry);
+    //     if (foundCountry.length > 0 && availableCountries.includes(foundCountry)) {
+    //         console.log('in if');
+    //         dispatch(setChosenCountry(foundCountry))
+    //         dispatch(setIsCountryFilterNotVisible());
+    //         dispatch(setIsCityFilterVisible())
+    //         setCity();
+    //     } 
+    // }
+
+    // function setCity() {
+    //     if (foundCity.length > 0 && availableCities.includes(foundCity)) {
+    //         dispatch(setChosenCity(foundCity))
+    //         dispatch(setIsCityFilterNotVisible());
+    //         dispatch(setIsRestaurantTypeFilterVisible());
+    //     } 
+    // }
 
     function getLocation() {
-        // console.log('getting location');
         navigator.geolocation.getCurrentPosition(function (position) {
             lat = position.coords.latitude;
             lng = position.coords.longitude;
@@ -47,10 +62,9 @@ export default function LocationFinder() {
         fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`)
             .then(res => res.json())
             .then(({countryName, city}) => {
-                // console.log(countryName, city);
-                dispatch(setFoundCity(city));
-                countryName ? setFoundCountry(countryName) : setFoundCountry("unavailable");
-                
+                console.log(countryName, city);
+                countryName ? dispatch(setFoundCountry(countryName)) : dispatch(setFoundCountry("unavailable"));
+                city ? dispatch(setFoundCity(city)) : dispatch(setFoundCity("unavailable"));
             })
         
     }
