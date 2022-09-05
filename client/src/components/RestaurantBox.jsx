@@ -21,26 +21,26 @@ export default function RestaurantBox() {
         restaurantList.length > 0 &&
             (!min50Box
                 ? dispatch(
-                      setFilteredRestaurantList(
-                          restaurantList
-                              .filter((item) => item.user_ratings_total > 5)
-                              .slice(0, 10)
-                      )
-                  )
+                    setFilteredRestaurantList(
+                        restaurantList
+                            .filter((item) => item.user_ratings_total > 5)
+                            .slice(0, 10)
+                    )
+                )
                 : dispatch(
-                      setFilteredRestaurantList(
-                          restaurantList
-                              .filter((item) => item.user_ratings_total > 50)
-                              .slice(0, 10)
-                      )
-                  ));
+                    setFilteredRestaurantList(
+                        restaurantList
+                            .filter((item) => item.user_ratings_total > 50)
+                            .slice(0, 10)
+                    )
+                ));
     }, [restaurantList, min50Box]);
 
 
     return (
         <>
             {selectedMarker &&
-                filteredRestaurantList.map((item) => {
+                filteredRestaurantList.map((item, index) => {
                     let num = filteredRestaurantList.indexOf(item) + 1;
                     if (selectedMarker == num) {
                         let encodedName = encodeURIComponent(item.name);
@@ -51,7 +51,7 @@ export default function RestaurantBox() {
                         let routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedName}&destination_place_id=${item.place_id}`;
 
                         return (
-                            <div className="restaurant-box" key={item.place_id}>
+                            <div className="restaurant-box" key={index}>
                                 <span
                                     className="restaurant-box-closer"
                                     onClick={() => {

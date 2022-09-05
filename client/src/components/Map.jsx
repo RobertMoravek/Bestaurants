@@ -55,7 +55,7 @@ export default function Map() {
             });
         })();
         
-    }, [filteredRestaurantList, mapView])
+    }, [filteredRestaurantList, mapView, selectedMarker])
 
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
@@ -72,7 +72,7 @@ export default function Map() {
             // setMap(map);
 
 
-    }, [filteredRestaurantList]);
+    }, [filteredRestaurantList, selectedMarker]);
 
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null);
@@ -91,29 +91,54 @@ export default function Map() {
             
             {filteredRestaurantList.length > 0 &&
                     filteredRestaurantList.map((item, index) => {
-                        // let num = filteredRestaurantList.indexOf(item)+1;
-                        return (
-                            
-                            <div className="marker" key={index}>
-                                {selectedMarker == index+1}
-                                <MarkerF
-                                    position={item.geometry.location}
-                                    title={item.name}
-                                    onClick={() => {dispatch(setSelectedMarker(index+1))}}
-                                    icon={{
-                                        strokeColor: "#ffffff",
-                                        strokeWeight: 3,
-                                        scaledSize: new window.google.maps.Size(30, 40),
-                                        url: (`/marker${index+1}.png`),
-                                        fillColor: "#003952",
-                                        fillOpacity: 1.0,
-                                    }}
-                                />
+                        console.log(selectedMarker, index+1, selectedMarker == index+1);
 
-                            </div>
+                            return (
+                                <>
+                                {index+1 == selectedMarker &&
+                                    
+                                        <MarkerF
+                                            position={item.geometry.location}
+                                            title="Test"
+                                            onClick={() => {dispatch(setSelectedMarker(index+1))}}
+                                            icon={{
+                                                strokeColor: "#ffffff",
+                                                strokeWeight: 3,
+                                                scaledSize: new window.google.maps.Size(42, 56),
+                                                url: (`/marker${index+1}.png`),
+                                                fillColor: "#003952",
+                                                fillOpacity: 1.0,
+                                            }}
+                                        />
+                                    
+                                
+                                }
 
-                            
-                        );
+                                
+                                    <MarkerF
+                                        position={item.geometry.location}
+                                        title={item.name}
+                                        onClick={() => {dispatch(setSelectedMarker(index+1))}}
+                                        icon={{
+                                            strokeColor: "#ffffff",
+                                            strokeWeight: 3,
+                                            scaledSize: new window.google.maps.Size(30, 40),
+                                            url: (`/marker${index+1}.png`),
+                                            fillColor: "#003952",
+                                            fillOpacity: 1.0,
+                                        }}
+                                    />
+
+                                
+                                </>
+                                
+                            );
+
+
+                                
+
+                        
+
                     })}
         </GoogleMap>
         {selectedMarker && <RestaurantBox/>}

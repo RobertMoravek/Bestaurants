@@ -33,7 +33,7 @@ export default function ResultsList() {
 
                 <div className="results-list">
                     {!mapView && filteredRestaurantList.length > 0 &&
-                        filteredRestaurantList.map((item) => {
+                        filteredRestaurantList.map((item, index) => {
                             let encodedName = encodeURIComponent(item.name);
                             let imgUrl= item.photos ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photo_reference=${item.photos[0].photo_reference}&key=${myApiKey}` : "";
                             let linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${item.place_id}`;
@@ -42,7 +42,7 @@ export default function ResultsList() {
 
                             return (
 
-                                <div className="restaurant-container" key={item.place_id}>
+                                <div className="restaurant-container" key={index}>
                                     {imgUrl.length > 0 && <img src={imgUrl} alt="" className="restaurant-title-pic"/>}
                                     <h2 className="restaurant-hl">{num}. {item.name}</h2>
                                     <div className="restaurant-info">
