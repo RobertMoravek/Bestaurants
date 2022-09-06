@@ -2,10 +2,10 @@ const axios = require("axios");
 const fs = require("fs");
 
 
-const key = "AIzaSyAETR0aDAU9UH_TYuWXmXAv-Kazb7MpKhM";
+const key = "AIzaSyC8n6mIsTUbA49yf6Ld4nOvGOdc0abCbow";
 alreadyRunning = false;
 
-async function collect (kitchen, radius, loc, locName) {
+async function collect (kitchen, radius, loc, countryName, locName) {
     if (!alreadyRunning) {
         alreadyRunning = true;
         const searchTerm = kitchen;
@@ -26,7 +26,6 @@ async function collect (kitchen, radius, loc, locName) {
             }
 
             await new Promise((resolve) => setTimeout(resolve, 1000));
-            console.log("name of 0", await data.next_page_token);
             restaurantData.push(...data.results);
 
             if (data.next_page_token) {
@@ -38,8 +37,26 @@ async function collect (kitchen, radius, loc, locName) {
 
         await getRestaurants();
         console.log("I waited");
+        console.log(restaurantData);
+        let rangeCheckedRestaurantData = restaurantData.filter(item => {
+            console.log('rangeChecking');
+            function haversine_distance(mk1, loc, radius) {
+                
+                var R = 6371.071; // Radius of the Earth in km
+                var rlat1 = mk1.geometry.location.lat * (Math.PI/180); // Convert degrees to radians
+                var rlat2 = loc.split(",")[0] * (Math.PI/180); // Convert degrees to radians
+                var difflat = rlat2-rlat1; // Radian difference (latitudes)
+                var difflon = (loc.split(",")[1]-mk1.geometry.location.lng) * (Math.PI/180); // Radian difference (longitudes)
+                
+                var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+                return (d<radius/1000);
+            }
+            return haversine_distance(item, loc, radius)
 
-        let sortedRestaurantData = restaurantData.sort((a, b) => {
+        })
+        console.log(rangeCheckedRestaurantData);
+
+        let sortedRestaurantData = rangeCheckedRestaurantData.sort((a, b) => {
             var n = b.rating - a.rating;
             if (n !== 0) {
                 return n;
@@ -48,8 +65,16 @@ async function collect (kitchen, radius, loc, locName) {
             return b.user_ratings_total - a.user_ratings_total;
         });
 
+        if (!fs.existsSync(__dirname + "/restaurants/" + countryName)) {
+            fs.mkdirSync(__dirname + "/restaurants/" + countryName);
+        }
+
+        if (!fs.existsSync(__dirname + "/restaurants/" + countryName + "/" + locName)) {
+            fs.mkdirSync(__dirname + "/restaurants/" + countryName + "/" + locName);
+        }
+
         fs.writeFileSync(
-            __dirname + "/restaurants/Germany/"+ locName + "/" + searchTerm + ".json",
+            __dirname + "/restaurants/" + countryName + "/"+ locName + "/" + searchTerm + ".json",
             JSON.stringify(await sortedRestaurantData)
         );
         alreadyRunning = false;
@@ -86,25 +111,48 @@ listOfCuisines = [
     "Steak",
     "BBQ",
     "Burritos",
+    "African",
+    "Fusion",
+    "Carribean",
+    "Brazillian",
+    "Pakistani",
+    "Dumplings",
+    "Indonesian",
+    "Austrian",
+    "Polish",
+    "Russian",
+    "Balkan",
+    "Portugese",
+    "Haute Cuisine",
+    "Vegetarian",
+    "Fine Dining",
+    "Jewish Cuisine",
+    "Halal",
+    "British"
 ];
 
-let cityDB = [
-    // { radius: 17000, loc: "52.510365,13.408230", locName: "Berlin" },
-    { radius: 15000, loc: "53.556940,10.010219", locName: "Hamburg" },
-    // { radius: 12000, loc: "50.940903,6.959405", locName: "Cologne" },
-    // { radius: 10000, loc: "50.123188,8.678766", locName: "Frankfurt" },
-    // { radius: 30000, loc: "48.855016,2.339092", locName: "Paris" },
-    // { radius: 13000, loc: "45.750274,4.862484", locName: "Lyon" },
-    // { radius: 14000, loc: "43.600682,1.443826", locName: "Toulouse" },
-];
+// let cityDB = [
+//     // { radius: 17000, loc: "52.510365,13.408230", countryName: "Germany", locName: "Berlin" },
+//     // { radius: 15000, loc: "53.556940,10.010219", countryName: "Germany", locName: "Hamburg" },
+//     // { radius: 12000, loc: "50.940903,6.959405", countryName: "Germany", locName: "Cologne" },
+//     // { radius: 10000, loc: "50.123188,8.678766", countryName: "Germany", locName: "Frankfurt" },
+//     // { radius: 30000, loc: "48.855016,2.339092", countryName: "France", locName: "Paris" },
+//     // { radius: 13000, loc: "45.750274,4.862484", countryName: "France", locName: "Lyon" },
+//     { radius: 14000, loc: "43.600682,1.443826", countryName: "France", locName: "Toulouse" },
+// ];
+
+
+let cityDB = JSON.parse(
+            fs.readFileSync(__dirname + "/restaurants/citiesReducedAndSortedEU.json").toString()
+    );
 
 async function runCollect () {
     
     for(let cityInfo of cityDB) {
-        console.log(cityInfo.locName);
+        console.log(cityInfo);
         for (let item of listOfCuisines) {
-        collect(item, cityInfo.radius, cityInfo.loc, cityInfo.locName)
-        await new Promise((resolve) => setTimeout(resolve, 15000));
+            collect(item, 20000, `${cityInfo.lat},${cityInfo.lng}`, cityInfo.country, cityInfo.city)
+            await new Promise((resolve) => setTimeout(resolve, 10000));
         }
 
 

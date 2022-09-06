@@ -96,7 +96,70 @@ const fs = require ("fs");
 // restaurantList.map((item) => {
 //     restaurantList.indexOf(item) < 1 && console.log(item);
 // });
-a = () => {return "11"-- == 12}
 
 
-console.log(a);
+
+
+
+// let restaurants = JSON.parse(
+//             fs.readFileSync(__dirname + "/restaurants/Germany/Berlin/Korean.json").toString()
+//         );
+
+// let cityDB = [
+//     { radius: 17000, loc: "52.510365,13.408230", countryName: "Germany", locName: "Berlin" },
+//     { radius: 15000, loc: "53.556940,10.010219", countryName: "Germany", locName: "Hamburg" },
+//     { radius: 12000, loc: "50.940903,6.959405", countryName: "Germany", locName: "Cologne" },
+//     { radius: 10000, loc: "50.123188,8.678766", countryName: "Germany", locName: "Frankfurt" },
+//     { radius: 30000, loc: "48.855016,2.339092", countryName: "France", locName: "Paris" },
+//     { radius: 13000, loc: "45.750274,4.862484", countryName: "France", locName: "Lyon" },
+//     { radius: 14000, loc: "43.600682,1.443826", countryName: "France", locName: "Toulouse" },
+// ];
+
+
+// function haversine_distance(mk1, mk2) {
+
+//     var R = 6371.071; // Radius of the Earth in km
+//     var rlat1 = mk1.geometry.location.lat * (Math.PI/180); // Convert degrees to radians
+//     var rlat2 = mk2.loc.slice(0, 9) * (Math.PI/180); // Convert degrees to radians
+//     var difflat = rlat2-rlat1; // Radian difference (latitudes)
+//     var difflon = (mk2.loc.slice(10)-mk1.geometry.location.lng) * (Math.PI/180); // Radian difference (longitudes)
+
+//     var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+//     return (d<cityDB[0].radius);
+// }
+
+// console.log(haversine_distance(restaurants[0], cityDB[0]));
+
+
+let cityListEU = ["Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czechia", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "United Kingdom"]
+
+let worldcities = JSON.parse(
+            fs.readFileSync(__dirname + "/restaurants/worldcities.json").toString()
+    );
+
+console.log(worldcities.length);
+
+let filteredCities = worldcities.filter(city => {return city.population > 500000})
+
+let filteredEUCities = filteredCities.filter(city => {
+    let result = false;
+    
+    cityListEU.forEach(element => {
+        // console.log(city.country == element);
+        if (city.country == element) {
+            console.log("returning true");
+            result = true;
+        } 
+    });
+    console.log(result);
+    return (result == true ? true : false); 
+})
+
+let sortedByCountry = filteredEUCities.sort((a, b) => {
+            return a.country.localeCompare(b.country);
+        });
+
+fs.writeFileSync(
+    __dirname + "/restaurants/citiesReducedAndSortedEU.json",
+    JSON.stringify(sortedByCountry)
+);

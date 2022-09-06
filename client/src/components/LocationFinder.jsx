@@ -10,8 +10,8 @@ export default function LocationFinder() {
     let { availableCountries, availableCities, chosenCountry, chosenCity, foundCity, foundCountry } = useSelector((state) => state.filters);
 
     const dispatch = useDispatch();
-    let lat;
-    let lng;
+    let [lat, setLat] = useState("");
+    let [lng, setLng] = useState("");
     
     useEffect(() => {
         if (foundCountry.length > 0 && availableCountries.includes(foundCountry)) {
@@ -23,40 +23,31 @@ export default function LocationFinder() {
         } 
     }, [foundCountry.length > 0 && foundCountry != "unavailable"])
     
-    useEffect(() => {
-        // console.log("test", availableCities, foundCity);
-        if (foundCity.length > 0 && availableCities.includes(foundCity)) {
-            dispatch(setChosenCity(foundCity))
-            dispatch(setIsCityFilterNotVisible());
-            dispatch(setIsRestaurantTypeFilterVisible());
-            dispatch(setFoundCity(""));
-        } 
-    }, [chosenCountry.length > 0 && foundCity.length > 0 && foundCity != "unavailable"])
-
-
-    // function setCountry() {
-    //     console.log('setCountry', foundCountry);
-    //     if (foundCountry.length > 0 && availableCountries.includes(foundCountry)) {
-    //         console.log('in if');
-    //         dispatch(setChosenCountry(foundCountry))
-    //         dispatch(setIsCountryFilterNotVisible());
-    //         dispatch(setIsCityFilterVisible())
-    //         setCity();
-    //     } 
-    // }
-
-    // function setCity() {
+    // useEffect(() => {
+    //     // console.log("test", availableCities, foundCity);
     //     if (foundCity.length > 0 && availableCities.includes(foundCity)) {
     //         dispatch(setChosenCity(foundCity))
     //         dispatch(setIsCityFilterNotVisible());
     //         dispatch(setIsRestaurantTypeFilterVisible());
-    //     } 
-    // }
+    //         dispatch(setFoundCity(""));
+    //     } else 
+    // }, [chosenCountry.length > 0 && foundCity.length > 0 && foundCity != "unavailable"])
+    useEffect(() => {
+        console.log("useE lat", lat, lng);
+            fetch(`/getnearestcity/${lat}/${lng}`)
+                .then(res => res.json())
+                .then((result) => {
+                    console.log("result from calc", result);
+                })
+    
+    }, [lat])
+
 
     function getLocation() {
         navigator.geolocation.getCurrentPosition(function (position) {
-            lat = position.coords.latitude;
-            lng = position.coords.longitude;
+            setLat(position.coords.latitude);
+            setLng(position.coords.longitude);
+            console.log(lat, lng);
         });
     
         fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`)
@@ -64,6 +55,7 @@ export default function LocationFinder() {
             .then(({countryName, city}) => {
                 console.log(countryName, city);
                 countryName ? dispatch(setFoundCountry(countryName)) : dispatch(setFoundCountry("unavailable"));
+                console.log(availableCities);
                 city ? dispatch(setFoundCity(city)) : dispatch(setFoundCity("unavailable"));
             })
         
