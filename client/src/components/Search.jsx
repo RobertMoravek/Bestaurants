@@ -19,6 +19,7 @@ import Results from "./Results";
 import Filters from "./filters";
 import { useState } from "react";
 import OptionsBar from "./OptionsBar";
+import URLAnalyzer from "./urlAnalyzer";
 
 export default function Search() {
     const dispatch = useDispatch();
@@ -30,6 +31,7 @@ export default function Search() {
 
     return (
         <>
+            <URLAnalyzer/>
             <Filters/>
 
             {restaurantList.length > 0 && <Results />}

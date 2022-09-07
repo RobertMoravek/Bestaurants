@@ -96,10 +96,11 @@ export default function Filters() {
             )
                 .then((res) => res.json())
                 .then((data) => {
+                    console.log("Liste der Restaurants", data);
                     dispatch(setRestaurantList(JSON.parse(data)));
                     // dispatch(setIsRestaurantTypeFilterVisible());
                 });
-    }, [chosenTypeOfRestaurant]);
+    }, [chosenTypeOfRestaurant.length > 0 && availableTypesOfRestaurants.length > 0]);
 
     return (
         <>

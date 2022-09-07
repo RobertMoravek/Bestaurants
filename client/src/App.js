@@ -4,7 +4,6 @@ import {
     BrowserRouter,
     Route,
     Routes,
-    
 } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Search from "./components/Search.jsx";
