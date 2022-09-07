@@ -1,30 +1,12 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-    setAvailableCountries,
-    setAvailableCities,
-    setAvailableTypesOfRestaurants,
-    setChosenCountry,
-    setChosenCity,
-    setChosenTypeOfRestaurant,
-    setMin50Box,
-    setIsFiltersVisible,
-    setIsCountryFilterVisible,
-    setIsCityFilterVisible,
-    setIsRestaurantTypeFilterVisible,
-} from "../redux/filtersSlice";
-import { setRestaurantList } from "../redux/resultsSlice";
-import LocationFinder from "./LocationFinder";
+import { useSelector} from "react-redux";
 import Results from "./Results";
 import Filters from "./filters";
-import { useState } from "react";
-import OptionsBar from "./OptionsBar";
 import URLAnalyzer from "./urlAnalyzer";
 
 export default function Search() {
-    const dispatch = useDispatch();
 
-    const { restaurantList, filteredRestaurantList } = useSelector(
+    const { restaurantList } = useSelector(
         (state) => state.results
     );
 

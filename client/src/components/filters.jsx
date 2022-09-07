@@ -7,8 +7,6 @@ import {
     setChosenCountry,
     setChosenCity,
     setChosenTypeOfRestaurant,
-    setMin50Box,
-    setIsCountryFilterVisible,
     setIsCountryFilterNotVisible,
     setIsCityFilterVisible,
     setIsCityFilterNotVisible,
@@ -18,9 +16,7 @@ import {
 } from "../redux/filtersSlice";
 import { setIsResultsVisible, setRestaurantList, setlist } from "../redux/resultsSlice";
 import LocationFinder from "./LocationFinder";
-import Results from "./Results";
-import { useState } from "react";
-import OptionsBar from "./OptionsBar";
+
 
 export default function Filters() {
     const dispatch = useDispatch();
@@ -36,9 +32,7 @@ export default function Filters() {
         isRestaurantTypeFilterVisible,
         isFiltersVisible,
     } = useSelector((state) => state.filters);
-    const { restaurantList, filteredRestaurantList } = useSelector(
-        (state) => state.results
-    );
+
 
 
 
@@ -53,7 +47,7 @@ export default function Filters() {
 
     React.useEffect(() => {
         // console.log('chosenC effect');
-        chosenCountry != "" &&
+        chosenCountry !== "" &&
             availableCountries.includes(chosenCountry) &&
             fetch("/searchoptionscities/" + chosenCountry)
                 .then((res) => res.json())
@@ -70,7 +64,7 @@ export default function Filters() {
 
     React.useEffect(() => {
         console.log("about to fetch restaurant types", chosenCountry, chosenCity);
-        chosenCity != "" &&
+        chosenCity !== "" &&
             availableCities.includes(chosenCity) &&
             fetch(
                 "/searchoptionsrestaurants/" + chosenCountry + "/" + chosenCity
@@ -84,7 +78,8 @@ export default function Filters() {
     }, [chosenCountry.length > 0 && availableCities.length > 0 && chosenCity.length > 0]);
 
     React.useEffect(() => {
-        chosenTypeOfRestaurant != "" &&
+        console.log('im ue');
+        chosenTypeOfRestaurant !== "" &&
             availableTypesOfRestaurants.includes(chosenTypeOfRestaurant) &&
             fetch(
                 "/searchoptionsresults/" +
@@ -100,7 +95,7 @@ export default function Filters() {
                     dispatch(setRestaurantList(JSON.parse(data)));
                     // dispatch(setIsRestaurantTypeFilterVisible());
                 });
-    }, [chosenTypeOfRestaurant.length > 0 && availableTypesOfRestaurants.length > 0]);
+    }, [chosenTypeOfRestaurant.length > 0 && availableTypesOfRestaurants.length > 0, chosenTypeOfRestaurant]);
 
     return (
         <>
@@ -139,9 +134,9 @@ export default function Filters() {
                         <div className="restaurant-type-filters">
                             {availableTypesOfRestaurants.map((item) => {
                                 return <button key={item} onClick={() => {
+                                    dispatch(setChosenTypeOfRestaurant(item));
                                     dispatch(setIsResultsVisible());
                                     dispatch(setlist());
-                                    dispatch(setChosenTypeOfRestaurant(item));
                                     dispatch(setIsRestaurantTypeFilterNotVisible());
                                     dispatch(setIsFiltersNotVisible())
                                 }}>{item}</button>

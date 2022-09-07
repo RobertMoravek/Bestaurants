@@ -4,18 +4,15 @@ import {
     setFilteredRestaurantList,
     setSelectedMarker,
 } from "../redux/resultsSlice";
-import { useNavigate } from "react-router-dom";
-import Map from "./Map";
-import ViewSelector from "./ViewSelector";
+
+
 
 export default function RestaurantBox() {
-    const { restaurantList, filteredRestaurantList, mapView, selectedMarker } =
+    const { restaurantList, filteredRestaurantList, selectedMarker } =
         useSelector((state) => state.results);
     const { min50Box } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
-    const navigate = useNavigate;
 
-    const myApiKey = "AIzaSyC8n6mIsTUbA49yf6Ld4nOvGOdc0abCbow";
 
     React.useEffect(() => {
         restaurantList.length > 0 &&
@@ -42,11 +39,8 @@ export default function RestaurantBox() {
             {selectedMarker &&
                 filteredRestaurantList.map((item, index) => {
                     let num = filteredRestaurantList.indexOf(item) + 1;
-                    if (selectedMarker == num) {
+                    if (selectedMarker === num) {
                         let encodedName = encodeURIComponent(item.name);
-                        let imgUrl = item.photos
-                            ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photo_reference=${item.photos[0].photo_reference}&key=${myApiKey}`
-                            : "";
                         let linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${item.place_id}`;
                         let routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedName}&destination_place_id=${item.place_id}`;
 

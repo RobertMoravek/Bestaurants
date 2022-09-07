@@ -1,10 +1,8 @@
 import React from "react";
-import { useMemo } from "react";
 import {
     GoogleMap,
     MarkerF,
     useJsApiLoader,
-    MarkerClustererF,
 } from "@react-google-maps/api";
 import { useSelector } from "react-redux";
 import RestaurantBox from "./RestaurantBox";
@@ -26,7 +24,6 @@ const center = {
 export default function Map() {
 
     const { filteredRestaurantList, mapView, selectedMarker } = useSelector((state) => state.results);
-    const { min50Box } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
     
     const { isLoaded } = useJsApiLoader({
@@ -94,7 +91,7 @@ export default function Map() {
                             filteredRestaurantList.map((item, index) => {
                                 return (
                                     <>
-                                        {index + 1 == selectedMarker && (
+                                        {index + 1 === selectedMarker && (
                                             <MarkerF
                                                 // key={item.place_id}
                                                 position={
@@ -124,7 +121,7 @@ export default function Map() {
                                                 }}
                                             />
                                         )}
-                                        {index + 1 != selectedMarker && (
+                                        {index + 1 !== selectedMarker && (
                                             <MarkerF
                                                 // key={index+1}
                                                 position={

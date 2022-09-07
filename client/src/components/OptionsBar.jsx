@@ -1,41 +1,25 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 import {
-    setAvailableCountries,
-    setAvailableCities,
-    setAvailableTypesOfRestaurants,
-    setChosenCountry,
-    setChosenCity,
-    setChosenTypeOfRestaurant,
     setMin50Box,
     setIsFiltersVisible,
     setIsCountryFilterVisible,
     setIsCityFilterVisible,
     setIsRestaurantTypeFilterVisible,
-    setToggleFiltersVisible,
     setIsCityFilterNotVisible,
     setIsRestaurantTypeFilterNotVisible,
     setIsCountryFilterNotVisible,
 } from "../redux/filtersSlice";
-import { setIsResultsNotVisible, setMap, setNotMap, setNotList } from "../redux/resultsSlice";
+import {setNotMap, setNotList } from "../redux/resultsSlice";
 
 export default function OptionsBar() {
     const dispatch = useDispatch();
     const {
-        availableCountries,
         chosenCountry,
-        availableCities,
         chosenCity,
-        availableTypesOfRestaurants,
         chosenTypeOfRestaurant,
-        min50Box,
-        isCountryFilterVisible,
-        isCityFilterVisible,
-        isRestaurantFilterVisible,
     } = useSelector((state) => state.filters);
-    const { restaurantList, filteredRestaurantList } = useSelector((state) => state.results);
 
 
     return (

@@ -1,21 +1,17 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {setFilteredRestaurantList} from "../redux/resultsSlice";
-import { useNavigate, useLocation} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Map from "./Map";
 import ResultsList from "./ResultsList";
 import ViewSelector from "./ViewSelector";
-import { setChosenTypeOfRestaurant } from "../redux/filtersSlice";
 
 
 export default function Results() {
-    const { restaurantList, filteredRestaurantList, mapView, isResultsVisible, listView } = useSelector((state) => state.results);
+    const { restaurantList, isResultsVisible, listView } = useSelector((state) => state.results);
     const { min50Box, chosenCountry, chosenCity, chosenTypeOfRestaurant } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-
-    const myApiKey = "AIzaSyC8n6mIsTUbA49yf6Ld4nOvGOdc0abCbow";
 
         React.useEffect(() => {
             restaurantList.length > 0 && (

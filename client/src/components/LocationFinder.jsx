@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
     setChosenCountry,
     setChosenCity,
-    setIsCountryFilterVisible,
     setIsCountryFilterNotVisible,
     setIsCityFilterVisible,
     setIsCityFilterNotVisible,
@@ -20,8 +19,6 @@ export default function LocationFinder() {
     let {
         availableCountries,
         availableCities,
-        chosenCountry,
-        chosenCity,
         foundCity,
         foundCountry,
         lat,
@@ -42,7 +39,7 @@ export default function LocationFinder() {
             dispatch(setIsCityFilterVisible());
             dispatch(setFoundCountry(""));
         }
-    }, [foundCountry.length > 0 && foundCountry != "unavailable"]);
+    }, [foundCountry.length > 0 && foundCountry !== "unavailable"]);
 
     // useEffect(() => {
     //     // console.log("test", availableCities, foundCity);
@@ -52,7 +49,7 @@ export default function LocationFinder() {
     //         dispatch(setIsRestaurantTypeFilterVisible());
     //         dispatch(setFoundCity(""));
     //     } else
-    // }, [chosenCountry.length > 0 && foundCity.length > 0 && foundCity != "unavailable"])
+    // }, [chosenCountry.length > 0 && foundCity.length > 0 && foundCity !== "unavailable"])
 
     useEffect(() => {
         console.log("Lat in useE", lat, availableCities, foundCity);
@@ -62,7 +59,7 @@ export default function LocationFinder() {
             dispatch(setIsCityFilterNotVisible());
             dispatch(setIsRestaurantTypeFilterVisible());
             dispatch(setFoundCity(""));
-        } else if (lat != "") {
+        } else if (lat !== "") {
             console.log('in else if');
             fetch(`/getnearestcity/${lat}/${lng}`)
                 .then((res) => res.json())
