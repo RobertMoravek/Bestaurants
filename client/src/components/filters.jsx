@@ -69,6 +69,7 @@ export default function Filters() {
     }, [chosenCountry]);
 
     React.useEffect(() => {
+        console.log("about to fetch restaurant types", chosenCountry, chosenCity);
         chosenCity != "" &&
             availableCities.includes(chosenCity) &&
             fetch(
@@ -80,7 +81,7 @@ export default function Filters() {
                     dispatch(setAvailableTypesOfRestaurants(data));
                     // dispatch(setIsCityFilterVisible());
                 });
-    }, [chosenCity]);
+    }, [chosenCountry.length > 0 && availableCities.length > 0 && chosenCity.length > 0]);
 
     React.useEffect(() => {
         chosenTypeOfRestaurant != "" &&

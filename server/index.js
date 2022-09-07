@@ -20,6 +20,7 @@ app.get("/getnearestcity/:lat/:lng", async (req, res) => {
     let cityDB = JSON.parse(
             fs.readFileSync(__dirname + "/../restaurants/citiesReducedAndSortedEU.json").toString()
     );
+    let foundCountry = "";
     let foundCity = "";
     let foundCityDistance = 100000000;
     cityDB.forEach(city => {
@@ -38,12 +39,11 @@ app.get("/getnearestcity/:lat/:lng", async (req, res) => {
         if (result < foundCityDistance) {
             foundCityDistance = result;
             foundCity = city.city;
+            foundCountry = city.country;
         }
     });
 
-
-
-    res.json(foundCity);
+    res.json({"foundCity": foundCity, "foundCountry": foundCountry});
 });
 
 

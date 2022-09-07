@@ -16,6 +16,8 @@ export const filtersSlice = createSlice({
         isFiltersVisible: true,
         foundCity: "",
         foundCountry: "",
+        lat: "",
+        lng: "",
     },
     reducers: {
         setAvailableCountries: (state, action) => {
@@ -67,6 +69,10 @@ export const filtersSlice = createSlice({
 
         setFoundCountry: (state, action) => {state.foundCountry = action.payload},
 
+        setLat: (state, action) => {state.lat = action.payload},
+
+        setLng: (state, action) => {state.lng = action.payload}
+
     },
 });
 
@@ -89,7 +95,9 @@ export const {
     setIsFiltersNotVisible,
     setToggleFiltersVisible,
     setFoundCity,
-    setFoundCountry
+    setFoundCountry,
+    setLat,
+    setLng
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;
