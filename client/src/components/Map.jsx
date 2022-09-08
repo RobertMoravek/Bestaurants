@@ -85,82 +85,66 @@ export default function Map() {
                 zoom={10}
                 onLoad={onLoad}
                 onUnmount={onUnmount}
+                options={{
+                    disableDefaultUI: true
+
+                }}
             >
-
-
-                    {
-                        filteredRestaurantList.length > 0 &&
-                            filteredRestaurantList.map((item, index) => {
-                                return (
-                                    <>
-                                        {index + 1 === selectedMarker && (
-                                            <MarkerF
-                                                // key={item.place_id}
-                                                position={
-                                                    item.geometry.location
-                                                }
-                                                title="Test"
-                                                onClick={() => {
-                                                    dispatch(
-                                                        setSelectedMarker(
-                                                            index + 1
-                                                        )
-                                                    );
-                                                }}
-                                                icon={{
-                                                    strokeColor: "#ffffff",
-                                                    strokeWeight: 3,
-                                                    scaledSize:
-                                                        new window.google.maps.Size(
-                                                            42,
-                                                            56
-                                                        ),
-                                                    url: `/marker${
-                                                        index + 1
-                                                    }.png`,
-                                                    fillColor: "#003952",
-                                                    fillOpacity: 1.0,
-                                                }}
-                                            />
-                                        )}
-                                        {index + 1 !== selectedMarker && (
-                                            <MarkerF
-                                                // key={index+1}
-                                                position={
-                                                    item.geometry.location
-                                                }
-                                                title={item.name}
-                                                onClick={() => {
-                                                    dispatch(
-                                                        setSelectedMarker(
-                                                            index + 1
-                                                        )
-                                                    );
-                                                }}
-                                                icon={{
-                                                    strokeColor: "#ffffff",
-                                                    strokeWeight: 3,
-                                                    scaledSize:
-                                                        new window.google.maps.Size(
-                                                            30,
-                                                            40
-                                                        ),
-                                                    url: `/marker${
-                                                        index + 1
-                                                    }.png`,
-                                                    fillColor: "#003952",
-                                                    fillOpacity: 1.0,
-                                                }}
-                                            />
-                                        )}
-                                    </>
-                                );
-                            })
-                    }
-
-                    
-
-                
+                {filteredRestaurantList.length > 0 &&
+                    filteredRestaurantList.map((item, index) => {
+                        return (
+                            <>
+                                {index + 1 === selectedMarker && (
+                                    <MarkerF
+                                        // key={item.place_id}
+                                        position={item.geometry.location}
+                                        title="Test"
+                                        onClick={() => {
+                                            dispatch(
+                                                setSelectedMarker(index + 1)
+                                            );
+                                        }}
+                                        icon={{
+                                            strokeColor: "#ffffff",
+                                            strokeWeight: 3,
+                                            scaledSize:
+                                                new window.google.maps.Size(
+                                                    42,
+                                                    56
+                                                ),
+                                            url: `/marker${index + 1}.png`,
+                                            fillColor: "#003952",
+                                            fillOpacity: 1.0,
+                                        }}
+                                    />
+                                )}
+                                {index + 1 !== selectedMarker && (
+                                    <MarkerF
+                                        // key={index+1}
+                                        position={item.geometry.location}
+                                        title={item.name}
+                                        onClick={() => {
+                                            dispatch(
+                                                setSelectedMarker(index + 1)
+                                            );
+                                        }}
+                                        icon={{
+                                            strokeColor: "#ffffff",
+                                            strokeWeight: 3,
+                                            scaledSize:
+                                                new window.google.maps.Size(
+                                                    30,
+                                                    40
+                                                ),
+                                            url: `/marker${index + 1}.png`,
+                                            fillColor: "#003952",
+                                            fillOpacity: 1.0,
+                                        }}
+                                    />
+                                )}
+                            </>
+                        );
+                    })}
             </GoogleMap>
             {selectedMarker && <RestaurantBox />}
         </div>
