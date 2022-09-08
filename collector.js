@@ -143,7 +143,7 @@ listOfCuisines = [
 
 
 let cityDB = JSON.parse(
-            fs.readFileSync(__dirname + "/restaurants/citiesReducedAndSortedEU.json").toString()
+            fs.readFileSync(__dirname + "/server/citiesReducedAndSortedEU.json").toString()
     );
 
 async function runCollect () {

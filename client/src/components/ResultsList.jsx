@@ -4,22 +4,19 @@ import {setFilteredRestaurantList} from "../redux/resultsSlice";
 
 export default function ResultsList() {
     const { restaurantList, filteredRestaurantList, mapView } = useSelector((state) => state.results);
-    const { min50Box } = useSelector((state) => state.filters);
+    const { min50Box, selectedPriceLevel } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
 
 
     const myApiKey = "AIzaSyC8n6mIsTUbA49yf6Ld4nOvGOdc0abCbow";
 
     React.useEffect(() => {
-            restaurantList.length > 0 && (
-                !min50Box ? 
-                    dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > 5)).slice(0, 10))) :
-                    dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > 50)).slice(0, 10)))
 
-            )
+        console.log(selectedPriceLevel);
+        
                 
         },
-        [restaurantList, min50Box]);
+        [restaurantList, min50Box, selectedPriceLevel]);
 
 
     // filteredRestaurantList.length > 0 && console.log(filteredRestaurantList);
@@ -35,12 +32,13 @@ export default function ResultsList() {
                             let linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${item.place_id}`;
                             let routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedName}&destination_place_id=${item.place_id}`;
                             let num = filteredRestaurantList.indexOf(item)+1;
+                            let coinUrl = "/coin" + item.price_level + ".png";
 
                             return (
 
                                 <div className="restaurant-container" key={index}>
                                     {imgUrl.length > 0 && <img src={imgUrl} alt="" className="restaurant-title-pic"/>}
-                                    <h2 className="restaurant-hl">{num}. {item.name}</h2>
+                                    <h2 className="restaurant-hl">{num}. {item.name} <img src={coinUrl} alt={item.price_level} className="coin-img"/></h2>
                                     <div className="restaurant-info">
                                         <div className="restaurant-left">
                                             <div className="rating-star">{item.rating}</div>

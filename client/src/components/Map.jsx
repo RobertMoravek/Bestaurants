@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import RestaurantBox from "./RestaurantBox";
 import { setSelectedMarker } from "../redux/resultsSlice";
 import { useDispatch } from "react-redux";
+import { setSelectedPriceLevel } from "../redux/filtersSlice";
 
 
 const containerStyle = {
@@ -24,6 +25,7 @@ const center = {
 export default function Map() {
 
     const { filteredRestaurantList, mapView, selectedMarker } = useSelector((state) => state.results);
+    const { selectedPriceLevel } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
     
     const { isLoaded } = useJsApiLoader({

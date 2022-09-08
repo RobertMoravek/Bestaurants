@@ -18,7 +18,7 @@ app.get("/api", async (req, res) => {
 app.get("/getnearestcity/:lat/:lng", async (req, res) => {
     console.log(req.params);
     let cityDB = JSON.parse(
-            fs.readFileSync(__dirname + "/../restaurants/citiesReducedAndSortedEU.json").toString()
+            fs.readFileSync(__dirname + "/citiesReducedAndSortedEU.json").toString()
     );
     let foundCountry = "";
     let foundCity = "";

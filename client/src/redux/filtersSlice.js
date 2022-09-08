@@ -18,6 +18,8 @@ export const filtersSlice = createSlice({
         foundCountry: "",
         lat: "",
         lng: "",
+        isUrlAnalyzerActive: true,
+        selectedPriceLevel: null,
     },
     reducers: {
         setAvailableCountries: (state, action) => {
@@ -71,8 +73,11 @@ export const filtersSlice = createSlice({
 
         setLat: (state, action) => {state.lat = action.payload},
 
-        setLng: (state, action) => {state.lng = action.payload}
+        setLng: (state, action) => {state.lng = action.payload},
 
+        setIsUrlAnalyzerActive: (state, action) => {state.isUrlAnalyzerActive = action.payload},
+
+        setSelectedPriceLevel: (state, action) => {state.selectedPriceLevel = action.payload}
     },
 });
 
@@ -97,7 +102,9 @@ export const {
     setFoundCity,
     setFoundCountry,
     setLat,
-    setLng
+    setLng,
+    setIsUrlAnalyzerActive,
+    setSelectedPriceLevel,
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

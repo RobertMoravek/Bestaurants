@@ -92,7 +92,7 @@ export default function LocationFinder() {
         dispatch(setLng(crd.longitude));
 
         fetch(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${crd.latitude}&longitude=${crd.longitude}`
         )
             .then((res) => res.json())
             .then(({ countryName, city }) => {

@@ -42,8 +42,8 @@ body {
     top: 0%;
     left: 0%;
     position: absolute;
-    height: 10vh;
-    width: 10vh;
+    height: 12vh;
+    width: 12vh;
     z-index: 100;
     margin: 1vh;
     transition: ease-out 1s;
@@ -65,7 +65,7 @@ body {
 button {
 	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
 	background-color:#ffffff;
-	/* border-radius:5px; */
+	border-radius:5px;
 	/* border:2px solid #dcdcdc; */
 	display: flex;
     flex-direction: row;
@@ -96,15 +96,29 @@ button p {
 	color:#004666;
 }
 
+label {
+    display: flex;
+    align-items: center;
+}
+
+#min50reviews-label{
+    /* border: 1px solid white; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .options-bar {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
     position: sticky;
     background: inherit;
     top:0;
     padding: 1rem 1rem;
     padding-left: 6rem;
-    height: 12vh;
+    height: 6rem;
     z-index: 90;
     width: inherit;
     /* border: 1px solid yellowgreen; */
@@ -136,9 +150,6 @@ button p {
     padding: 1rem;
 }
 
-.chosen-filter-button {
-    background-color: #cdf4ff;
-}
 
 
 .rating-star {
@@ -211,6 +222,9 @@ button p {
 
 .restaurant-hl {
     padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .restaurant-info {
@@ -253,6 +267,7 @@ button p {
 
 .min50box{
     display: flex;
+    flex-direction: row;
     gap: 1rem;
 }
 
@@ -279,4 +294,32 @@ button p {
     position: absolute;
     top: 1rem;
     right: 1rem;
+}
+
+.clickable-options-box {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.priceLevelBox {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+}
+
+.coin-button {
+    height: 30px;
+    width: 30px;
+}
+
+.selected-button, .selected-button:hover {
+    background: none;
+    background-color: #ffea94;
+    /* border: 3px solid #ffcc00; */
+}
+
+.coin-img {
+    height: 20px;
+
 }
