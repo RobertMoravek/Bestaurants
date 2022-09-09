@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
-    setMin50Box,
     setIsFiltersVisible,
     setIsCountryFilterVisible,
     setIsCityFilterVisible,
@@ -11,6 +10,7 @@ import {
     setIsRestaurantTypeFilterNotVisible,
     setIsCountryFilterNotVisible,
     setSelectedPriceLevel,
+    setIsUrlAnalyzerActive,
 } from "../redux/filtersSlice";
 import {setNotMap, setNotList } from "../redux/resultsSlice";
 
@@ -37,6 +37,7 @@ export default function OptionsBar() {
                             dispatch(setIsCityFilterNotVisible());
                             dispatch(setIsRestaurantTypeFilterNotVisible());
                             dispatch(setIsCountryFilterVisible());
+                            dispatch(setIsUrlAnalyzerActive(false))
                             // dispatch(setIsCityFilterVisible())
 
                         }}
@@ -55,12 +56,16 @@ export default function OptionsBar() {
                             dispatch(setIsRestaurantTypeFilterNotVisible());
                             dispatch(setIsCityFilterVisible());
                             // dispatch(setAvailableTypesOfRestaurants());
+                            dispatch(setIsUrlAnalyzerActive(false));
+
                         }}
                         className="single-chosen-option"
                     >
                         ▼ {chosenCity}
                     </p>
                 )}
+                </div>
+                <div className="chosen-options">
                 {chosenTypeOfRestaurant.length > 0 && (
                     <p
                         onClick={() => {
@@ -70,6 +75,8 @@ export default function OptionsBar() {
                             dispatch(setIsCityFilterNotVisible());
                             dispatch(setIsCountryFilterNotVisible());
                             dispatch(setIsRestaurantTypeFilterVisible());
+                            dispatch(setIsUrlAnalyzerActive(false));
+
                         }}
                         className="single-chosen-option"
                     >
@@ -77,20 +84,6 @@ export default function OptionsBar() {
                     </p>
                 )}
             </div>
-            {chosenTypeOfRestaurant.length > 0 && (
-                <div className="clickable-options-box">
-                    <div className="min50box">
-                        <label htmlFor="min50reviews" id="min50reviews-label">50+ reviews</label>
-                        <input
-                            type="checkbox"
-                            name="min50reviews"
-                            id="min50reviews"
-                            onChange={() => dispatch(setMin50Box())}
-                        />
-                    </div>
-
-                </div>
-            )}
         </div>
     )
 }

@@ -9,7 +9,6 @@ export const filtersSlice = createSlice({
         chosenCity: "",
         availableTypesOfRestaurants: [],
         chosenTypeOfRestaurant: "",
-        min50Box: false,
         isCountryFilterVisible: false,
         isCityFilterVisible: false,
         isRestaurantTypeFilterVisible: false,
@@ -20,7 +19,7 @@ export const filtersSlice = createSlice({
         lng: "",
         isUrlAnalyzerActive: true,
         selectedPriceLevel: null,
-        isPriceSelectorVisible: false,
+        selectedMinReviews: 10,
     },
     reducers: {
         setAvailableCountries: (state, action) => {
@@ -50,8 +49,6 @@ export const filtersSlice = createSlice({
         setChosenTypeOfRestaurant: (state, action) => {
             state.chosenTypeOfRestaurant= action.payload;
         },
-
-        setMin50Box: (state) => {state.min50Box = !state.min50Box},
         
         setIsCountryFilterVisible: (state) => {state.isCountryFilterVisible = true},
         setIsCountryFilterNotVisible: (state) => {state.isCountryFilterVisible = false},
@@ -80,11 +77,8 @@ export const filtersSlice = createSlice({
 
         setSelectedPriceLevel: (state, action) => {state.selectedPriceLevel = action.payload},
 
-        setIsPriceSelectorVisible: (state) => {state.isPriceSelectorVisible = true},
-        
-        setIsPriceSelectorNotVisible: (state) => {state.isPriceSelectorVisible = false},
+        setSelectedMinReviews: (state, action) => {state.selectedMinReviews = action.payload}
 
-        setTogglePriceSelectorVisible: (state) => {state.isPriceSelectorVisible = !state.isPriceSelectorVisible},
 
     },
 });
@@ -97,7 +91,6 @@ export const {
     setChosenCountry,
     setChosenCity,
     setChosenTypeOfRestaurant,
-    setMin50Box,
     setIsCountryFilterVisible,
     setIsCountryFilterNotVisible,
     setIsCityFilterVisible,
@@ -113,9 +106,7 @@ export const {
     setLng,
     setIsUrlAnalyzerActive,
     setSelectedPriceLevel,
-    setIsPriceSelectorVisible,
-    setIsPriceSelectorNotVisible,
-    setTogglePriceSelectorVisible,
+    setSelectedMinReviews,
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

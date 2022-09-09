@@ -59,7 +59,7 @@ export default function LocationFinder() {
             dispatch(setIsCityFilterNotVisible());
             dispatch(setIsRestaurantTypeFilterVisible());
             dispatch(setFoundCity(""));
-        } else if (lat !== "") {
+        } else if (lat !== "" && foundCity != "") {
             console.log('in else if');
             fetch(`/getnearestcity/${lat}/${lng}`)
                 .then((res) => res.json())

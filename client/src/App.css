@@ -184,7 +184,6 @@ label {
     border-left: 2px solid white;
     border-right: 2px solid white;
     border-top: 2px solid white;
-    border-bottom: 2px solid white;
     backdrop-filter: blur(15px) brightness(50%);
     user-select: none;
     gap: 1rem;
@@ -222,6 +221,39 @@ label {
     transition: 0.3s ease-out;
 }
 
+.review-num-selector {
+    pointer-events: all;
+    cursor: pointer;
+    position: fixed;
+    bottom:0;
+    left: 50%;
+    height: 15rem;
+    width: 7rem;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    backdrop-filter: blur(15px) brightness(50%);
+    user-select: none;
+    transform: translate(4rem, 12rem);
+    gap: 0.75rem;
+    transition: 0.3s ease-out;
+    padding: 0.5rem;
+    padding-top: 0.75rem;
+}
+
+.review-num-selector.selected {
+    /* border: 3px solid red; */
+    transform: translate(4rem, 0rem);
+    transition: 0.3s ease-out;
+}
+
 .invisible {
     display: none;
 }
@@ -243,7 +275,7 @@ label {
 
 .single-chosen-option {
     cursor: pointer;
-    max-width: 88px;
+    max-width: 145px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -366,7 +398,9 @@ label {
 
 .coin-button {
     height: 30px;
-    width: 30px;
+    width: 50px;
+    color: #004666;
+    padding: 0;
 }
 
 .selected-button, .selected-button:hover {

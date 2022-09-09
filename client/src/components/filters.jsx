@@ -46,26 +46,27 @@ export default function Filters() {
     }, []);
 
     React.useEffect(() => {
-        // console.log('chosenC effect');
-        chosenCountry !== "" &&
-            availableCountries.includes(chosenCountry) &&
-            fetch("/searchoptionscities/" + chosenCountry)
-                .then((res) => res.json())
-                .then((data) => {
-                    dispatch(setAvailableCities(data));
-                    setTimeout(() => {
-                        
-                        // console.log(availableCities);
-                    }, 1500);
-                    // dispatch(setIsCountryFilterVisible());
-                    // dispatch(setIsCityFilterVisible());
-                });
+        console.log(availableCountries.includes(chosenCountry));
+        if (chosenCountry == "" || !availableCountries.includes(chosenCountry)) {
+            return}
+
+        fetch("/searchoptionscities/" + chosenCountry)
+            .then((res) => res.json())
+            .then((data) => {
+                dispatch(setAvailableCities(data));
+                setTimeout(() => {
+                    
+                    // console.log(availableCities);
+                }, 1500);
+                // dispatch(setIsCountryFilterVisible());
+                // dispatch(setIsCityFilterVisible());
+            });
     }, [chosenCountry]);
 
     React.useEffect(() => {
         console.log("about to fetch restaurant types", chosenCountry, chosenCity);
         chosenCity !== "" &&
-            availableCities.includes(chosenCity) &&
+            (availableCities.includes(chosenCity) &&
             fetch(
                 "/searchoptionsrestaurants/" + chosenCountry + "/" + chosenCity
             )
@@ -74,13 +75,13 @@ export default function Filters() {
                     // console.log(data);
                     dispatch(setAvailableTypesOfRestaurants(data));
                     // dispatch(setIsCityFilterVisible());
-                });
+                }));
     }, [chosenCountry.length > 0 && availableCities.length > 0 && chosenCity.length > 0]);
 
     React.useEffect(() => {
         console.log('im ue');
         chosenTypeOfRestaurant !== "" &&
-            availableTypesOfRestaurants.includes(chosenTypeOfRestaurant) &&
+            (availableTypesOfRestaurants.includes(chosenTypeOfRestaurant) &&
             fetch(
                 "/searchoptionsresults/" +
                     chosenCountry +
@@ -94,7 +95,7 @@ export default function Filters() {
                     console.log("Liste der Restaurants", data);
                     dispatch(setRestaurantList(JSON.parse(data)));
                     // dispatch(setIsRestaurantTypeFilterVisible());
-                });
+                }));
     }, [chosenTypeOfRestaurant.length > 0 && availableTypesOfRestaurants.length > 0, chosenTypeOfRestaurant]);
 
     return (

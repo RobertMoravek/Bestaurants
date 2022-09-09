@@ -4,19 +4,12 @@ import {setFilteredRestaurantList} from "../redux/resultsSlice";
 
 export default function ResultsList() {
     const { restaurantList, filteredRestaurantList, mapView } = useSelector((state) => state.results);
-    const { min50Box, selectedPriceLevel } = useSelector((state) => state.filters);
+    const { selectedPriceLevel } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
 
 
     const myApiKey = "AIzaSyC8n6mIsTUbA49yf6Ld4nOvGOdc0abCbow";
 
-    React.useEffect(() => {
-
-        console.log(selectedPriceLevel);
-        
-                
-        },
-        [restaurantList, min50Box, selectedPriceLevel]);
 
 
     // filteredRestaurantList.length > 0 && console.log(filteredRestaurantList);
@@ -42,7 +35,7 @@ export default function ResultsList() {
                                     <div className="restaurant-info">
                                         <div className="restaurant-left">
                                             <div className="rating-star">{item.rating}</div>
-                                            <p>{item.user_ratings_total} reviews</p>
+                                            <p>{item.user_ratings_total} Reviews</p>
                                         </div>
                                         <div className="restaurant-right">
                                             {item.formatted_address.split(",").map((item) => <p>{item}</p>)}

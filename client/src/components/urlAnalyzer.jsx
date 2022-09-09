@@ -10,10 +10,10 @@ export default function URLAnalyzer () {
 
     const dispatch = useDispatch();
 
-    let {chosenCountry, chosenCity, availableTypesOfRestaurants} = useSelector((state) => state.filters);
+    let {chosenCountry, chosenCity, availableTypesOfRestaurants, availableCountries, availableCities} = useSelector((state) => state.filters);
 
     React.useEffect(() => {
-        if (chosenCity.length > 0 && chosenCountry.length > 0 && url.length === 6 && url[0] === "top10") {
+        if (  chosenCity.length > 0 && chosenCountry.length > 0 && url.length === 6 && url[0] === "top10") {
             fetch("/searchoptionscities/" + chosenCountry)
                 .then((res) => res.json())
                 .then((data) => {

@@ -18,12 +18,12 @@ export default function ViewSelector() {
             {mapView && 
                 <>
                     <img src="/list-icon.png" alt="" className="route-icon" />{" "}
-                    <p>List</p>
+                    {/* <p>List</p> */}
                 </>}
             {!mapView && (
                 <>
                     <img src="/map-icon.png" alt="" className="route-icon" />{" "}
-                    <p>Map</p>
+                    {/* <p>Map</p> */}
                 </>
             )}
         </div>

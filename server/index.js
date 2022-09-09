@@ -16,7 +16,7 @@ app.get("/api", async (req, res) => {
 });
 
 app.get("/getnearestcity/:lat/:lng", async (req, res) => {
-    console.log(req.params);
+    console.log("get nearest city");
     let cityDB = JSON.parse(
             fs.readFileSync(__dirname + "/citiesReducedAndSortedEU.json").toString()
     );
@@ -49,12 +49,13 @@ app.get("/getnearestcity/:lat/:lng", async (req, res) => {
 
 
 app.get("/searchoptionscountries", async (req, res) => {
+    console.log('searchoptionscountry');
     let countriesNames = fs.readdirSync(__dirname + "/../restaurants/");
     res.json(countriesNames);
 });
 
 app.get("/searchoptionscities/:country", async (req, res) => {
-    console.log(req.params.country);
+    console.log("searchoptionscity");
     let citiesNames = fs.readdirSync(
         __dirname + "/../restaurants/" + req.params.country
     );
@@ -62,7 +63,7 @@ app.get("/searchoptionscities/:country", async (req, res) => {
 });
 
 app.get("/searchoptionsrestaurants/:country/:city", async (req, res) => {
-    console.log(req.params);
+    console.log("sorestauranttypes");
     let restaurantTypes = fs.readdirSync(
         __dirname +
             "/../restaurants/" +
@@ -75,7 +76,7 @@ app.get("/searchoptionsrestaurants/:country/:city", async (req, res) => {
 });
 
 app.get("/searchoptionsresults/:country/:city/:type", async (req, res) => {
-    console.log(req.params);
+    console.log("searchoptionresults");
     let results = fs
         .readFileSync(
             path.join(

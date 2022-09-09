@@ -10,28 +10,28 @@ import {
 export default function RestaurantBox() {
     const { restaurantList, filteredRestaurantList, selectedMarker } =
         useSelector((state) => state.results);
-    const { min50Box } = useSelector((state) => state.filters);
+    
     const dispatch = useDispatch();
 
 
-    React.useEffect(() => {
-        restaurantList.length > 0 &&
-            (!min50Box
-                ? dispatch(
-                    setFilteredRestaurantList(
-                        restaurantList
-                            .filter((item) => item.user_ratings_total > 5)
-                            .slice(0, 10)
-                    )
-                )
-                : dispatch(
-                    setFilteredRestaurantList(
-                        restaurantList
-                            .filter((item) => item.user_ratings_total > 50)
-                            .slice(0, 10)
-                    )
-                ));
-    }, [restaurantList, min50Box]);
+    // React.useEffect(() => {
+    //     restaurantList.length > 0 &&
+    //         (!min50Box
+    //             ? dispatch(
+    //                 setFilteredRestaurantList(
+    //                     restaurantList
+    //                         .filter((item) => item.user_ratings_total > 5)
+    //                         .slice(0, 10)
+    //                 )
+    //             )
+    //             : dispatch(
+    //                 setFilteredRestaurantList(
+    //                     restaurantList
+    //                         .filter((item) => item.user_ratings_total > 50)
+    //                         .slice(0, 10)
+    //                 )
+    //             ));
+    // }, [restaurantList, min50Box]);
 
 
     return (
