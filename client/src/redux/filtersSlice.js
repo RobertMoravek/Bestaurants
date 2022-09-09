@@ -20,6 +20,7 @@ export const filtersSlice = createSlice({
         lng: "",
         isUrlAnalyzerActive: true,
         selectedPriceLevel: null,
+        isPriceSelectorVisible: false,
     },
     reducers: {
         setAvailableCountries: (state, action) => {
@@ -77,7 +78,14 @@ export const filtersSlice = createSlice({
 
         setIsUrlAnalyzerActive: (state, action) => {state.isUrlAnalyzerActive = action.payload},
 
-        setSelectedPriceLevel: (state, action) => {state.selectedPriceLevel = action.payload}
+        setSelectedPriceLevel: (state, action) => {state.selectedPriceLevel = action.payload},
+
+        setIsPriceSelectorVisible: (state) => {state.isPriceSelectorVisible = true},
+        
+        setIsPriceSelectorNotVisible: (state) => {state.isPriceSelectorVisible = false},
+
+        setTogglePriceSelectorVisible: (state) => {state.isPriceSelectorVisible = !state.isPriceSelectorVisible},
+
     },
 });
 
@@ -105,6 +113,9 @@ export const {
     setLng,
     setIsUrlAnalyzerActive,
     setSelectedPriceLevel,
+    setIsPriceSelectorVisible,
+    setIsPriceSelectorNotVisible,
+    setTogglePriceSelectorVisible,
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

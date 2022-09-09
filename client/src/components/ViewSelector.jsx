@@ -8,9 +8,24 @@ export default function ViewSelector() {
     const dispatch = useDispatch();
     // console.log('VS');
     return (
-        <div className="view-selector" onClick={() => { dispatch(setToggleMap()); dispatch(setTogglelist())}}>
-            {mapView && <p>List</p> }
-            {!mapView && <p>Map</p> }
+        <div
+            className="view-selector"
+            onClick={() => {
+                dispatch(setToggleMap());
+                dispatch(setTogglelist());
+            }}
+        >
+            {mapView && 
+                <>
+                    <img src="/list-icon.png" alt="" className="route-icon" />{" "}
+                    <p>List</p>
+                </>}
+            {!mapView && (
+                <>
+                    <img src="/map-icon.png" alt="" className="route-icon" />{" "}
+                    <p>Map</p>
+                </>
+            )}
         </div>
     );
 }

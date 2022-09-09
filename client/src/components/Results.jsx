@@ -5,6 +5,7 @@ import { useNavigate} from "react-router-dom";
 import Map from "./Map";
 import ResultsList from "./ResultsList";
 import ViewSelector from "./ViewSelector";
+import PriceSelector from "./PriceSelector";
 
 
 
@@ -44,12 +45,13 @@ export default function Results() {
 
     return (
         <>  
-            {isResultsVisible && <div className="results">
-
-            <Map/>
-            { listView && <ResultsList/>}
-                <ViewSelector/>
-            </div>}
+            {isResultsVisible && 
+                <div className="results">
+                    <Map/>
+                    { listView && <ResultsList/>}
+                    <ViewSelector/>
+                    <PriceSelector/>
+                </div>}
 
         </>
     );
