@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector} from "react-redux";
 import Results from "./Results";
-import Filters from "./filters";
+import Filters from "./Filters";
 import URLAnalyzer from "./urlAnalyzer";
 
 

@@ -54,32 +54,32 @@ app.get("/availabledata", async (req, res) => {
     res.json(availableData);
 });
 
-app.get("/searchoptionscountries", async (req, res) => {
-    console.log('searchoptionscountry');
-    let countriesNames = fs.readdirSync(__dirname + "/../restaurants/");
-    res.json(countriesNames);
-});
+// app.get("/searchoptionscountries", async (req, res) => {
+//     console.log('searchoptionscountry');
+//     let countriesNames = fs.readdirSync(__dirname + "/../restaurants/");
+//     res.json(countriesNames);
+// });
 
-app.get("/searchoptionscities/:country", async (req, res) => {
-    console.log("searchoptionscity");
-    let citiesNames = fs.readdirSync(
-        __dirname + "/../restaurants/" + req.params.country
-    );
-    res.json(citiesNames);
-});
+// app.get("/searchoptionscities/:country", async (req, res) => {
+//     console.log("searchoptionscity");
+//     let citiesNames = fs.readdirSync(
+//         __dirname + "/../restaurants/" + req.params.country
+//     );
+//     res.json(citiesNames);
+// });
 
-app.get("/searchoptionsrestaurants/:country/:city", async (req, res) => {
-    console.log("sorestauranttypes");
-    let restaurantTypes = fs.readdirSync(
-        __dirname +
-            "/../restaurants/" +
-            req.params.country +
-            "/" +
-            req.params.city
-    );
-    restaurantTypes = restaurantTypes.map((item) => item.slice(0, -5));
-    res.json(restaurantTypes);
-});
+// app.get("/searchoptionsrestaurants/:country/:city", async (req, res) => {
+//     console.log("sorestauranttypes");
+//     let restaurantTypes = fs.readdirSync(
+//         __dirname +
+//             "/../restaurants/" +
+//             req.params.country +
+//             "/" +
+//             req.params.city
+//     );
+//     restaurantTypes = restaurantTypes.map((item) => item.slice(0, -5));
+//     res.json(restaurantTypes);
+// });
 
 app.get("/searchoptionsresults/:country/:city/:type", async (req, res) => {
     console.log("searchoptionresults");

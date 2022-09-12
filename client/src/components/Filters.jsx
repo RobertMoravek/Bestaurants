@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+    setAvailableData,
     setAvailableCountries,
     setAvailableCities,
     setAvailableTypesOfRestaurants,
@@ -21,6 +22,7 @@ import LocationFinder from "./LocationFinder";
 export default function Filters() {
     const dispatch = useDispatch();
     const {
+        availableData,
         availableCountries,
         chosenCountry,
         availableCities,
@@ -37,46 +39,45 @@ export default function Filters() {
 
 
     React.useEffect(() => {
-        fetch("/searchoptionscountries")
+        fetch("/availabledata")
             .then((res) => res.json())
             .then((data) => {
-                // console.log(data);
-                dispatch(setAvailableCountries(data));
+                console.log(data);
+                dispatch(setAvailableData(data));
+                let tempfoundCountries = [];
+                Object.keys(data).map((item) => {tempfoundCountries.push(item)})
+                dispatch(setAvailableCountries(tempfoundCountries));
             });
     }, []);
+
+    // React.useEffect(() => {
+    //     fetch("/searchoptionscountries")
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             // console.log(data);
+    //             dispatch(setAvailableCountries(data));
+    //         });
+    // }, []);
 
     React.useEffect(() => {
         console.log(availableCountries.includes(chosenCountry));
         if (chosenCountry == "" || !availableCountries.includes(chosenCountry)) {
             return}
+        let tempfoundCities = [];
+        Object.keys(availableData[chosenCountry]).map((item) => {tempfoundCities.push(item)})
+        dispatch(setAvailableCities(tempfoundCities));
 
-        fetch("/searchoptionscities/" + chosenCountry)
-            .then((res) => res.json())
-            .then((data) => {
-                dispatch(setAvailableCities(data));
-                setTimeout(() => {
-                    
-                    // console.log(availableCities);
-                }, 1500);
-                // dispatch(setIsCountryFilterVisible());
-                // dispatch(setIsCityFilterVisible());
-            });
     }, [chosenCountry]);
 
     React.useEffect(() => {
-        console.log("about to fetch restaurant types", chosenCountry, chosenCity);
-        chosenCity !== "" &&
-            (availableCities.includes(chosenCity) &&
-            fetch(
-                "/searchoptionsrestaurants/" + chosenCountry + "/" + chosenCity
-            )
-                .then((res) => res.json())
-                .then((data) => {
-                    // console.log(data);
-                    dispatch(setAvailableTypesOfRestaurants(data));
-                    // dispatch(setIsCityFilterVisible());
-                }));
-    }, [chosenCountry.length > 0 && availableCities.length > 0 && chosenCity.length > 0]);
+        if (chosenCity == "" || !availableCities.includes(chosenCity)) {
+            return}
+        let tempfoundRestaurantTypes = [];
+        Object.keys(availableData[chosenCountry][chosenCity]).map((item) => {
+            tempfoundRestaurantTypes.push(item.slice(0, -5));
+        });
+        dispatch(setAvailableTypesOfRestaurants(tempfoundRestaurantTypes));
+    }, [chosenCity]);
 
     React.useEffect(() => {
         console.log('im ue');
@@ -96,7 +97,7 @@ export default function Filters() {
                     dispatch(setRestaurantList(JSON.parse(data)));
                     // dispatch(setIsRestaurantTypeFilterVisible());
                 }));
-    }, [chosenTypeOfRestaurant.length > 0 && availableTypesOfRestaurants.length > 0, chosenTypeOfRestaurant]);
+    }, [chosenTypeOfRestaurant]);
 
     return (
         <>

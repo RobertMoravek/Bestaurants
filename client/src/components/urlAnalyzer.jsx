@@ -13,25 +13,14 @@ export default function URLAnalyzer () {
     let {chosenCountry, chosenCity, availableTypesOfRestaurants, availableCountries, availableCities} = useSelector((state) => state.filters);
 
     React.useEffect(() => {
-        if (  chosenCity.length > 0 && chosenCountry.length > 0 && url.length === 6 && url[0] === "top10") {
-            fetch("/searchoptionscities/" + chosenCountry)
-                .then((res) => res.json())
-                .then((data) => {
-                    dispatch(setAvailableCities(data));
-                });
-            fetch("/searchoptionsrestaurants/" + chosenCountry + "/" + chosenCity)
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log("searchoptionsrestaurants", data);
-                    dispatch(setAvailableTypesOfRestaurants(data));
-                    // dispatch(setIsCityFilterVisible());
-                });
+        if (availableCities.includes(url[4])) {
+            dispatch(setChosenCity(url[4]))
         }
-    }, [chosenCity, chosenCountry])
-
+    }, [availableCities])
+    
     React.useEffect(() => {
-        if (availableTypesOfRestaurants.length > 0 && url.length === 6 && url[0] === "top10") {
-            console.log(url[1]);
+        console.log('this', chosenCountry, chosenCity);
+        if (availableTypesOfRestaurants.includes(url[1])) {
             dispatch(setChosenTypeOfRestaurant(url[1]));
             dispatch(setIsCityFilterNotVisible());
             dispatch(setIsCountryFilterNotVisible());
@@ -55,9 +44,9 @@ export default function URLAnalyzer () {
         url[5] = ((url[5].split("+")).map((item) => item = item[0].toUpperCase()+item.slice(1))).join(" ") 
         console.log(url);
 
-        if(url[1].length > 0 && url[4].length > 0 && url[5].length > 0) {
+        if(availableCountries.includes(url[5])) {
+            
             dispatch(setChosenCountry(url[5]));
-            dispatch(setChosenCity(url[4]));
         }
 
     }
