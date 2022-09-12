@@ -17,7 +17,7 @@ export default function Results() {
     const navigate = useNavigate();
 
         React.useEffect(() => {
-            console.log('selectedPrizeLevel in Results', typeof selectedPriceLevel);
+            // console.log('selectedPrizeLevel in Results', typeof selectedPriceLevel);
             if (restaurantList.length > 0) {
 
                 if (selectedPriceLevel) {

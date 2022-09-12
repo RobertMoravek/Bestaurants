@@ -42,7 +42,7 @@ export default function Filters() {
         fetch("/availabledata")
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 dispatch(setAvailableData(data));
                 let tempfoundCountries = [];
                 Object.keys(data).map((item) => {tempfoundCountries.push(item)})
@@ -60,7 +60,7 @@ export default function Filters() {
     // }, []);
 
     React.useEffect(() => {
-        console.log(availableCountries.includes(chosenCountry));
+        // console.log(availableCountries.includes(chosenCountry));
         if (chosenCountry == "" || !availableCountries.includes(chosenCountry)) {
             return}
         let tempfoundCities = [];
@@ -80,7 +80,7 @@ export default function Filters() {
     }, [chosenCity]);
 
     React.useEffect(() => {
-        console.log('im ue');
+        // console.log('im ue');
         chosenTypeOfRestaurant !== "" &&
             (availableTypesOfRestaurants.includes(chosenTypeOfRestaurant) &&
             fetch(
@@ -93,7 +93,7 @@ export default function Filters() {
             )
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log("Liste der Restaurants", data);
+                    // console.log("Liste der Restaurants", data);
                     dispatch(setRestaurantList(JSON.parse(data)));
                     // dispatch(setIsRestaurantTypeFilterVisible());
                 }));

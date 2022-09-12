@@ -2,7 +2,7 @@ import React from "react";
 
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedMinReviews, setSelectedPriceLevel } from "../redux/filtersSlice";
+import { setSelectedMinReviews} from "../redux/filtersSlice";
 
 
 export default function ReviewNumSelector() {
@@ -10,7 +10,7 @@ export default function ReviewNumSelector() {
     let [isPriceSelectorVisible, setIsPriceSelectorVisible] = useState(false)
     const dispatch = useDispatch();
     const selectorElement = useRef();
-    console.log(selectorElement);
+    // console.log(selectorElement);
 
     let { selectedMinReviews } = useSelector((state) => state.filters);
     
@@ -59,8 +59,8 @@ export default function ReviewNumSelector() {
                 {[50, 100, 250, 500].map((item) => {
                     return (
                         item === selectedMinReviews ?
-                            <button className="coin-button selected-button" onClick={() => {minReviewsSetter(item)}}> <p>&#62; {item}</p> </button> :
-                            <button className="coin-button" onClick={() => {minReviewsSetter(item)}}> <p>&#62; {item}</p> </button> 
+                            <button className="coin-button selected-button" onClick={() => {minReviewsSetter(item)}} key={item}> <p>&#62; {item}</p> </button> :
+                            <button className="coin-button" onClick={() => {minReviewsSetter(item)}} key={item}> <p>&#62; {item}</p> </button> 
                     )
                     })}
             </div> 

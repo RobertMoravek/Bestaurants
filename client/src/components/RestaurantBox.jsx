@@ -1,14 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-    setFilteredRestaurantList,
     setSelectedMarker,
 } from "../redux/resultsSlice";
 
 
 
 export default function RestaurantBox() {
-    const { restaurantList, filteredRestaurantList, selectedMarker } =
+    const {filteredRestaurantList, selectedMarker } =
         useSelector((state) => state.results);
     
     const dispatch = useDispatch();

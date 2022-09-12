@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import RestaurantBox from "./RestaurantBox";
 import { setSelectedMarker } from "../redux/resultsSlice";
 import { useDispatch } from "react-redux";
-import { setSelectedPriceLevel } from "../redux/filtersSlice";
+
 
 
 const containerStyle = {
@@ -25,7 +25,7 @@ const center = {
 export default function Map() {
 
     const { filteredRestaurantList, mapView, selectedMarker } = useSelector((state) => state.results);
-    const { selectedPriceLevel } = useSelector((state) => state.filters);
+
     const dispatch = useDispatch();
     
     const { isLoaded } = useJsApiLoader({
@@ -37,7 +37,7 @@ export default function Map() {
     const [map, setMap] = React.useState(null);
 
     React.useEffect(() => {
-        console.log(filteredRestaurantList);
+        // console.log(filteredRestaurantList);
         
         window.google && (function () {
             const bounds = new window.google.maps.LatLngBounds();

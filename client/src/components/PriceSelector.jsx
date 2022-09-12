@@ -10,7 +10,7 @@ export default function PriceSelector() {
     let [isPriceSelectorVisible, setIsPriceSelectorVisible] = useState(false)
     const dispatch = useDispatch();
     const selectorElement = useRef();
-    console.log(selectorElement);
+    // console.log(selectorElement);
 
     function selectorToggler () {
         if (!isPriceSelectorVisible) {
@@ -59,8 +59,8 @@ export default function PriceSelector() {
                     let coinUrl = `/coin${item}.png`
                     return (
                         item === selectedPriceLevel ?
-                            <button className="coin-button selected-button" onClick={() => {priceLevelSetter(item)}}><img src={coinUrl} alt="" className="coin-img" /></button> :
-                            <button className="coin-button" onClick={() => {priceLevelSetter(item)}}><img src={coinUrl} alt="" className="coin-img" /></button> 
+                            <button className="coin-button selected-button" onClick={() => {priceLevelSetter(item)}} key={item}><img src={coinUrl} alt="" className="coin-img" /></button> :
+                            <button className="coin-button" onClick={() => {priceLevelSetter(item)}} key={item}><img src={coinUrl} alt="" className="coin-img" /></button> 
                     )
                     })}
             </div> 

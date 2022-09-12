@@ -52,15 +52,15 @@ export default function LocationFinder() {
     // }, [chosenCountry.length > 0 && foundCity.length > 0 && foundCity !== "unavailable"])
 
     useEffect(() => {
-        console.log("Lat in useE", lat, availableCities, foundCity);
+        // console.log("Lat in useE", lat, availableCities, foundCity);
         if (availableCities.includes(foundCity)) {
-            console.log('in if');
+            // console.log('in if');
             dispatch(setChosenCity(foundCity));
             dispatch(setIsCityFilterNotVisible());
             dispatch(setIsRestaurantTypeFilterVisible());
             dispatch(setFoundCity(""));
         } else if (lat !== "" && foundCity != "") {
-            console.log('in else if');
+            // console.log('in else if');
             fetch(`/getnearestcity/${lat}/${lng}`)
                 .then((res) => res.json())
                 .then((result) => {
@@ -96,11 +96,11 @@ export default function LocationFinder() {
         )
             .then((res) => res.json())
             .then(({ countryName, city }) => {
-                console.log(countryName, city);
+                // console.log(countryName, city);
                 countryName
                     ? dispatch(setFoundCountry(countryName))
                     : dispatch(setFoundCountry("unavailable"));
-                console.log(availableCities);
+                // console.log(availableCities);
                 city
                     ? dispatch(setFoundCity(city))
                     : dispatch(setFoundCity("unavailable"));

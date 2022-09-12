@@ -9,7 +9,6 @@ import {
     setIsCityFilterNotVisible,
     setIsRestaurantTypeFilterNotVisible,
     setIsCountryFilterNotVisible,
-    setSelectedPriceLevel,
     setIsUrlAnalyzerActive,
 } from "../redux/filtersSlice";
 import {setNotMap, setNotList } from "../redux/resultsSlice";
@@ -20,7 +19,6 @@ export default function OptionsBar() {
         chosenCountry,
         chosenCity,
         chosenTypeOfRestaurant,
-        selectedPriceLevel,
     } = useSelector((state) => state.filters);
 
 

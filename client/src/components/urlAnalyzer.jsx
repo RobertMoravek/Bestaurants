@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom"
-import { setChosenCountry, setAvailableCities, setChosenCity, setChosenTypeOfRestaurant, setIsCountryFilterNotVisible, setIsCityFilterNotVisible, setIsRestaurantTypeFilterNotVisible, setIsFiltersNotVisible, setAvailableTypesOfRestaurants, setIsUrlAnalyzerActive } from "../redux/filtersSlice";
+import { setChosenCountry, setChosenCity, setChosenTypeOfRestaurant, setIsCountryFilterNotVisible, setIsCityFilterNotVisible, setIsRestaurantTypeFilterNotVisible, setIsFiltersNotVisible, setIsUrlAnalyzerActive } from "../redux/filtersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsResultsVisible } from "../redux/resultsSlice";
 
@@ -10,7 +10,7 @@ export default function URLAnalyzer () {
 
     const dispatch = useDispatch();
 
-    let {chosenCountry, chosenCity, availableTypesOfRestaurants, availableCountries, availableCities} = useSelector((state) => state.filters);
+    let {availableTypesOfRestaurants, availableCountries, availableCities} = useSelector((state) => state.filters);
 
     React.useEffect(() => {
         if (availableCities.includes(url[4])) {
@@ -19,7 +19,7 @@ export default function URLAnalyzer () {
     }, [availableCities])
     
     React.useEffect(() => {
-        console.log('this', chosenCountry, chosenCity);
+        // console.log('this', chosenCountry, chosenCity);
         if (availableTypesOfRestaurants.includes(url[1])) {
             dispatch(setChosenTypeOfRestaurant(url[1]));
             dispatch(setIsCityFilterNotVisible());
@@ -42,7 +42,7 @@ export default function URLAnalyzer () {
         url[1] = ((url[1].split("+")).map((item) => item = item[0].toUpperCase()+item.slice(1))).join(" ") 
         url[4] = ((url[4].split("+")).map((item) => item = item[0].toUpperCase()+item.slice(1))).join(" ") 
         url[5] = ((url[5].split("+")).map((item) => item = item[0].toUpperCase()+item.slice(1))).join(" ") 
-        console.log(url);
+        // console.log(url);
 
         if(availableCountries.includes(url[5])) {
             

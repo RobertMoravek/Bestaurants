@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {setFilteredRestaurantList} from "../redux/resultsSlice";
 
 export default function ResultsList() {
-    const { restaurantList, filteredRestaurantList, mapView } = useSelector((state) => state.results);
-    const { selectedPriceLevel } = useSelector((state) => state.filters);
+    const { filteredRestaurantList, mapView } = useSelector((state) => state.results);
     const dispatch = useDispatch();
 
 
@@ -21,6 +20,7 @@ export default function ResultsList() {
                     {!mapView && filteredRestaurantList.length > 0 &&
                         filteredRestaurantList.map((item, index) => {
                             let encodedName = encodeURIComponent(item.name);
+                            console.log(encodedName);
                             let imgUrl= item.photos ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photo_reference=${item.photos[0].photo_reference}&key=${myApiKey}` : "";
                             let linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${item.place_id}`;
                             let routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedName}&destination_place_id=${item.place_id}`;
@@ -29,7 +29,7 @@ export default function ResultsList() {
 
                             return (
 
-                                <div className="restaurant-container" key={index}>
+                                <div className="restaurant-container" key={item.place_id}>
                                     {imgUrl.length > 0 && <img src={imgUrl} alt="" className="restaurant-title-pic"/>}
                                     <h2 className="restaurant-hl">{num}. {item.name} <img src={coinUrl} alt={item.price_level} className="coin-img"/></h2>
                                     <div className="restaurant-info">
@@ -43,7 +43,7 @@ export default function ResultsList() {
                                     </div>
                                     <div className="restaurant-links">
                                         <a href={linkUrl} target="new"><button className="link-button"><img src="/reviews.png" alt="Route" className="route-icon" /><p>Reviews</p></button></a>
-                                        <a href={routeUrl}><button className="link-button"><img src="/route.png" alt="Route" className="route-icon" /><p>Route</p></button></a>
+                                        <a href={routeUrl} target="new"><button className="link-button"><img src="/route.png" alt="Route" className="route-icon" /><p>Route</p></button></a>
                                     </div>
 
                                     
