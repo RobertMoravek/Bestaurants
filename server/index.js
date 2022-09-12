@@ -110,6 +110,10 @@ app.get("/searchoptionsresults/:country/:city/:type", async (req, res) => {
     res.json(results);
 });
 
+app.get("/*", function (req, res) {
+    res.sendFile("./client/public/index.html");
+});
+
 app.listen(process.env.PORT || PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
