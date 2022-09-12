@@ -36,9 +36,7 @@ function App() {
             <div className="content">
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/" element={<Search/>}/>
-                        <Route path="/results" element={<Results/>}/>
-                        
+                        <Route path="/" element={<Search/>}/>                        
                         <Route path="*" element={<Search/>}/>
                         
                     </Routes>
