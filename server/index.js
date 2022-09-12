@@ -9,10 +9,6 @@ const availableData = JSON.parse(require('fs').readFileSync(__dirname + '/availa
 
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, "../client/build")));
-
-app.use(express.static(path.join(__dirname, "..", "client", "public")));
-
 if (process.env.NODE_ENV == "production") {
     app.use((req, res, next) => {
         if (req.headers["x-forwarded-proto"].startsWith("https")) {
@@ -21,6 +17,10 @@ if (process.env.NODE_ENV == "production") {
         res.redirect(`https://${req.hostname}${req.url}`);
     });
 }
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+
+app.use(express.static(path.join(__dirname, "..", "client", "public")));
+
 
 app.get("/api", async (req, res) => {
     res.json({ message: "API!" });
