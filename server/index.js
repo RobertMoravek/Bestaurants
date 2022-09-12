@@ -111,7 +111,7 @@ app.get("/searchoptionsresults/:country/:city/:type", async (req, res) => {
 });
 
 app.get("/*", function (req, res) {
-    res.sendFile("/index.html");
+    res.sendFile("./index.html");
 });
 
 app.listen(process.env.PORT || PORT, () => {
