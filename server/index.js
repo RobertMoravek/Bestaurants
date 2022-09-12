@@ -110,8 +110,8 @@ app.get("/searchoptionsresults/:country/:city/:type", async (req, res) => {
     res.json(results);
 });
 
-app.get("/*", function (req, res) {
-    res.sendFile(__dirname + "./index.html");
+app.get("*", function (req, res) {
+    res.sendFile("./index.html");
 });
 
 app.listen(process.env.PORT || PORT, () => {
