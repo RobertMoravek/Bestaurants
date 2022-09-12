@@ -13,7 +13,6 @@ export default function Search() {
     return (
         <>
             {isUrlAnalyzerActive && <URLAnalyzer />}
-            
 
             <Filters />
 

@@ -5,6 +5,8 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3001;
 
+const availableData = JSON.parse(require('fs').readFileSync(__dirname + '/availableData.JSON', 'utf8'))
+
 const app = express();
 
 app.use(express.static(path.resolve(__dirname, "../client/build")));
@@ -47,6 +49,10 @@ app.get("/getnearestcity/:lat/:lng", async (req, res) => {
 });
 
 
+app.get("/availabledata", async (req, res) => {
+    console.log('available Data requested');
+    res.json(availableData);
+});
 
 app.get("/searchoptionscountries", async (req, res) => {
     console.log('searchoptionscountry');
