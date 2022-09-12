@@ -22,12 +22,12 @@ export default function LocationFinder() {
         foundCity,
         foundCountry,
         lat,
-        lng
+        lng,
     } = useSelector((state) => state.filters);
 
     const dispatch = useDispatch();
 
-
+    // If the found country is in the list of available countries, dispatch it, switch the visible filters and afterwords remove it (to avoid issues wth manually changing it later)
     useEffect(() => {
         if (
             foundCountry.length > 0 &&
@@ -41,15 +41,7 @@ export default function LocationFinder() {
         }
     }, [foundCountry.length > 0 && foundCountry !== "unavailable"]);
 
-    // useEffect(() => {
-    //     // console.log("test", availableCities, foundCity);
-    //     if (foundCity.length > 0 && availableCities.includes(foundCity)) {
-    //         dispatch(setChosenCity(foundCity))
-    //         dispatch(setIsCityFilterNotVisible());
-    //         dispatch(setIsRestaurantTypeFilterVisible());
-    //         dispatch(setFoundCity(""));
-    //     } else
-    // }, [chosenCountry.length > 0 && foundCity.length > 0 && foundCity !== "unavailable"])
+    // If the found city is in the list of available cities, dispatch it, switch the visible filters and afterwords remove it (to avoid issues wth manually changing it later)
 
     useEffect(() => {
         // console.log("Lat in useE", lat, availableCities, foundCity);
@@ -80,6 +72,8 @@ export default function LocationFinder() {
         maximumAge: 0,
     };
 
+    // Extract the gps information, if successful
+
     function success(pos) {
         const crd = pos.coords;
 
@@ -91,16 +85,24 @@ export default function LocationFinder() {
         dispatch(setLat(crd.latitude));
         dispatch(setLng(crd.longitude));
 
+        // Fetch the nearest settlement from the external API
+
         fetch(
             `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${crd.latitude}&longitude=${crd.longitude}`
         )
             .then((res) => res.json())
             .then(({ countryName, city }) => {
                 // console.log(countryName, city);
+
+                // If a country was found, dispatch it as the chosen Country
+
                 countryName
                     ? dispatch(setFoundCountry(countryName))
                     : dispatch(setFoundCountry("unavailable"));
                 // console.log(availableCities);
+
+                // If a city was found, dispatch it as the chosen city
+
                 city
                     ? dispatch(setFoundCity(city))
                     : dispatch(setFoundCity("unavailable"));
@@ -110,6 +112,8 @@ export default function LocationFinder() {
     function error(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`);
     }
+
+    //Start the location finding process, after user clicked the button
 
     function getLocation() {
         navigator.geolocation.getCurrentPosition(success, error, options);

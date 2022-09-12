@@ -38,7 +38,7 @@ export default function ResultsList() {
                                             <p>{item.user_ratings_total} Reviews</p>
                                         </div>
                                         <div className="restaurant-right">
-                                            {item.formatted_address.split(",").map((item) => <p>{item}</p>)}
+                                            {item.formatted_address.split(",").map((item, index) => <p key={index}>{item}</p>)}
                                         </div>
                                     </div>
                                     <div className="restaurant-links">

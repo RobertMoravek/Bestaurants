@@ -10,12 +10,13 @@ import { setSelectedMarker } from "../redux/resultsSlice";
 import { useDispatch } from "react-redux";
 
 
-
+// Styling for the Map object (has to be here, instead of css)
 const containerStyle = {
     width: "100%",
     height: "100%",
 };
 
+// Default psoition for Map to show
 const center = {
     lat: 52.000,
     lng: 13.300,
@@ -25,9 +26,9 @@ const center = {
 export default function Map() {
 
     const { filteredRestaurantList, mapView, selectedMarker } = useSelector((state) => state.results);
-
     const dispatch = useDispatch();
     
+    // Seems to initialize the Maps API
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: "AIzaSyC8n6mIsTUbA49yf6Ld4nOvGOdc0abCbow",
@@ -36,19 +37,18 @@ export default function Map() {
 
     const [map, setMap] = React.useState(null);
 
-    React.useEffect(() => {
-        // console.log(filteredRestaurantList);
-        
+
+    // Even though the code is virtually the same, 
+    React.useEffect(() => {        
+        // Creates new bounds for the Map
         window.google && (function () {
             const bounds = new window.google.maps.LatLngBounds();
 
+        // Goes through each result and extends the bounds with the coordinates of that result
         filteredRestaurantList.length > 0 &&
             filteredRestaurantList.map((item) => {
-                const latLng = new window.google.maps.LatLng(
-                    item.geometry.location
-                );
+                const latLng = new window.google.maps.LatLng(item.geometry.location);
                 bounds.extend(latLng);
-                // console.log("bounds", bounds);
                 map.fitBounds(bounds);
                 setMap(map);
             });
@@ -56,6 +56,7 @@ export default function Map() {
         
     }, [filteredRestaurantList, mapView, selectedMarker])
 
+        
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
 

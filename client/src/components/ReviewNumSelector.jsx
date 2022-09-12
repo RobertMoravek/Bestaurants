@@ -6,24 +6,24 @@ import { setSelectedMinReviews} from "../redux/filtersSlice";
 
 
 export default function ReviewNumSelector() {
-    // const {isPriceSelectorVisible} = useSelector(state => state.filters);
-    let [isPriceSelectorVisible, setIsPriceSelectorVisible] = useState(false)
+    let [isMinReviewSelectorVisible, setIsMinReviewSelectorVisible] = useState(false)
     const dispatch = useDispatch();
     const selectorElement = useRef();
     // console.log(selectorElement);
 
     let { selectedMinReviews } = useSelector((state) => state.filters);
     
+    // Show or hide the Minimum review Selector
     function selectorToggler () {
-        if (!isPriceSelectorVisible) {
+        if (!isMinReviewSelectorVisible) {
             selectorElement.current.classList.add("selected");
         } else {
             selectorElement.current.classList.remove("selected");
         }
-        setIsPriceSelectorVisible(!isPriceSelectorVisible)
+        setIsMinReviewSelectorVisible(!isMinReviewSelectorVisible)
     }
 
-
+    // Dispatch the selected minimum number of reviews (10 as baseline, if nothing is selected)
     function minReviewsSetter(input) {
         selectedMinReviews === input
             ? dispatch(setSelectedMinReviews(10))
@@ -44,20 +44,21 @@ export default function ReviewNumSelector() {
                 }}
                 ref={selectorElement}
             >
+                {/* If the min review selector is visible, show the text. If not,... */}
                 <div className="flex row gap-075">
-                    {isPriceSelectorVisible ?
+                    {isMinReviewSelectorVisible ?
                         <p>Number of Reviews</p> :
+                        // If a minimum Value is selected, show that value. If not, show the icon.
                         selectedMinReviews != 10 ?
                             <p>&#62; {selectedMinReviews}</p> :
                             <img src="/review-num-icon.png" alt="" className="route-icon"/>
-                            
-
-
-                    
                     }
                 </div>
+
+                {/* Loop through the options of minimum review numbers */}
                 {[50, 100, 250, 500].map((item) => {
                     return (
+                        // If a minimum value is slected, highlight it. If not, don't.
                         item === selectedMinReviews ?
                             <button className="coin-button selected-button" onClick={() => {minReviewsSetter(item)}} key={item}> <p>&#62; {item}</p> </button> :
                             <button className="coin-button" onClick={() => {minReviewsSetter(item)}} key={item}> <p>&#62; {item}</p> </button> 

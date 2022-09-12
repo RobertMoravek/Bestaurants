@@ -32,10 +32,14 @@ function App() {
     return (
         <div className="app">
 
+            {/* Options Bar always lives at the top */}
+
             <OptionsBar/>
             <div className="content">
                 <BrowserRouter>
                     <Routes>
+
+                        {/* All routes load the Search Component */}
                         <Route path="/" element={<Search/>}/>                        
                         <Route path="*" element={<Search/>}/>
                         

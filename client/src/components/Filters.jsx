@@ -37,7 +37,7 @@ export default function Filters() {
 
 
 
-
+    // On mount fetch the object of available data from the backend and generate/dispatch a list of available cities out of it
     React.useEffect(() => {
         fetch("/availabledata")
             .then((res) => res.json())
@@ -50,15 +50,7 @@ export default function Filters() {
             });
     }, []);
 
-    // React.useEffect(() => {
-    //     fetch("/searchoptionscountries")
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             // console.log(data);
-    //             dispatch(setAvailableCountries(data));
-    //         });
-    // }, []);
-
+    // If a country was chosen and it's in the available countries list, then generate the list of available cities out of the original oject and dispatch it
     React.useEffect(() => {
         // console.log(availableCountries.includes(chosenCountry));
         if (chosenCountry == "" || !availableCountries.includes(chosenCountry)) {
@@ -68,6 +60,8 @@ export default function Filters() {
         dispatch(setAvailableCities(tempfoundCities));
 
     }, [chosenCountry]);
+
+    // If a city was chosen and it's in the available cities list, then generate the list of available types of Restaurants out of the original oject and dispatch it
 
     React.useEffect(() => {
         if (chosenCity == "" || !availableCities.includes(chosenCity)) {
@@ -79,35 +73,34 @@ export default function Filters() {
         dispatch(setAvailableTypesOfRestaurants(tempfoundRestaurantTypes));
     }, [chosenCity]);
 
+    // If a type of restaurant was chosen and it's in the list of available types of restaurants, then fetch the results from the backend and dispatch them
     React.useEffect(() => {
         // console.log('im ue');
         chosenTypeOfRestaurant !== "" &&
             (availableTypesOfRestaurants.includes(chosenTypeOfRestaurant) &&
-            fetch(
-                "/searchoptionsresults/" +
-                    chosenCountry +
-                    "/" +
-                    chosenCity +
-                    "/" +
-                    chosenTypeOfRestaurant
-            )
+            fetch(`/searchoptionsresults/${chosenCountry}/${chosenCity}/${chosenTypeOfRestaurant}`)
                 .then((res) => res.json())
                 .then((data) => {
                     // console.log("Liste der Restaurants", data);
                     dispatch(setRestaurantList(JSON.parse(data)));
-                    // dispatch(setIsRestaurantTypeFilterVisible());
                 }));
     }, [chosenTypeOfRestaurant]);
 
+
     return (
         <>
+            {/* If the filters are visible... */}
             {isFiltersVisible && 
                 <div className="filters">
+                    {/* ...and the available country list is populated and visible... */}
                     {isCountryFilterVisible && availableCountries.length > 0 &&
                         <div className="country-filters">
+                            {/* Show the location finder button... */}
                             <LocationFinder/>
+                            {/* ... and a button for each country */}
                             {availableCountries.map((item) => {
                                 return <button key={item} onClick={() => {
+                                    // When clicked, dispatch the user's choice, delete all nested choices and switch visible filters
                                     dispatch(setIsCountryFilterNotVisible());
                                     dispatch(setChosenCountry(item));
                                     dispatch(setChosenCity(""));
@@ -119,23 +112,32 @@ export default function Filters() {
                             }
                             )}
                         </div> }
+                    {/* ...and the available city list is populated and visible... */}
                     {isCityFilterVisible && availableCities.length > 0 &&
                         <div className="city-filters">
+                            {/* Show the location finder button... */}
                             <LocationFinder/>
+                            {/* ... and a button for each city */}
                             {availableCities.map((item) => {
                                 return <button key={item} onClick={() => {
+                                    // When clicked, dispatch the user's choice, delete all nested choices and switch visible filters
                                     dispatch(setChosenCity(item));
                                     dispatch(setIsCityFilterNotVisible());
                                     dispatch(setChosenTypeOfRestaurant(""));
-                                    dispatch(setIsRestaurantTypeFilterVisible());
+                                    dispatch(
+                                        setIsRestaurantTypeFilterVisible()
+                                    );
                                 }}>{item}</button>
                             }
                             )}
                         </div> }
+                    {/* ...and the available city list is populated and visible... */}
                     {isRestaurantTypeFilterVisible && availableTypesOfRestaurants.length > 0 &&
                         <div className="restaurant-type-filters">
+                            {/* Show a button for each type of restaurant */}
                             {availableTypesOfRestaurants.map((item) => {
                                 return <button key={item} onClick={() => {
+                                    // When clicked, dispatch the user's choice and hide all filters to make space for the results
                                     dispatch(setChosenTypeOfRestaurant(item));
                                     dispatch(setIsResultsVisible());
                                     dispatch(setlist());

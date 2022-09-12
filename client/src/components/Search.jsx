@@ -12,10 +12,14 @@ export default function Search() {
 
     return (
         <>
+
+            {/* URL Anylizer runs on mount and tries to destruture the URL to extract chosen Country, City and Type of Restaurant */}
             {isUrlAnalyzerActive && <URLAnalyzer />}
 
+            {/* A set of filters for selecting Country, City and Type of Restaurant manually */}
             <Filters />
 
+            {/* If there are search results in the store, display the Results Component */}
             {restaurantList.length > 0 && <Results />}
         </>
     );

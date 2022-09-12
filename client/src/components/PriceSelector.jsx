@@ -6,23 +6,24 @@ import { useRef, useState } from "react";
 
 
 export default function PriceSelector() {
-    // const {isPriceSelectorVisible} = useSelector(state => state.filters);
-    let [isPriceSelectorVisible, setIsPriceSelectorVisible] = useState(false)
+    let [isPriceSelectorVisible, setIsPriceSelectorVisible] = useState(false);
     const dispatch = useDispatch();
     const selectorElement = useRef();
     // console.log(selectorElement);
 
-    function selectorToggler () {
+    // Show or hide the price bracket Selector
+    function selectorToggler() {
         if (!isPriceSelectorVisible) {
             selectorElement.current.classList.add("selected");
         } else {
             selectorElement.current.classList.remove("selected");
         }
-        setIsPriceSelectorVisible(!isPriceSelectorVisible)
+        setIsPriceSelectorVisible(!isPriceSelectorVisible);
     }
 
-        let { selectedPriceLevel } = useSelector((state) => state.filters);
+    let { selectedPriceLevel } = useSelector((state) => state.filters);
 
+    // Dispatch the selected price bracket
     function priceLevelSetter(input) {
         selectedPriceLevel === input
             ? dispatch(setSelectedPriceLevel(null))
@@ -30,12 +31,8 @@ export default function PriceSelector() {
         // console.log(priceLevelSelected);
     }
 
-
     return (
         <>
-
-
-
             <div
                 className="price-selector"
                 onClick={() => {
@@ -43,29 +40,42 @@ export default function PriceSelector() {
                 }}
                 ref={selectorElement}
             >
+                {/* If the price Selector is visible, show the text. If not,... */}
                 <div className="flex row gap-075">
-                    {isPriceSelectorVisible ?
-                        <p>Price Level</p> :
-                        selectedPriceLevel ?
-                            <img src={`/coin${selectedPriceLevel}.png`} alt="" className="coin-img" /> :
-                            <img src="/price-icon.png" alt="" className="route-icon"/>
-                            
-
-
-                    
-                    }
+                    {isPriceSelectorVisible ? (
+                        <p>Price Level</p>
+                    ) : // If a minimum Value is selected, show that value. If not, show the icon.
+                    selectedPriceLevel ? (
+                        <img
+                            src={`/coin${selectedPriceLevel}.png`}
+                            alt=""
+                            className="coin-img"
+                        />
+                    ) : (
+                        <img
+                            src="/price-icon.png"
+                            alt=""
+                            className="route-icon"
+                        />
+                    )}
                 </div>
+
+                {/* Loop through the options of price brackets (undefined for entries without price bracket) */}
                 {[1, 2, 3, 4, "undefined"].map((item) => {
-                    let coinUrl = `/coin${item}.png`
-                    return (
-                        item === selectedPriceLevel ?
-                            <button className="coin-button selected-button" onClick={() => {priceLevelSetter(item)}} key={item}><img src={coinUrl} alt="" className="coin-img" /></button> :
-                            <button className="coin-button" onClick={() => {priceLevelSetter(item)}} key={item}><img src={coinUrl} alt="" className="coin-img" /></button> 
-                    )
-                    })}
-            </div> 
-            
-        
+                    let coinUrl = `/coin${item}.png`;
+
+                    return item === selectedPriceLevel ? (
+                        // If a value is slected, highlight it. If not, don't.
+                        <button className="coin-button selected-button" onClick={() => {priceLevelSetter(item);}} key={item}>
+                            <img src={coinUrl} alt="" className="coin-img" />
+                        </button>
+                    ) : (
+                        <button className="coin-button" onClick={() => { priceLevelSetter(item)}} key={item}>
+                            <img src={coinUrl} alt="" className="coin-img" />
+                        </button>
+                    );
+                })}
+            </div>
         </>
     );
 }
