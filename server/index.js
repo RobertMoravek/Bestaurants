@@ -13,6 +13,15 @@ app.use(express.static(path.resolve(__dirname, "../client/build")));
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
+if (process.env.NODE_ENV == "production") {
+    app.use((req, res, next) => {
+        if (req.headers["x-forwarded-proto"].startsWith("https")) {
+            return next();
+        }
+        res.redirect(`https://${req.hostname}${req.url}`);
+    });
+}
+
 app.get("/api", async (req, res) => {
     res.json({ message: "API!" });
 });
