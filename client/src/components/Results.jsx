@@ -17,18 +17,18 @@ export default function Results() {
     const navigate = useNavigate();
 
         React.useEffect(() => {
-            // console.log('selectedPrizeLevel in Results', typeof selectedPriceLevel);
-            if (restaurantList.length > 0) {
 
+            // Create a filtered list of restaurants according to the selected (or not selected) values
+            if (restaurantList.length > 0) {
                 if (selectedPriceLevel) {
                     dispatch(setFilteredRestaurantList(((restaurantList.filter(item => item.user_ratings_total > selectedMinReviews)).filter(item => String(item.price_level) == selectedPriceLevel)).slice(0, 10)))
-                    
                 } else {
                     dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > selectedMinReviews)).slice(0, 10)))
                 }
 
             }
 
+            // Create the url from the chosen variables and push them into the history
             let chosenCountryLC = ((chosenCountry.split(" ")).map((item) => item = item.toLowerCase())).join("+")
             let chosenCityLC = ((chosenCity.split(" ")).map((item) => item = item.toLowerCase())).join("+")
             let chosenTypeOfRestaurantLC = ((chosenTypeOfRestaurant.split(" ")).map((item) => item = item.toLowerCase())).join("+")
@@ -38,9 +38,12 @@ export default function Results() {
 
     return (
         <>  
+            {/* If the results are visible... */}
             {isResultsVisible && 
                 <div className="results">
+                    {/* Display the map component (even if it's invisibleat first), since it needs to be initialized for some reason  */}
                     <Map/>
+                    {/* If the listview is active, show a list of the results */}
                     { listView && <ResultsList/>}
                     <ViewSelector/>
                     <PriceSelector/>

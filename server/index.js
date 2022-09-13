@@ -5,10 +5,14 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3001;
 
+// Reads the json containing the structure of the available data
+
 const availableData = JSON.parse(require('fs').readFileSync(__dirname + '/availableData.JSON', 'utf8'))
 
 const app = express();
 
+
+// Force https in production
 if (process.env.NODE_ENV == "production") {
     app.use((req, res, next) => {
         if (req.headers["x-forwarded-proto"].startsWith("https")) {
@@ -17,23 +21,22 @@ if (process.env.NODE_ENV == "production") {
         res.redirect(`https://${req.hostname}${req.url}`);
     });
 }
-app.use(express.static(path.resolve(__dirname, "../client/build")));
 
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
-
-app.get("/api", async (req, res) => {
-    res.json({ message: "API!" });
-});
+// Finds the nearest city from my list by comparing it to the coordinates coming from the frontend. 
 
 app.get("/getnearestcity/:lat/:lng", async (req, res) => {
     console.log("get nearest city");
+    // Get the object with all available cities. Don't use availableData, since it won't work, if you're near a border
     let cityDB = JSON.parse(
             fs.readFileSync(__dirname + "/citiesReducedAndSortedEU.json").toString()
     );
     let foundCountry = "";
     let foundCity = "";
     let foundCityDistance = 100000000;
+    // For each city in the list, calculate the straigth line distance to the coordinates 
     cityDB.forEach(city => {
         function haversine_distance(mk1, lat, lng) {
                     
@@ -47,69 +50,38 @@ app.get("/getnearestcity/:lat/:lng", async (req, res) => {
                     return d;
                 }
         let result =  haversine_distance(city, req.params.lat, req.params.lng)
+        // If the current city is closer than the previous ones, set it to be the found city
         if (result < foundCityDistance) {
             foundCityDistance = result;
             foundCity = city.city;
             foundCountry = city.country;
         }
     });
-
+    // Return the found country and city to the frontend
     res.json({"foundCity": foundCity, "foundCountry": foundCountry});
 });
 
+// Passes the structure of the available data to the frontend
 
 app.get("/availabledata", async (req, res) => {
     console.log('available Data requested');
     res.json(availableData);
 });
 
-// app.get("/searchoptionscountries", async (req, res) => {
-//     console.log('searchoptionscountry');
-//     let countriesNames = fs.readdirSync(__dirname + "/../restaurants/");
-//     res.json(countriesNames);
-// });
-
-// app.get("/searchoptionscities/:country", async (req, res) => {
-//     console.log("searchoptionscity");
-//     let citiesNames = fs.readdirSync(
-//         __dirname + "/../restaurants/" + req.params.country
-//     );
-//     res.json(citiesNames);
-// });
-
-// app.get("/searchoptionsrestaurants/:country/:city", async (req, res) => {
-//     console.log("sorestauranttypes");
-//     let restaurantTypes = fs.readdirSync(
-//         __dirname +
-//             "/../restaurants/" +
-//             req.params.country +
-//             "/" +
-//             req.params.city
-//     );
-//     restaurantTypes = restaurantTypes.map((item) => item.slice(0, -5));
-//     res.json(restaurantTypes);
-// });
+// Read the json file corresponding to the search variables and passes it to the frontend
 
 app.get("/searchoptionsresults/:country/:city/:type", async (req, res) => {
     console.log("searchoptionresults");
     let results = fs
         .readFileSync(
-            path.join(
-                __dirname +
-                    "/../restaurants/" +
-                    req.params.country +
-                    "/" +
-                    req.params.city +
-                    "/" +
-                    req.params.type +
-                    ".json"
-            )
+            path.join(__dirname + `/../restaurants/"${req.params.country}/${req.params.city}/${req.params.type}.json`)
         )
         .toString();
     // console.log(results);
     res.json(results);
 });
 
+// Only neccessary in production (at least on heroku), to catch the requests with a string of url at the end. 
 app.get("*", function (req, res) {
     res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });

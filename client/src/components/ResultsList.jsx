@@ -6,21 +6,16 @@ export default function ResultsList() {
     const { filteredRestaurantList, mapView } = useSelector((state) => state.results);
     const dispatch = useDispatch();
 
-
     const myApiKey = "AIzaSyC8n6mIsTUbA49yf6Ld4nOvGOdc0abCbow";
-
-
-
-    // filteredRestaurantList.length > 0 && console.log(filteredRestaurantList);
-
 
     return (
 
                 <div className="results-list">
+                    {/* For every restaurant in the filtered list... */}
                     {!mapView && filteredRestaurantList.length > 0 &&
                         filteredRestaurantList.map((item, index) => {
+                            // Encode the name for linking and create the links to google maps
                             let encodedName = encodeURIComponent(item.name);
-                            console.log(encodedName);
                             let imgUrl= item.photos ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photo_reference=${item.photos[0].photo_reference}&key=${myApiKey}` : "";
                             let linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${item.place_id}`;
                             let routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedName}&destination_place_id=${item.place_id}`;
@@ -28,7 +23,7 @@ export default function ResultsList() {
                             let coinUrl = "/coin" + item.price_level + ".png";
 
                             return (
-
+                                // Display the restaurant data and links
                                 <div className="restaurant-container" key={item.place_id}>
                                     {imgUrl.length > 0 && <img src={imgUrl} alt="" className="restaurant-title-pic"/>}
                                     <h2 className="restaurant-hl">{num}. {item.name} <img src={coinUrl} alt={item.price_level} className="coin-img"/></h2>

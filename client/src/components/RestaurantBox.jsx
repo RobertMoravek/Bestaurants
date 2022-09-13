@@ -12,33 +12,14 @@ export default function RestaurantBox() {
     
     const dispatch = useDispatch();
 
-
-    // React.useEffect(() => {
-    //     restaurantList.length > 0 &&
-    //         (!min50Box
-    //             ? dispatch(
-    //                 setFilteredRestaurantList(
-    //                     restaurantList
-    //                         .filter((item) => item.user_ratings_total > 5)
-    //                         .slice(0, 10)
-    //                 )
-    //             )
-    //             : dispatch(
-    //                 setFilteredRestaurantList(
-    //                     restaurantList
-    //                         .filter((item) => item.user_ratings_total > 50)
-    //                         .slice(0, 10)
-    //                 )
-    //             ));
-    // }, [restaurantList, min50Box]);
-
-
     return (
         <>
+            {/* If a marker was selected and there is a list of results, show the restaurant info box */}
             {selectedMarker &&
                 filteredRestaurantList.map((item, index) => {
                     let num = filteredRestaurantList.indexOf(item) + 1;
                     if (selectedMarker === num) {
+                        // Encode the name for linking and create the links to google maps
                         let encodedName = encodeURIComponent(item.name);
                         let linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${item.place_id}`;
                         let routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedName}&destination_place_id=${item.place_id}`;
@@ -47,13 +28,14 @@ export default function RestaurantBox() {
                             <div className="restaurant-box" key={index}>
                                 <span
                                     className="restaurant-box-closer"
+                                    // Reset the selected marker, when you close the restaurant box
                                     onClick={() => {
                                         dispatch(setSelectedMarker(null));
                                     }}
                                 >
                                     +
                                 </span>
-                                {/* {imgUrl.length > 0 && <img src={imgUrl} alt="" className="restaurant-title-pic"/>} */}
+                                {/* Display the restaurant data and links */}
                                 <h2 className="restaurant-hl">
                                     {num}. {item.name}
                                 </h2>

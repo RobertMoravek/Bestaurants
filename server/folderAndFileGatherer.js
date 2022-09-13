@@ -1,5 +1,7 @@
 const fs = require("fs");
 
+//Maps out the folders and files in the restaurant folder and saves it as availableData.JSON fro use by the server
+
 function mapSizes(dir) {
     let content = fs.readdirSync(dir, { withFileTypes: true });
     let tempObj = {};

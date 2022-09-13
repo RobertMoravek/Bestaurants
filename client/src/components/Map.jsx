@@ -38,7 +38,7 @@ export default function Map() {
     const [map, setMap] = React.useState(null);
 
 
-    // Even though the code is virtually the same, 
+    // Even though the code is virtually the same, this seems to be neccessary to get the map to center and zoom on the markers
     React.useEffect(() => {        
         // Creates new bounds for the Map
         window.google && (function () {
@@ -56,7 +56,7 @@ export default function Map() {
         
     }, [filteredRestaurantList, mapView, selectedMarker])
 
-        
+    // This does everything except the centering and zooming. Why?
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
 
@@ -67,18 +67,16 @@ export default function Map() {
             map.fitBounds(bounds);
                 setMap(map);
         })
-            // const bounds = new window.google.maps.LatLngBounds(center);
-            // map.fitBounds(bounds);
-            // setMap(map);
-
-
     }, [filteredRestaurantList, selectedMarker]);
 
+
+    // When component unmounts, set Map to null
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null);
     }, []);
 
     return isLoaded ? (
+        // Component can't be unmounted when switching to list view, or it will not work properly, when switching back. Making it invisible instead.
         <div className={mapView ? "map-box" : "invisible"}>
             <GoogleMap
                 mapContainerStyle={containerStyle}
@@ -91,10 +89,12 @@ export default function Map() {
 
                 }}
             >
+                {/* Create a marker for every restaurant */}
                 {filteredRestaurantList.length > 0 &&
                     filteredRestaurantList.map((item, index) => {
                         return (
                             <>
+                                {/* If it's the selected marker... */}
                                 {index + 1 === selectedMarker && (
                                     <MarkerF
                                         // key={item.place_id}
@@ -108,17 +108,17 @@ export default function Map() {
                                         icon={{
                                             strokeColor: "#ffffff",
                                             strokeWeight: 3,
+                                            // ... make it bigger 
                                             scaledSize:
-                                                new window.google.maps.Size(
-                                                    42,
-                                                    56
-                                                ),
+                                                new window.google.maps.Size(42,56),
+                                            // Every marker has its own image
                                             url: `/marker${index + 1}.png`,
                                             fillColor: "#003952",
                                             fillOpacity: 1.0,
                                         }}
                                     />
                                 )}
+                                {/* If it's not the selected marker */}
                                 {index + 1 !== selectedMarker && (
                                     <MarkerF
                                         // key={index+1}
@@ -147,6 +147,8 @@ export default function Map() {
                         );
                     })}
             </GoogleMap>
+
+            {/* If you selected a marker, show the corresponding info in a component */}
             {selectedMarker && <RestaurantBox />}
         </div>
     ) : (
