@@ -12,7 +12,8 @@ import {
     setFoundCity,
     setFoundCountry,
     setLat,
-    setLng
+    setLng,
+    setErrorMessage
 } from "../redux/filtersSlice";
 
 export default function LocationFinder() {
@@ -56,6 +57,7 @@ export default function LocationFinder() {
             fetch(`/getnearestcity/${lat}/${lng}`)
                 .then((res) => res.json())
                 .then((result) => {
+                    dispatch(setErrorMessage(true));
                     dispatch(setChosenCountry(result.foundCountry));
                     dispatch(setChosenCity(result.foundCity));
                     dispatch(setIsCityFilterNotVisible());

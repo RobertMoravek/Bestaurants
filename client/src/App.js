@@ -12,6 +12,7 @@ import Results from "./components/Results.jsx";
 import OptionsBar from "./components/OptionsBar";
 import { setIsCountryFilterVisible } from "./redux/filtersSlice";
 import { useState } from "react";
+import ErrorHandler from "./components/ErrorHandler";
 
 
 
@@ -43,6 +44,9 @@ function App() {
 
             {/* Options Bar always lives at the top */}
             <OptionsBar/>
+
+            {/* Listens for possible Errors */}
+            <ErrorHandler/>
 
             <div className="content">
                 <BrowserRouter>

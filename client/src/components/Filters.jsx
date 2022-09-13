@@ -14,6 +14,7 @@ import {
     setIsRestaurantTypeFilterVisible,
     setIsRestaurantTypeFilterNotVisible,
     setIsFiltersNotVisible,
+    setErrorMessage,
 } from "../redux/filtersSlice";
 import { setIsResultsVisible, setRestaurantList, setlist } from "../redux/resultsSlice";
 import LocationFinder from "./LocationFinder";
@@ -42,11 +43,15 @@ export default function Filters() {
         fetch("/availabledata")
             .then((res) => res.json())
             .then((data) => {
-                // console.log(data);
-                dispatch(setAvailableData(data));
-                let tempfoundCountries = [];
-                Object.keys(data).map((item) => {tempfoundCountries.push(item)})
-                dispatch(setAvailableCountries(tempfoundCountries));
+
+                if (Object.keys(data).length > 0) {
+                    dispatch(setAvailableData(data));
+                    let tempfoundCountries = [];
+                    Object.keys(data).map((item) => {tempfoundCountries.push(item)})
+                    dispatch(setAvailableCountries(tempfoundCountries));
+                } else {
+                    dispatch(setErrorMessage(true))
+                }
             });
     }, []);
 
@@ -81,8 +86,11 @@ export default function Filters() {
             fetch(`/searchoptionsresults/${chosenCountry}/${chosenCity}/${chosenTypeOfRestaurant}`)
                 .then((res) => res.json())
                 .then((data) => {
-                    // console.log("Liste der Restaurants", data);
-                    dispatch(setRestaurantList(JSON.parse(data)));
+                    if (Object.keys(data).length > 0) {
+                        dispatch(setRestaurantList(JSON.parse(data)));
+                    } else {
+                        dispatch(setErrorMessage(true))
+                    }
                 }));
     }, [chosenTypeOfRestaurant]);
 

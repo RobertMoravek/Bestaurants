@@ -46,6 +46,9 @@ export default function URLAnalyzer () {
         // console.log(url);
 
         // Dispatch the extracted country, if it's included in the available Countries
+        if (url[1] == "Bbq") {
+            url[1]="BBQ"
+        }
 
         if(availableCountries.includes(url[5])) {
             
