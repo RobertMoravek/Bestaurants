@@ -47,7 +47,7 @@ export default function ReviewNumSelector() {
                 {/* If the min review selector is visible, show the text. If not,... */}
                 <div className="flex row gap-075">
                     {isMinReviewSelectorVisible ?
-                        <p>Number of Reviews</p> :
+                        <p className="text-center">Number of Reviews</p> :
                         // If a minimum Value is selected, show that value. If not, show the icon.
                         selectedMinReviews != 10 ?
                             <p>&#62; {selectedMinReviews}</p> :

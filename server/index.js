@@ -74,7 +74,7 @@ app.get("/searchoptionsresults/:country/:city/:type", async (req, res) => {
     console.log("searchoptionresults");
     let results = fs
         .readFileSync(
-            path.join(__dirname + `/../restaurants/"${req.params.country}/${req.params.city}/${req.params.type}.json`)
+            path.join(__dirname + `/../restaurants/${req.params.country}/${req.params.city}/${req.params.type}.json`)
         )
         .toString();
     // console.log(results);
