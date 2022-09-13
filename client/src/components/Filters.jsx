@@ -99,7 +99,7 @@ export default function Filters() {
         <>
             {/* If the filters are visible... */}
             {isFiltersVisible && 
-                <div className="filters">
+                <div className="filters" id="filters">
                     {/* ...and the available country list is populated and visible... */}
                     {isCountryFilterVisible && availableCountries.length > 0 &&
                         <div className="country-filters">

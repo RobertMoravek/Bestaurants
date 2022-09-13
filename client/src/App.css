@@ -279,7 +279,12 @@ label {
 }
 
 .results, .results-map, .map-box {
-    height: 100%
+    height: 100%;
+    /* border: 5px solid red; */
+}
+
+.results-list {
+    padding-bottom: 0.1rem;
 }
 
 .restaurant-hl {

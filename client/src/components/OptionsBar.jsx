@@ -51,6 +51,7 @@ export default function OptionsBar() {
                     <p
                         onClick={() => {
                             // Switch views from results to filters
+                            
                             dispatch(setNotMap());
                             dispatch(setNotList());
                             dispatch(setIsFiltersVisible());
@@ -59,6 +60,7 @@ export default function OptionsBar() {
                             dispatch(setIsCityFilterVisible());
                             // dispatch(setAvailableTypesOfRestaurants());
                             dispatch(setIsUrlAnalyzerActive(false));
+                            document.getElementsByClassName("filters")[0].scrollTo(0, 0);
                         }}
                         className="single-chosen-option"
                     >
@@ -74,12 +76,14 @@ export default function OptionsBar() {
                         onClick={() => {
                             // Switch views from results to filters
                             dispatch(setNotMap());
+                            
                             dispatch(setNotList());
                             dispatch(setIsFiltersVisible());
                             dispatch(setIsCityFilterNotVisible());
                             dispatch(setIsCountryFilterNotVisible());
                             dispatch(setIsRestaurantTypeFilterVisible());
                             dispatch(setIsUrlAnalyzerActive(false));
+                            document.getElementsByClassName("filters")[0].scrollTop(0, 0);
                         }}
                         className="single-chosen-option"
                     >
