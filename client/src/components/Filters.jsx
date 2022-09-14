@@ -59,11 +59,14 @@ export default function Filters() {
     }, []);
 
     React.useEffect(() => {
-        document.querySelector(".app").scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth",
-        }); 
+        setTimeout(() => {
+            document.querySelector(".app").scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+            }); 
+            
+        }, 200);
     }, [isCountryFilterVisible, isCityFilterVisible, isRestaurantTypeFilterVisible])
 
     // If a country was chosen and it's in the available countries list, then generate the list of available cities out of the original oject and dispatch it

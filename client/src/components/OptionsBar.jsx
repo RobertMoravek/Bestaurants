@@ -10,6 +10,7 @@ import {
     setIsRestaurantTypeFilterNotVisible,
     setIsCountryFilterNotVisible,
     setIsUrlAnalyzerActive,
+    setErrorResults,
 } from "../redux/filtersSlice";
 import {setNotMap, setNotList } from "../redux/resultsSlice";
 
@@ -40,11 +41,7 @@ export default function OptionsBar() {
                             dispatch(setIsRestaurantTypeFilterNotVisible());
                             dispatch(setIsCountryFilterVisible());
                             dispatch(setIsUrlAnalyzerActive(false));
-                            // document.querySelector(".app").scrollTo({
-                            //     top: 0,
-                            //     left: 0,
-                            //     behavior: "smooth",
-                            // });                            
+                            dispatch(setErrorResults(false))
                         }}
                         className="single-chosen-option"
                     >
@@ -65,11 +62,8 @@ export default function OptionsBar() {
                             dispatch(setIsCityFilterVisible());
                             // dispatch(setAvailableTypesOfRestaurants());
                             dispatch(setIsUrlAnalyzerActive(false));
-                            // document.querySelector(".app").scrollTo({
-                            //     top: 0,
-                            //     left: 0,
-                            //     behavior: "smooth",
-                            // }); 
+                            dispatch(setErrorResults(false))
+
                         }}
                         className="single-chosen-option"
                     >
@@ -92,11 +86,8 @@ export default function OptionsBar() {
                             dispatch(setIsCountryFilterNotVisible());
                             dispatch(setIsRestaurantTypeFilterVisible());
                             dispatch(setIsUrlAnalyzerActive(false));
-                            // document.querySelector(".app").scrollTo({
-                            //     top: 0,
-                            //     left: 0,
-                            //     behavior: "smooth",
-                            // }); 
+                            dispatch(setErrorResults(false));
+ 
                         }}
                         className="single-chosen-option"
                     >

@@ -456,10 +456,6 @@ label {
     opacity: 100;
 }
 
-.opacity-zero {
-    opacity: 0%;
-    transition: 1s ease-in;
-}
 
 .transparent {
     opacity: 0;
