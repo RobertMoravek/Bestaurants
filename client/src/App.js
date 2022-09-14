@@ -20,6 +20,7 @@ function App() {
     const dispatch = useDispatch();
     const  [isIntroBackdropVisible, setIsIntroBackdropVisible] = useState(true)
 
+
     useEffect(() => {
         let logo = document.getElementsByClassName("logo-corner");
         logo[0].classList.remove("transparent");
@@ -34,6 +35,7 @@ function App() {
                 dispatch(setIsCountryFilterVisible())
             }, 1000);
         }, 2000);
+
     }, [])
     
     return (

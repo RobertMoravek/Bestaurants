@@ -16,6 +16,7 @@ import {
     setErrorMessage
 } from "../redux/filtersSlice";
 
+
 export default function LocationFinder() {
     let {
         availableCountries,
@@ -27,6 +28,7 @@ export default function LocationFinder() {
     } = useSelector((state) => state.filters);
 
     const dispatch = useDispatch();
+
 
     // If the found country is in the list of available countries, dispatch it, switch the visible filters and afterwords remove it (to avoid issues wth manually changing it later)
     useEffect(() => {
@@ -45,6 +47,8 @@ export default function LocationFinder() {
     // If the found city is in the list of available cities, dispatch it, switch the visible filters and afterwords remove it (to avoid issues wth manually changing it later)
 
     useEffect(() => {
+        console.log(document.getElementsByClassName("content"));
+        console.log(document.getElementById("filters"));
         // console.log("Lat in useE", lat, availableCities, foundCity);
         if (availableCities.includes(foundCity)) {
             // console.log('in if');
@@ -123,7 +127,7 @@ export default function LocationFinder() {
 
     return (
         <>
-            <button onClick={() => getLocation()}>
+            <button onClick={() => getLocation()} id="location-finder-button">
                 {" "}
                 <img
                     src="/marker-with-white-middle.png"

@@ -15,6 +15,8 @@ import {
     setIsRestaurantTypeFilterNotVisible,
     setIsFiltersNotVisible,
     setErrorMessage,
+    setSelectedPriceLevel,
+    setSelectedMinReviews,
 } from "../redux/filtersSlice";
 import { setIsResultsVisible, setRestaurantList, setlist } from "../redux/resultsSlice";
 import LocationFinder from "./LocationFinder";
@@ -38,8 +40,9 @@ export default function Filters() {
 
 
 
-    // On mount fetch the object of available data from the backend and generate/dispatch a list of available cities out of it
+    // On mount fetch the object of available data from the backend and generate/dispatch a list of available countries out of it
     React.useEffect(() => {
+    
         fetch("/availabledata")
             .then((res) => res.json())
             .then((data) => {
@@ -54,6 +57,14 @@ export default function Filters() {
                 }
             });
     }, []);
+
+    React.useEffect(() => {
+        document.querySelector(".app").scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        }); 
+    }, [isCountryFilterVisible, isCityFilterVisible, isRestaurantTypeFilterVisible])
 
     // If a country was chosen and it's in the available countries list, then generate the list of available cities out of the original oject and dispatch it
     React.useEffect(() => {
@@ -115,7 +126,8 @@ export default function Filters() {
                                     dispatch(setChosenTypeOfRestaurant(""))
                                     dispatch(setAvailableTypesOfRestaurants([]))
                                     dispatch(setIsCityFilterVisible());
-                                    
+                                    dispatch(setSelectedPriceLevel(null));
+                                    dispatch(setSelectedMinReviews(10));
                                 }}>{item}</button>
                             }
                             )}
@@ -135,6 +147,8 @@ export default function Filters() {
                                     dispatch(
                                         setIsRestaurantTypeFilterVisible()
                                     );
+                                    dispatch(setSelectedPriceLevel(null));
+                                    dispatch(setSelectedMinReviews(10));
                                 }}>{item}</button>
                             }
                             )}
@@ -151,6 +165,8 @@ export default function Filters() {
                                     dispatch(setlist());
                                     dispatch(setIsRestaurantTypeFilterNotVisible());
                                     dispatch(setIsFiltersNotVisible())
+                                    dispatch(setSelectedPriceLevel(null));
+                                    dispatch(setSelectedMinReviews(10));
                                 }}>{item}</button>
                             }
                             )}

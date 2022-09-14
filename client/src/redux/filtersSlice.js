@@ -22,6 +22,7 @@ export const filtersSlice = createSlice({
         selectedPriceLevel: null,
         selectedMinReviews: 10,
         errorMessage: false,
+        errorResults: false,
     },
     reducers: {
         setAvailableData: (state, action) => {state.availableData = action.payload},
@@ -81,6 +82,8 @@ export const filtersSlice = createSlice({
 
         setErrorMessage: (state, action) => {state.errorMessage = action.payload},
 
+        setErrorResults: (state, action) => {state.errorResults = action.payload},
+
 
     },
 });
@@ -110,7 +113,8 @@ export const {
     setIsUrlAnalyzerActive,
     setSelectedPriceLevel,
     setSelectedMinReviews,
-    setErrorMessage
+    setErrorMessage,
+    setErrorResults
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

@@ -7,11 +7,12 @@ import ResultsList from "./ResultsList";
 import ViewSelector from "./MapViewSelector";
 import PriceSelector from "./PriceSelector";
 import ReviewNumSelector from "./ReviewNumSelector";
+import { setErrorResults } from "../redux/filtersSlice";
 
 
 
 export default function Results() {
-    const { restaurantList, isResultsVisible, listView } = useSelector((state) => state.results);
+    const { restaurantList, isResultsVisible, listView, filteredRestaurantList } = useSelector((state) => state.results);
     const { chosenCountry, chosenCity, chosenTypeOfRestaurant, selectedPriceLevel, selectedMinReviews } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -26,7 +27,8 @@ export default function Results() {
                     dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > selectedMinReviews)).slice(0, 10)))
                 }
 
-            }
+            } 
+
 
             // Create the url from the chosen variables and push them into the history
             let chosenCountryLC = ((chosenCountry.split(" ")).map((item) => item = item.toLowerCase())).join("+")
@@ -35,6 +37,12 @@ export default function Results() {
             navigate(`/top10-${chosenTypeOfRestaurantLC}-restaurants-in-${chosenCityLC}-${chosenCountryLC}`)
         },
         [restaurantList, selectedMinReviews, selectedPriceLevel]);
+
+        React.useEffect(() => {
+            if (restaurantList.length > 0 && filteredRestaurantList.length == 0 ) {
+                dispatch(setErrorResults(true))
+            }
+        }, [filteredRestaurantList])
 
     return (
         <>  
@@ -48,7 +56,9 @@ export default function Results() {
                     <ViewSelector/>
                     <PriceSelector/>
                     <ReviewNumSelector/>
-                </div>}
+                </div>
+            }
+            
 
         </>
     );

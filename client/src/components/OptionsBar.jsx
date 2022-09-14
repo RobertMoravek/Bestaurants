@@ -39,7 +39,12 @@ export default function OptionsBar() {
                             dispatch(setIsCityFilterNotVisible());
                             dispatch(setIsRestaurantTypeFilterNotVisible());
                             dispatch(setIsCountryFilterVisible());
-                            dispatch(setIsUrlAnalyzerActive(false))
+                            dispatch(setIsUrlAnalyzerActive(false));
+                            // document.querySelector(".app").scrollTo({
+                            //     top: 0,
+                            //     left: 0,
+                            //     behavior: "smooth",
+                            // });                            
                         }}
                         className="single-chosen-option"
                     >
@@ -60,7 +65,11 @@ export default function OptionsBar() {
                             dispatch(setIsCityFilterVisible());
                             // dispatch(setAvailableTypesOfRestaurants());
                             dispatch(setIsUrlAnalyzerActive(false));
-                            document.getElementsByClassName("filters")[0].scrollTo(0, 0);
+                            // document.querySelector(".app").scrollTo({
+                            //     top: 0,
+                            //     left: 0,
+                            //     behavior: "smooth",
+                            // }); 
                         }}
                         className="single-chosen-option"
                     >
@@ -83,7 +92,11 @@ export default function OptionsBar() {
                             dispatch(setIsCountryFilterNotVisible());
                             dispatch(setIsRestaurantTypeFilterVisible());
                             dispatch(setIsUrlAnalyzerActive(false));
-                            document.getElementsByClassName("filters")[0].scrollTop(0, 0);
+                            // document.querySelector(".app").scrollTo({
+                            //     top: 0,
+                            //     left: 0,
+                            //     behavior: "smooth",
+                            // }); 
                         }}
                         className="single-chosen-option"
                     >
