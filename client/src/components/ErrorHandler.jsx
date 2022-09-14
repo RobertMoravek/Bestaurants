@@ -20,7 +20,6 @@ export default function ErrorHandler() {
             }
             {errorResults && 
                 <div className="error-window">
-                    <span className="restaurant-box-closer darkred" onClick={() => {dispatch(setErrorResults(false))}}>+</span>
                     <h3>No results found</h3>
                     <p>Please adjust your search parameters.</p>
                 </div>

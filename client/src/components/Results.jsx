@@ -22,9 +22,24 @@ export default function Results() {
             // Create a filtered list of restaurants according to the selected (or not selected) values
             if (restaurantList.length > 0) {
                 if (selectedPriceLevel) {
-                    dispatch(setFilteredRestaurantList(((restaurantList.filter(item => item.user_ratings_total > selectedMinReviews)).filter(item => String(item.price_level) == selectedPriceLevel)).slice(0, 10)))
+                    let tempFilteredRestaurants = ((restaurantList.filter(item => item.user_ratings_total > selectedMinReviews)).filter(item => String(item.price_level) == selectedPriceLevel)).slice(0, 10);
+                    if (tempFilteredRestaurants.length > 0) {
+                        dispatch(setFilteredRestaurantList(tempFilteredRestaurants))
+                        dispatch(setErrorResults(false))
+                    } else {
+                        dispatch(setFilteredRestaurantList(tempFilteredRestaurants))
+                        dispatch(setErrorResults(true))
+                    }
+                    
                 } else {
-                    dispatch(setFilteredRestaurantList((restaurantList.filter(item => item.user_ratings_total > selectedMinReviews)).slice(0, 10)))
+                    let tempFilteredRestaurants = (restaurantList.filter(item => item.user_ratings_total > selectedMinReviews)).slice(0, 10);
+                    if (tempFilteredRestaurants.length > 0) {
+                        dispatch(setFilteredRestaurantList(tempFilteredRestaurants))
+                        dispatch(setErrorResults(false))
+                    } else {
+                        dispatch(setFilteredRestaurantList(tempFilteredRestaurants))
+                        dispatch(setErrorResults(true))
+                    }
                 }
 
             } 
@@ -38,11 +53,6 @@ export default function Results() {
         },
         [restaurantList, selectedMinReviews, selectedPriceLevel]);
 
-        React.useEffect(() => {
-            if (restaurantList.length > 0 && filteredRestaurantList.length == 0 ) {
-                dispatch(setErrorResults(true))
-            }
-        }, [filteredRestaurantList])
 
     return (
         <>  
