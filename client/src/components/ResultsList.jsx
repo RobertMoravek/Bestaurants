@@ -16,7 +16,7 @@ export default function ResultsList() {
                         filteredRestaurantList.map((item, index) => {
                             // Encode the name for linking and create the links to google maps
                             let encodedName = encodeURIComponent(item.name);
-                            let imgUrl= item.photos ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photo_reference=${item.photos[0].photo_reference}&key=${apiKey}` : "";
+                            let imgUrl= item.photos ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photo_reference=${item.photos[0].photo_reference}&key=AIzaSyAvzBYUNfveCKoCxAsz9tPRlI2D3OUpCEI` : "";
                             let linkUrl = `https://www.google.com/maps/search/?api=1&query=${encodedName}&query_place_id=${item.place_id}`;
                             let routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedName}&destination_place_id=${item.place_id}`;
                             let num = filteredRestaurantList.indexOf(item)+1;
