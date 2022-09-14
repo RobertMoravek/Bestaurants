@@ -1,0 +1,36 @@
+{
+    "name": "bestaurants",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server/index.js",
+        "dev:client": "webpack serve --mode development",
+        "dev:server": "nodemon --watch server --ignore server/uploads server/server.js",
+        "heroku-postbuild": "cd client && npm install && npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RobertMoravek/bestaurants.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/RobertMoravek/bestaurants/issues"
+    },
+    "homepage": "https://github.com/RobertMoravek/bestaurants#readme",
+    "dependencies": {
+        "@react-google-maps/api": "^2.12.2",
+        "axios": "^0.27.2",
+        "express": "^4.18.1",
+        "fs": "^0.0.1-security",
+        "nodemon": "^2.0.19",
+        "prettier": "^2.7.1",
+        "react-router-dom": "^6.3.0"
+    },
+    "engines": {
+        "node": "16"
+    }
+}
