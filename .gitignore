@@ -3,4 +3,4 @@ node_modules/
 restaurants/
 collector.js
 jstesting.js
-client/src/components/secrets.json
+# client/src/components/secrets.json
