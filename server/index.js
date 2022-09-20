@@ -53,7 +53,7 @@ app.get("/getnearestcity/:lat/:lng", async (req, res) => {
         cityDB.forEach(city => {
             function haversine_distance(mk1, lat, lng) {
                         
-                        var R = 6371.071; // Radius of the Earth in km
+                        var R = 6371.071; // Radius of the Earth in  km
                         var rlat1 = city.lat * (Math.PI/180); // Convert degrees to radians
                         var rlat2 = lat * (Math.PI/180); // Convert degrees to radians
                         var difflat = rlat2-rlat1; // Radian difference (latitudes)
