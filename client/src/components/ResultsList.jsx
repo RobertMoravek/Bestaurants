@@ -6,7 +6,13 @@ export default function ResultsList() {
     const { filteredRestaurantList, mapView } = useSelector((state) => state.results);
     const dispatch = useDispatch();
 
-    const {apiKey} = require("./secrets.json");
+
+    let apiKey;
+    if (process.env.NODE_ENV == "production") {
+        apiKey = process.env.apiKey;
+    } else {
+        apiKey = require("./secrets.json").apiKey;
+    }
 
     return (
 
