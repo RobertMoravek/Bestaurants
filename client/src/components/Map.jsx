@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 
 let apiKey;
 if (process.env.NODE_ENV == "production") {
-    apiKey = process.env.apiKeyMaps;
+    apiKey = process.env.apiKeyMap;
 } else {
     apiKey = (require("./secrets.json")).apiKeyMap;
 }
