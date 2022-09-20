@@ -32,7 +32,7 @@ body {
     /* border: 2px solid white; */
     overflow-y: auto;
     display: grid;
-    grid-template-rows: minmax(105px, 15vh) 1fr; 
+    grid-template-rows: minmax(105px, 105px) 1fr; 
 }
 
 .content {
