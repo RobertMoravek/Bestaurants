@@ -9,7 +9,7 @@ export default function ResultsList() {
 
     let apiKey;
     if (process.env.NODE_ENV == "production") {
-        apiKey = process.env.apiKey;
+        apiKey = process.env.apiKeyPlaces;
     } else {
         apiKey = require("./secrets.json").apiKeyPlaces;
     }
