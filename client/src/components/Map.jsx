@@ -9,7 +9,15 @@ import RestaurantBox from "./RestaurantBox";
 import { setSelectedMarker } from "../redux/resultsSlice";
 import { useDispatch } from "react-redux";
 
-const {apiKey} = require("./secrets.json");
+
+let apiKey;
+if (process.env.NODE_ENV == "production") {
+    apiKey = process.env.apiKey;
+} else {
+    apiKey = (require("./secrets.json")).apiKey;
+}
+
+
 
 // Styling for the Map object (has to be here, instead of css)
 const containerStyle = {
