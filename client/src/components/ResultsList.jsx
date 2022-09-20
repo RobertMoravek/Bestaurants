@@ -11,7 +11,7 @@ export default function ResultsList() {
     if (process.env.NODE_ENV == "production") {
         apiKey = process.env.apiKey;
     } else {
-        apiKey = require("./secrets.json").apiKey;
+        apiKey = require("./secrets.json").apiKeyPlaces;
     }
 
     return (

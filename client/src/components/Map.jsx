@@ -14,12 +14,12 @@ let apiKey;
 if (process.env.NODE_ENV == "production") {
     apiKey = process.env.apiKey;
 } else {
-    apiKey = (require("./secrets.json")).apiKey;
+    apiKey = (require("./secrets.json")).apiKeyMap;
 }
 
 
 
-// Styling for the Map object (has to be here, instead of css)
+// Styling for the Map object (has to be here, instead of css)zz
 const containerStyle = {
     width: "100%",
     height: "100%",
