@@ -10,14 +10,7 @@ import { setSelectedMarker } from "../redux/resultsSlice";
 import { useDispatch } from "react-redux";
 
 
-let apiKey;
-if (process.env.NODE_ENV == "production") {
-    console.log('if');
-    apiKey = process.env.apiKeyMap;
-} else {
-    console.log('else');
-    apiKey = (require("./secrets.json")).apiKeyMap;
-}
+let apiKey = "AIzaSyDcicvAKbdM9K8rnN3vKUSziYzhKAcySgo";
 
 console.log(apiKey);
 
