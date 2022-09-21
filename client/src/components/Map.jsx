@@ -17,7 +17,7 @@ if (process.env.NODE_ENV == "production") {
     apiKey = (require("./secrets.json")).apiKeyMap;
 }
 
-
+console.log(apiKey);
 
 // Styling for the Map object (has to be here, instead of css)zz
 const containerStyle = {
