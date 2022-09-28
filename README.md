@@ -31,4 +31,4 @@ https://top10restaurants.herokuapp.com/
 ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge/)
 ![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
-🗺 Google Maps and Places API
+![Google Maps & Places API](https://img.shields.io/badge/GoogleMaps-CA4245?style=for-the-badge&logo=googlemaps&logoColor=white)
