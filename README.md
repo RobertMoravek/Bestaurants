@@ -33,3 +33,7 @@ https://top10restaurants.herokuapp.com/
 ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge/)
 ![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
 ![Google Maps & Places API](https://img.shields.io/badge/GoogleMaps-CA4245?style=for-the-badge&logo=googlemaps&logoColor=white)
+
+## Preview
+
+![Preview](https://github.com/RobertMoravek/Bestaurants/blob/master/preview.jpg)
