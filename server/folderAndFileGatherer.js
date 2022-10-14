@@ -18,9 +18,6 @@ function mapSizes(dir) {
 
 const filesObj = mapSizes(__dirname + "/../restaurants/");
 
-// console.log(filesObj);
-
 let filesJSON = JSON.stringify(filesObj, null, 4);
 
 fs.writeFileSync(__dirname + "/availableData.JSON", filesJSON);
-console.log('Gathered and written folder and file structure');

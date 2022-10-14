@@ -47,9 +47,6 @@ export default function LocationFinder() {
     // If the found city is in the list of available cities, dispatch it, switch the visible filters and afterwords remove it (to avoid issues wth manually changing it later)
 
     useEffect(() => {
-        console.log(document.getElementsByClassName("content"));
-        console.log(document.getElementById("filters"));
-        // console.log("Lat in useE", lat, availableCities, foundCity);
         if (availableCities.includes(foundCity)) {
             // console.log('in if');
             dispatch(setChosenCity(foundCity));
