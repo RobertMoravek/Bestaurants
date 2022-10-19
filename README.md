@@ -11,6 +11,7 @@ https://top10restaurants.herokuapp.com/
 
 ## Features
 - SPA created with React.js
+- Backend serves restaurant data through my own API
 - Mobile first philosophy, created to look like a phone App
 - uses proprietary scraping logic (self-written) to request, collect, filter and sort data from Google Places API (please don't tell Google though)
 - Guides users through available options and displays results dynamically according to the chosen variables
