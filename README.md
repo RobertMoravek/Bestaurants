@@ -7,7 +7,7 @@ It uses maps and scraped information from Google Maps and Places API to analyze 
 There is also automatic loaction finding and distance validation for the search results.
 
 ## Live website
-https://top10restaurants.herokuapp.com/
+https://bestaurants.onrender.com/
 
 ## Features
 - SPA created with React.js
